@@ -1,0 +1,51 @@
+<div class="form-group">
+    <label class="col-md-3 control-label">Nama Produk</label>
+    <div class="col-md-6">
+        <input name="name" id="name" type="text" class="validate[required,maxSize[50]] form-control"
+            value="<?=$product ? $product->name : ""?>" />
+        <span class="help-block form-error" id="name-error"></span>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-3 control-label">Harga</label>
+    <div class="col-md-6">
+        <input name="price" id="price" type="text" class="validate[required,maxSize[10]] form-control"
+            value="<?=$product ? $product->price : ""?>" />
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-3 control-label">Kategori</label>
+    <div class="col-md-6">
+        <select class="validate[required] form-control nested-select" name="category_id" id="category_id"
+            data-target="#subcategory_id" data-empty="Pilih Subkategori"
+            data-url="<?=base_url('categories/[id]/subcategories/list')?>">
+            <option value="">Pilih Kategori</option>
+            <?php foreach ($categories as $category) {
+                $selected = null;
+                if ($product && $category->id === $product->category_id) {
+                    $selected = 'selected';
+                }
+                echo "<option $selected value=" . $category->id . " >$category->name</option>";
+            }?>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-3 control-label">Subkategori</label>
+    <div class="col-md-6">
+        <select class="validate[required] form-control" name="subcategory_id" id="subcategory_id">
+            <option value="">Pilih Subkategori</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-3 control-label">Deskripsi</label>
+    <div class="col-md-6">
+        <textarea name="description" id="description" type="text"
+            class="validate[required] form-control"><?=$product ? $product->description : ""?></textarea>
+    </div>
+</div>
