@@ -9,7 +9,7 @@
 
     <!-- CSS INCLUDE -->
     <link rel="stylesheet" type="text/css" id="theme" href="<?=base_url('assets/joli/css/theme-default.css')?>"/>
-    <link rel="stylesheet" type="text/css" href="<?=base_url('assets/datatables/dataTables.min.css')?>"/>
+    <link rel="stylesheet" type="text/css" href="<?=base_url('assets/datatables/datatables.min.css')?>"/>
     <link rel="stylesheet" type="text/css" href="<?=base_url('assets/sweetalert/sweetalert.css')?>"/>
     <link rel="stylesheet" type="text/css" href="<?=base_url('assets/custom/css/loader.css')?>"/>
     <link rel="stylesheet" type="text/css" href="<?=base_url('assets/custom/css/style.css')?>"/>
