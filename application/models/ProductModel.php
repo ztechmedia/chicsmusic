@@ -15,17 +15,6 @@ class ProductModel extends CI_Model
         $this->validate = ['name', 'price', 'description', 'category_id', 'subcategory_id'];
     }
 
-    public function create($data, $validate = [])
-    {
-        $validator = $this->validator($validate ? $validate : $this->validate, $data);
-        if ($validator) {
-            return $this->BM->create($this->table, $data);
-        } else {
-            appJson(['errors' => $this->form_validation->error_array()]);
-            return false;
-        }
-    }
-
     public function update($id, $data, $validate = [])
     {
         $validator = $this->validator($validate ? $validate : $this->validate, $data, $id);

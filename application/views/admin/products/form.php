@@ -1,4 +1,12 @@
 <div class="form-group">
+    <label class="col-md-3 control-label">Produk ID</label>
+    <div class="col-md-6">
+        <input readonly name="id" id="id" type="text" class="validate[required] form-control"
+            value="<?=$product ? $product->id : $id ?>" />
+    </div>
+</div>
+
+<div class="form-group">
     <label class="col-md-3 control-label">Nama Produk</label>
     <div class="col-md-6">
         <input name="name" id="name" type="text" class="validate[required,maxSize[50]] form-control"

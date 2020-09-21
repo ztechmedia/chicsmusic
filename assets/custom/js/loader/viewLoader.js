@@ -1,10 +1,5 @@
 const loadContent = (url, div) => {
-  $.ajax({
-    url: url,
-    success: (data) => {
-      $(div).html(data);
-    },
-  });
+  $(div).load(url);
 };
 
 $(".side-menu").on("click", function (e) {

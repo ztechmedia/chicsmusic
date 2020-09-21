@@ -6,7 +6,8 @@
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("products")?>"></span> Tambah Data Produk</h2>
+    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("products")?>"></span> Tambah Data Produk
+    </h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->
@@ -18,14 +19,21 @@
                 <div class="panel-heading ui-draggable-handle">
                     <h3 class="panel-title">Form Produk</h3>
                 </div>
+                
+                <div class="block push-up-10">
+                    <div id="dropzone-products" class="dropzone dropzone-mini"></div>
+                    <span class="help-block form-error" id="products-error"></span>
+                </div>
+                
+
                 <form id="validate" role="form" class="form-horizontal action-submit-create"
-                    data-action="<?=base_url("products/add")?>" action="javascript:(0)">
+                    data-action="<?=base_url("products/$id/add")?>" action="javascript:(0)">
                     <div class="panel-body">
                         <?php $data['product'] = null; $this->load->view('admin/products/form', $data)?>
                     </div>
                     <div class="panel-footer">
                         <div class="btn-group pull-right">
-                            <button class="btn btn-primary save" type="submit">Simpan</button>
+                            <button  class="btn btn-primary save">Simpan</button>
                         </div>
                     </div>
                 </form>
@@ -35,8 +43,17 @@
 
 </div>
 <!-- END PAGE CONTENT WRAPPER -->
+<script>    
+    const myDropzone = new Dropzone("#dropzone-products", {
+        autoProcessQueue: true,
+        url: "<?=base_url("products/$id/uploads")?>",
+        maxFilesize: 5,
+        acceptedFiles: "image/*",
+        dictInvalidFileType: "Type file ini tidak dizinkan",
+        addRemoveLinks: true,
+        autoDiscover: false
+    });
 
-<script>
     toRp("#price");
-    formValidation(".action-submit-create");
+    formValidation(".action-submit-create", myDropzone);
 </script>

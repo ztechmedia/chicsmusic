@@ -45,6 +45,10 @@ table.dataTable thead .sorting {
     width: 100% !important;
 }
 
+#no {
+    text-align: center;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 2px;

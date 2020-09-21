@@ -26,7 +26,7 @@
                     </div>
                     <table class="table table-bordered" id="products">
                         <thead>
-                            <th width="10%">No</th>
+                            <th width="8%">No</th>
                             <th>Nama</th>
                             <th>Harga</th>
                             <th>Kategori</th>
@@ -66,7 +66,7 @@
                 data: "price",
             },
             {
-                data: "subcategory",
+                data: "category",
             },
             {
                 data: "subcategory",

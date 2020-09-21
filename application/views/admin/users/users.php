@@ -26,7 +26,7 @@
                     </div>
                     <table class="table table-bordered" id="users">
                         <thead>
-                            <th width="10%">No</th>
+                            <th width="8%">No</th>
                             <th>Nama</th>
                             <th>Email</th>
                             <th>Dibuat</th>

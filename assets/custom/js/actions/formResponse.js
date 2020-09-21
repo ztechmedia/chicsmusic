@@ -26,9 +26,9 @@ const actionFormError = (errors) => {
   $.each(errors, function (key, value) {
     $(`#${key}`).addClass("error");
     $(`#${key}-error`).html(value);
-    $(`#${key}-error`).style({ color: "red" });
   });
-  actionButton(".save", "Save");
+  console.log("error bro");
+  actionButton(".save", "Simpan");
 };
 
 const onCreateUpdateSuccess = (response, redirect) => {
@@ -38,7 +38,7 @@ const onCreateUpdateSuccess = (response, redirect) => {
     $(".select").val("").change();
     $(".form-error").html("");
     $(".form-control").removeClass("error");
-    actionButton(".save", "Save");
+    actionButton(".save", "Simpan");
   } else {
     loadContent(redirect.redirect, redirect.target);
   }

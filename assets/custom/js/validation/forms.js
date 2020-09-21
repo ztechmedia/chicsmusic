@@ -1,4 +1,4 @@
-const formValidation = (className) => {
+const formValidation = (className, myDropzone = null) => {
   if ($("form[id^='validate']").length > 0) {
     // Validation prefix for custom form elements
     var prefix = "valPref_";
@@ -18,6 +18,9 @@ const formValidation = (className) => {
       onValidationComplete: function (form, status) {
         if (status) {
           submitHandler(className);
+          if (myDropzone) {
+            myDropzone.removeAllFiles();
+          }
         }
       },
       prettySelect: true,

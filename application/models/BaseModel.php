@@ -7,7 +7,7 @@ class BaseModel extends CI_Model
     {
         parent::__construct();
         $this->load->helper('utility');
-        $this->id = genUnique(30);
+        $this->id = genUnique(20);
     }
 
     public function getAll($table)
@@ -40,7 +40,7 @@ class BaseModel extends CI_Model
 
     public function create($table, $data)
     {
-        $data['id'] = $this->id;
+        if(!array_key_exists('id', $data)) $data['id'] = $this->id;
         return $this->db->insert($table, $data);
     }
 }

@@ -26,7 +26,7 @@
                     </div>
                     <table class="table table-bordered" id="categories">
                         <thead>
-                            <th width="10%">No</th>
+                            <th width="8%">No</th>
                             <th>Nama</th>
                             <th>Dibuat</th>
                             <th width="15%">Tindakan</th>

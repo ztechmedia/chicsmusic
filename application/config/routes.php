@@ -36,10 +36,11 @@ $route['categories/(:any)/subcategories/list'] = 'SubcategoriesController/listSu
 $route['products'] = 'ProductsController/products';
 $route['products-table'] = 'ProductsController/productsTable';
 $route['products/create'] = 'ProductsController/create';
-$route['products/add'] = 'ProductsController/add';
+$route['products/(:any)/add'] = 'ProductsController/add/$1';
 $route['products/(:any)/delete'] = 'ProductsController/delete/$1';
 $route['products/(:any)/edit'] = 'ProductsController/edit/$1';
 $route['products/(:any)/update'] = 'ProductsController/update/$1';
+$route['products/(:any)/uploads'] = 'ProductsController/uploads/$1';
 
 //roles routes 
 $route['roles'] = 'RolesController/roles';

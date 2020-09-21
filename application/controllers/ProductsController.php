@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class ProductsController extends CI_Controller {
+class ProductsController extends CI_Controller
+{
 
     public function __construct()
     {
@@ -17,11 +18,11 @@ class ProductsController extends CI_Controller {
         $this->subcategories = 'subcategories';
     }
 
-	public function products()
-	{
+    public function products()
+    {
         $this->load->view('admin/products/products');
     }
-    
+
     public function productsTable()
     {
         $products = $this->datatables->setDatatables(
@@ -40,8 +41,8 @@ class ProductsController extends CI_Controller {
                 ],
                 'middleware' => [
                     "price" => "toRp",
-                    "createdAt" => "toDateTime"
-                ]
+                    "createdAt" => "toDateTime",
+                ],
             ],
             //querySelector
             'productWithCategories'
@@ -51,18 +52,24 @@ class ProductsController extends CI_Controller {
 
     public function create()
     {
+        $data['id'] = genUnique(20);
         $data['categories'] = $this->BM->getAll($this->categories);
         $this->load->view('admin/products/create', $data);
     }
 
-    public function add()
+    public function add($id)
     {
-        $_POST['price'] = cleanRp($_POST['price']);
-        $product = $this->Product->create($_POST);
+        $product = $this->BM->getById($this->products, $id);
+        if (!$product) {
+            appJson(['errors' => [
+                "products" => "Foto produk tidak boleh kosong"
+            ]]);
+            return;
+        }
+
+        $product = $this->Product->update($id, $_POST);
         if ($product) {
-            appJson([
-                "message" => "Berhasil menambah data Produk",
-            ]);
+            appJson(["message" => "Berhasil menambah data Produk"]);
         }
     }
 
@@ -82,9 +89,7 @@ class ProductsController extends CI_Controller {
         }
         $updateProduct = $this->Product->update($id, $_POST);
         if ($updateProduct) {
-            appJson([
-                "message" => "Berhasil mengubah data Produk",
-            ]);
+            appJson(["message" => "Berhasil mengubah data Produk"]);
         }
     }
 
@@ -92,5 +97,39 @@ class ProductsController extends CI_Controller {
     {
         $this->BM->deleteById($this->products, $id);
         appJson($id);
+    }
+
+    public function uploads($id)
+    {
+        $file = $_FILES['file']['name'];
+        $fileExt = pathinfo($file, PATHINFO_EXTENSION);
+        $filename = "photo_" . $id . "_" . genUnique(5);
+
+        $config['upload_path'] = "./assets/images/products";
+        $config['allowed_types'] = "jpg|jpeg|png|ico";
+        $config['file_name'] = $filename;
+
+        $this->load->library('upload', $config);
+        $this->upload->do_upload("file");
+        $uploadData = $this->upload->data();
+
+        $products = $this->BM->getById($this->products, $id);
+
+        if ($products) {
+            if ($products->cover) {
+                $cover = unserialize($products->cover);
+                array_push($cover, $uploadData['file_name']);
+                $data['cover'] = serialize($cover);
+                $this->BM->updateById($this->products, $id, $data);
+                dd("image updated");
+            }
+        } else {
+            $cover[] = $uploadData['file_name'];
+            $data = [
+                "id" => $id,
+                "cover" => serialize($cover),
+            ];
+            $this->BM->create($this->products, $data);
+        }
     }
 }

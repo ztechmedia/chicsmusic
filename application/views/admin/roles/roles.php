@@ -21,7 +21,7 @@
                 <div class="panel-body">
                     <table class="table table-bordered" id="roles">
                         <thead>
-                            <th width="10%">No</th>
+                            <th width="8%">No</th>
                             <th>Nama</th>
                             <th>Nama tampilan</th>
                             <th width="11%">Tindakan</th>

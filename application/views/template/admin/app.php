@@ -48,6 +48,7 @@
     <script type="text/javascript" src="<?=base_url("assets/joli/js/actions.js")?>"></script>
 
     <!-- CUSTOM SCRIPT -->
+    <script type="text/javascript" src="<?=base_url("assets/custom/js/dropzone.min.js")?>"></script>
     <script type="text/javascript" src="<?=base_url("assets/custom/js/jquery.maskMoney.min.js")?>"></script>
     <script type="text/javascript" src="<?=base_url("assets/custom/js/validation/forms.js")?>"></script>
     <script type="text/javascript" src="<?=base_url("assets/custom/js/ajax/ajaxRequest.js")?>"></script>

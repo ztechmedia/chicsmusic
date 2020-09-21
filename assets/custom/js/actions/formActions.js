@@ -80,7 +80,6 @@ const actionCreate = (className) => {
   const element = $(className);
   const action = element.data("action");
   const data = new FormData(element.context.forms[0]);
-
   actionButton(".save", "Loading...");
   sendRequest(className, action, "POST", data);
 };
