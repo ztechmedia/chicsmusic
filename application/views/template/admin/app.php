@@ -11,7 +11,7 @@
             <!-- START X-NAVIGATION -->
             <ul class="x-navigation nav-customx">
                 <li class="xn-logo">
-                    <a>Click's Music</a>
+                    <a>Chic's Music</a>
                     <a class="x-navigation-control">
                     </a>
                 </li>
