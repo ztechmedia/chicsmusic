@@ -7,9 +7,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'arman',
-	'password' => 'secret',
-	'database' => 'ci_chick_music',
+	'username' => ENVIRONMENT !== 'production' ? 'arman' : 'u740569906_chics',
+	'password' => ENVIRONMENT !== 'production' ? 'secret' : 'J@nuari1993',
+	'database' => ENVIRONMENT !== 'production' ? 'ci_chick_music' : 'u740569906_chics',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
