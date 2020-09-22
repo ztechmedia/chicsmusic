@@ -87,3 +87,13 @@ function isUnique($value, $params)
     $data = $ci->db->limit(1)->get($table)->result();
     return $data ? false : true;
 }
+
+function array_delete_by_value($array, $value) {
+    $newArray = [];
+    foreach($array as $arr){
+        if($arr !== $value) {
+            $newArray[] = $arr;
+        }
+    }
+    return $newArray;
+}

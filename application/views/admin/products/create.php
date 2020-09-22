@@ -6,8 +6,7 @@
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("products")?>"></span> Tambah Data Produk
-    </h2>
+    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("products")?>"></span> Tambah Produk</h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->
@@ -24,7 +23,6 @@
                     <div id="dropzone-products" class="dropzone dropzone-mini"></div>
                     <span class="help-block form-error" id="products-error"></span>
                 </div>
-                
 
                 <form id="validate" role="form" class="form-horizontal action-submit-create"
                     data-action="<?=base_url("products/$id/add")?>" action="javascript:(0)">
@@ -52,6 +50,29 @@
         dictInvalidFileType: "Type file ini tidak dizinkan",
         addRemoveLinks: true,
         autoDiscover: false
+    });
+
+    myDropzone.on("sending", function (a, b, c) {
+        a.id = "<?="photo_".$id."_".genUnique(5)?>";
+        c.append("id", a.id);
+    });
+
+    myDropzone.on("removedfile", function (a) {
+        $.ajax({
+            type: "post",
+            data: {
+                id: a.id
+            },
+            url: "<?=base_url("products/$id/removeUpload")?>",
+            cache: false,
+            dataType: 'json',
+            success: function () {
+                console.log("Foto terhapus");
+            },
+            error: function () {
+                console.log("Error");
+            }
+        });
     });
 
     toRp("#price");

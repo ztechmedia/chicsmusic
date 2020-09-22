@@ -32,6 +32,17 @@
     </div>
     <!-- END PAGE CONTAINER -->
 
+
+    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+        <div class="slides"></div>
+        <h3 class="title"></h3>
+        <a class="prev">‹</a>
+        <a class="next">›</a>
+        <a class="close">×</a>
+        <a class="play-pause"></a>
+        <ol class="indicator"></ol>
+    </div>
+
     <script type="text/javascript" src="<?=base_url("assets/joli/js/jquery/jquery.min.js")?>"></script>
     <script type="text/javascript" src="<?=base_url("assets/joli/js/jquery/jquery-ui.min.js")?>"></script>
     <script type="text/javascript" src="<?=base_url("assets/joli/js/bootstrap/bootstrap.min.js")?>"></script>
@@ -43,6 +54,8 @@
     <script type="text/javascript" src="<?=base_url("assets/joli/js/validationengine/languages/jquery.validationEngine-id.js")?>"></script>
     <script type="text/javascript" src="<?=base_url("assets/joli/js/validationengine/jquery.validationEngine.js")?>"></script>
     <script type="text/javascript" src="<?=base_url("assets/joli/js/validationengine/jquery.validationEngine.js")?>"></script>
+    <script type="text/javascript" src="<?=base_url("assets/joli/js/blueimp/jquery.blueimp-gallery.min.js")?>"></script>
+    <script type="text/javascript" src="<?=base_url("assets/joli/js/icheck/icheck.min.js")?>"></script>
 
     <script type="text/javascript" src="<?=base_url("assets/joli/js/plugins.js")?>"></script>
     <script type="text/javascript" src="<?=base_url("assets/joli/js/actions.js")?>"></script>

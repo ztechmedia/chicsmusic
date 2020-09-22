@@ -27,7 +27,6 @@ const actionFormError = (errors) => {
     $(`#${key}`).addClass("error");
     $(`#${key}-error`).html(value);
   });
-  console.log("error bro");
   actionButton(".save", "Simpan");
 };
 

@@ -1,6 +1,6 @@
 <div class="form-group">
     <label class="col-md-3 control-label">Produk ID</label>
-    <div class="col-md-6">
+    <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
         <input readonly name="id" id="id" type="text" class="validate[required] form-control"
             value="<?=$product ? $product->id : $id ?>" />
     </div>
@@ -8,7 +8,7 @@
 
 <div class="form-group">
     <label class="col-md-3 control-label">Nama Produk</label>
-    <div class="col-md-6">
+    <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
         <input name="name" id="name" type="text" class="validate[required,maxSize[50]] form-control"
             value="<?=$product ? $product->name : ""?>" />
         <span class="help-block form-error" id="name-error"></span>
@@ -17,7 +17,7 @@
 
 <div class="form-group">
     <label class="col-md-3 control-label">Harga</label>
-    <div class="col-md-6">
+    <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
         <input name="price" id="price" type="text" class="validate[required,maxSize[10]] form-control"
             value="<?=$product ? $product->price : ""?>" />
     </div>
@@ -25,7 +25,7 @@
 
 <div class="form-group">
     <label class="col-md-3 control-label">Kategori</label>
-    <div class="col-md-6">
+    <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
         <select class="validate[required] form-control nested-select" name="category_id" id="category_id"
             data-target="#subcategory_id" data-empty="Pilih Subkategori"
             data-url="<?=base_url('categories/[id]/subcategories/list')?>">
@@ -43,7 +43,7 @@
 
 <div class="form-group">
     <label class="col-md-3 control-label">Subkategori</label>
-    <div class="col-md-6">
+    <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
         <select class="validate[required] form-control" name="subcategory_id" id="subcategory_id">
             <option value="">Pilih Subkategori</option>
         </select>
@@ -52,8 +52,8 @@
 
 <div class="form-group">
     <label class="col-md-3 control-label">Deskripsi</label>
-    <div class="col-md-6">
-        <textarea name="description" id="description" type="text"
+    <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
+        <textarea rows="10" name="description" id="description" type="text"
             class="validate[required] form-control"><?=$product ? $product->description : ""?></textarea>
     </div>
 </div>

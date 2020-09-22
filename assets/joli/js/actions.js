@@ -28,40 +28,6 @@ $(document).ready(function () {
   });
   /* END WIDGETS */
 
-  /* Gallery Items */
-  $(".gallery-item .iCheck-helper").on("click", function () {
-    var wr = $(this).parent("div");
-    if (wr.hasClass("checked")) {
-      $(this).parents(".gallery-item").addClass("active");
-    } else {
-      $(this).parents(".gallery-item").removeClass("active");
-    }
-  });
-  $(".gallery-item-remove").on("click", function () {
-    $(this)
-      .parents(".gallery-item")
-      .fadeOut(400, function () {
-        $(this).remove();
-      });
-    return false;
-  });
-  $("#gallery-toggle-items").on("click", function () {
-    $(".gallery-item").each(function () {
-      var wr = $(this).find(".iCheck-helper").parent("div");
-
-      if (wr.hasClass("checked")) {
-        $(this).removeClass("active");
-        wr.removeClass("checked");
-        wr.find("input").prop("checked", false);
-      } else {
-        $(this).addClass("active");
-        wr.addClass("checked");
-        wr.find("input").prop("checked", true);
-      }
-    });
-  });
-  /* END Gallery Items */
-
   // XN PANEL DRAGGING
   $(".xn-panel-dragging").draggable({
     containment: ".page-content",

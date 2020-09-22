@@ -6,7 +6,7 @@
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("users")?>"></span> Tambah Data User</h2>
+    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("users")?>"></span> Tambah User</h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->

@@ -41,6 +41,7 @@ $route['products/(:any)/delete'] = 'ProductsController/delete/$1';
 $route['products/(:any)/edit'] = 'ProductsController/edit/$1';
 $route['products/(:any)/update'] = 'ProductsController/update/$1';
 $route['products/(:any)/uploads'] = 'ProductsController/uploads/$1';
+$route['products/(:any)/removeUpload'] = 'ProductsController/removeUpload/$1';
 
 //roles routes 
 $route['roles'] = 'RolesController/roles';

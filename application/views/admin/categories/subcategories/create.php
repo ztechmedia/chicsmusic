@@ -7,7 +7,7 @@
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("categories/$categoryId/subcategories")?>"></span> Tambah Data Subkategori</h2>
+    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("categories/$categoryId/subcategories")?>"></span> Tambah Subkategori</h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->

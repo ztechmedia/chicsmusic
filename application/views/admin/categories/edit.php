@@ -6,8 +6,7 @@
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("categories")?>"></span> Update Data
-        Kategori</h2>
+    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("categories")?>"></span> Update Kategori</h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->
