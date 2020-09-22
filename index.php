@@ -53,16 +53,7 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	// define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
-	$server_ip = getHostByName(getHostName());
-
-	if (preg_match("/^(127\.0\.|10\.0\.).+/i", $server_ip)) {
-		define("ENVIRONMENT", "development");
-		define("BASEURL", "http://localhost:8000/");
-	} else {
-		define("ENVIRONMENT", "production");
-		define("BASEURL", "https://chics.zmedia.tech/");
-	}
+	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'production');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
