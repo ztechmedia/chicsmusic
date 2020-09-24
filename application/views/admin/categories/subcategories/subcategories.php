@@ -18,7 +18,11 @@
             <div class="panel panel-default">
                 <div class="panel-body profile">
                     <div class="profile-image">
-                        <img src="<?=base_url("assets/images/no_image200.jpg")?>" alt="Nadia Ali" />
+                        <img class="img" 
+                            src="<?= $category->icon ? 
+                                base_url("assets/images/categories/$category->icon") :
+                                base_url("assets/images/no_image200.jpg")?>" 
+                            alt="Categori Icon" />
                     </div>
                     <div class="profile-data">
                         <div class="profile-data-name"><?=$category->name?></div>
@@ -31,8 +35,8 @@
                 </div>
                 <div class="panel-body">
                     <div class="contact-info">
-                        <p><small>Subkategoti</small><br /><?=$totalSub?> Subkategori</p>
-                        <p><small>Produk</small><br />289 Produk</p>
+                        <p><small>Subkategoti</small><br /><?=count($subcategories)?> Subkategori</p>
+                        <p><small>Produk</small><br /><?=$category->total_product?> Produk</p>
                         <p><small>Total Penjualan</small><br>Rp.700.000.000</p>
                     </div>
                 </div>
@@ -56,12 +60,17 @@
 
                     <div class="list-group list-group-contacts border-bottom push-down-10">
                         <?php foreach ($subcategories as $subcategory) { ?>
-                        <a class="list-group-item">
-                            <img src="<?=base_url("assets/images/no_image200.jpg")?>" class="pull-left" alt="Produk">
+                        <a class="list-group-item link-to" data-to="<?=base_url("subcategories/$subcategory->id/edit")?>">
+                            <img 
+                                height="40px"
+                                src="<?= $subcategory->icon ? 
+                                    base_url("assets/images/subcategories/$subcategory->icon") :
+                                    base_url("assets/images/no_image200.jpg")?>"
+                                 class="pull-left" alt="Produk">
                             <span class="contacts-title">
                                 <?=$subcategory->name?>
                             </span>
-                            <p>180 Produk</p>
+                            <p><?=$subcategory->total_product?> Produk</p>
                         </a>
                         <?php } ?>
 
@@ -78,5 +87,10 @@
         height: 400px;
         overflow: auto;
         overflowY: scroll;
+    }
+
+    .img {
+        width: 100px;
+        height: 100px;
     }
 </style>

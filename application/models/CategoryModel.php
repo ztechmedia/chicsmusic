@@ -19,7 +19,7 @@ class CategoryModel extends CI_Model
     {
         $validator = $this->validator($validate ? $validate : $this->validate, $data);
         if ($validator) {
-            return $this->BM->create($this->table, $data);
+            return $this->BM->createForId($this->table, $data);
         } else {
             appJson(['errors' => $this->form_validation->error_array()]);
             return false;
@@ -35,6 +35,21 @@ class CategoryModel extends CI_Model
             appJson(['errors' => $this->form_validation->error_array()]);
             return false;
         }
+    }
+
+    public function catWithProduct($categoryId)
+    {
+        
+        $query = $this->db->query(
+            "SELECT 
+                categories.*, 
+                COUNT(products.id) as total_product
+            FROM categories
+            LEFT JOIN products ON categories.id = products.category_id
+            WHERE categories.id = '$categoryId'
+            GROUP BY categories.id"
+        );
+        return $query->result()[0];
     }
 
     public function validator($validate, $data, $id = null)

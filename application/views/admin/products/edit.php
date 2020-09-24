@@ -1,7 +1,7 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
     <li><a class="link-to" data-to="<?=base_url("products")?>">Produk</a></li>
-    <li class="active">Edit Data</li>
+    <li class="active"><?= $product->name === null ? "Tambah Data" : "Edit Data"?></li>
 </ul>
 <!-- END BREADCRUMB -->
 
@@ -11,11 +11,12 @@
     <div class="content-frame-top">
         <div class="page-title">
             <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("products")?>"></span>
-                Update Produk</h2>
+                <?= $product->name === null ? "Tambah Produk" : "Update Produk"?>
+            </h2>
         </div>
     </div>
 
-    <div class="content-frame-right">
+    <div class="content-frame-right" style="height: 100vh">
         
         <div class="block push-up-10">
             <div id="dropzone-products" class="dropzone dropzone-mini"></div>
@@ -35,7 +36,7 @@
                     <img class="img" src="<?=base_url("assets/images/products/$cover")?>" alt="<?=$cover?>" />
                     <ul class="gallery-item-controls">
                         <li><label class="check"><input type="checkbox" class="icheckbox" /></label></li>
-                        <li><span class="gallery-item-remove"><i class="fa fa-times"></i></span></li>
+                        <li><span class="gallery-item-remove" data-photoid="<?=$cover?>"><i class="fa fa-times"></i></span></li>
                     </ul>
                 </div>
                 <div class="meta">
@@ -84,21 +85,7 @@
     });
 
     myDropzone.on("removedfile", function (a) {
-        $.ajax({
-            type: "post",
-            data: {
-                id: a.id
-            },
-            url: "<?=base_url("products/$product->id}/removeUpload")?>",
-            cache: false,
-            dataType: 'json',
-            success: function () {
-                console.log("Foto terhapus");
-            },
-            error: function () {
-                console.log("Error");
-            }
-        });
+        eletePhoto(a.id, "<?=base_url("products/$product->id/removeUpload")?>");
     });
 
     $(".gallery-item .iCheck-helper").on("click", function () {
@@ -111,6 +98,9 @@
     });
 
     $(".gallery-item-remove").on("click", function () {
+        const element = $(this);
+        const photoid = element.data("photoid");
+        deletePhoto(photoid, "<?=base_url("products/$product->id/removeUpload")?>");
         $(this)
             .parents(".gallery-item")
             .fadeOut(400, function () {
@@ -143,12 +133,14 @@
     }
 
     toRp("#price");
-    checkNestedSelect(
+    const name = "<?=$product->name?>";
+    if(name) {
+        checkNestedSelect(
         "#subcategory_id",
         "<?=base_url("categories/$product->category_id/subcategories/list")?>",
         "Pilih Subkategori",
         "<?=$product->subcategory_id?>");
-
+    }
     formValidation(".action-submit-update");
 </script>
 

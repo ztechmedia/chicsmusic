@@ -74,6 +74,5 @@ const toRp = (target) => {
     allowNegative: true,
     thousands: ".",
     precision: 0,
-    affixesStay: false,
   });
 };

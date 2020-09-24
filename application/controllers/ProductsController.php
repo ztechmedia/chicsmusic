@@ -27,15 +27,11 @@ class ProductsController extends CI_Controller
     public function productsTable()
     {
         $products = $this->datatables->setDatatables(
-            //table
             $this->products,
-            //columns to show
             ["id", "name", "price", "category", "subcategory", "createdAt"],
             //column searchable (a = products, b = categories(name), c = subcategories(name))
             ['a.name', 'a.price', "b.name", "c.name"],
-            //actions view path
             'admin/actions/edit-delete',
-            //others params
             [
                 'delete_message' => [
                     'name' => "Yakin ingin menghapus [name] pada data Produk",
@@ -54,21 +50,14 @@ class ProductsController extends CI_Controller
     public function create()
     {
         $data['id'] = genUnique(20);
-        $data['categories'] = $this->BM->getAll($this->categories);
-        $product = $this->BM->getWhere($this->products, ['name' => null, "user_id" => $this->user_id]);
-        if ($product) {
-            if (count(unserialize($product[0]->cover)) > 0) {
-                $cover = unserialize($product[0]->cover);
-                foreach ($cover as $cvr) {
-                    $file = "./assets/images/products/$cvr";
-                    if (file_exists($file)) {
-                        unlink($file);
-                    }
-                }
-                $this->BM->deleteById($this->products, $product[0]->id);
-            }
+        $data['categories'] = $this->BM->getAll($this->categories)->result();
+        $product = $this->BM->getWhere($this->products, ['name' => null, "user_id" => $this->user_id])->result();
+        if(!$product){
+            $this->load->view('admin/products/create', $data);
+        }else{
+            $data['product'] = $product[0];
+            $this->load->view('admin/products/edit', $data);
         }
-        $this->load->view('admin/products/create', $data);
     }
 
     public function add($id)
@@ -88,14 +77,10 @@ class ProductsController extends CI_Controller
 
     public function edit($id)
     {
-        $product = $this->BM->getById($this->products, $id);
-        if (!$product) {
-            appJson(['errors' => [
-                "products" => "Produk tidak ditemukan",
-            ]]);
-            return;
-        }
-        $data['categories'] = $this->BM->getAll($this->categories);
+        $product = $this->BM->checkById($this->products, $id);
+        if (!$product) return false;
+
+        $data['categories'] = $this->BM->getAll($this->categories)->result();
         $data['product'] = $this->BM->getById($this->products, $id);
         $this->load->view('admin/products/edit', $data);
     }
@@ -103,19 +88,31 @@ class ProductsController extends CI_Controller
     public function update($id)
     {
         $_POST['price'] = cleanRp($_POST['price']);
-        $product = $this->BM->getById($this->products, $id);
-        if (!$product) {
-            appJson(['message' => "Produk tidak ditemukan"]);
-            return;
-        }
-        $updateProduct = $this->Product->update($id, $_POST);
-        if ($updateProduct) {
+        $product = $this->Product->update($id, $_POST);
+        
+        if ($product) {
             appJson(["message" => "Berhasil mengubah data Produk"]);
         }
     }
 
     public function delete($id)
     {
+        $product = $this->BM->getById($this->products, $id);
+        if(!$product){
+            appJson(['message' => "Produk tidak ditemukan"]);
+            return;
+        }
+
+        $covers = unserialize($product->cover);
+        if(count($covers) > 0) {
+            foreach ($covers as $cover) {
+                $file = "./assets/images/products/$cover";
+                if(file_exists($file)) {
+                    unlink($file);
+                }
+            }
+        }
+
         $this->BM->deleteById($this->products, $id);
         appJson($id);
     }
@@ -126,10 +123,9 @@ class ProductsController extends CI_Controller
 
         $file = $_FILES['file']['name'];
         $fileExt = pathinfo($file, PATHINFO_EXTENSION);
-
         $config['upload_path'] = "./assets/images/products";
         $config['allowed_types'] = "jpg|jpeg|png|ico";
-        $config['file_name'] = $photoId . $fileExt;
+        $config['file_name'] = $photoId.".".$fileExt;
 
         $this->load->library('upload', $config);
         $this->upload->do_upload("file");
@@ -158,7 +154,6 @@ class ProductsController extends CI_Controller
     public function removeUpload($id)
     {
         $photoId = $this->input->post('id');
-
         $product = $this->BM->getById($this->products, $id);
         if (!$product) {
             appJson(["message" => "Produk tidak ditemukan"]);
@@ -168,7 +163,11 @@ class ProductsController extends CI_Controller
         $cover = unserialize($product->cover);
         $filteredImage = array_delete_by_value($cover, $photoId);
         $data['cover'] = serialize($filteredImage);
-        $this->BM->updateById($this->products, $id, $data);
-        appJson(["message" => "Hapus foto berhasil"]);
+        $file = "./assets/images/products/$photoId";
+        if(file_exists($file)){
+            unlink($file);
+            $this->BM->updateById($this->products, $id, $data);
+            appJson(["message" => "Hapus foto berhasil"]);
+        }
     }
 }

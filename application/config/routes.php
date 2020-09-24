@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 $route['default_controller'] = 'AppController';
-$route['404_override'] = '';
+$route['404_override'] = 'AppController/pageNotFound';
 $route['translate_uri_dashes'] = false;
 
 //auth routes
@@ -25,12 +25,16 @@ $route['categories/add'] = 'CategoriesController/add';
 $route['categories/(:any)/delete'] = 'CategoriesController/delete/$1';
 $route['categories/(:any)/edit'] = 'CategoriesController/edit/$1';
 $route['categories/(:any)/update'] = 'CategoriesController/update/$1';
+$route['categories/(:any)/removeUpload'] = 'CategoriesController/removeUpload/$1';
 
 //subcategories
 $route['categories/(:any)/subcategories'] = 'SubcategoriesController/subcategories/$1';
 $route['categories/(:any)/subcategories/create'] = 'SubcategoriesController/create/$1';
 $route['categories/(:any)/subcategories/add'] = 'SubcategoriesController/add/$1';
 $route['categories/(:any)/subcategories/list'] = 'SubcategoriesController/listSubcategories/$1';
+$route['subcategories/(:any)/edit'] = 'SubcategoriesController/edit/$1';
+$route['subcategories/(:any)/update'] = 'SubcategoriesController/update/$1';
+$route['subcategories/(:any)/removeUpload'] = 'SubcategoriesController/removeUpload/$1';
 
 //products routes
 $route['products'] = 'ProductsController/products';

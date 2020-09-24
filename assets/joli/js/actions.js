@@ -99,12 +99,6 @@ $(document).ready(function () {
       : $(".content-frame-left").show();
     page_content_onresize();
   });
-  $(".content-frame-right-toggle").on("click", function () {
-    $(".content-frame-right").is(":visible")
-      ? $(".content-frame-right").hide()
-      : $(".content-frame-right").show();
-    page_content_onresize();
-  });
   /* END CONTENT FRAME */
 
   /* MAILBOX */

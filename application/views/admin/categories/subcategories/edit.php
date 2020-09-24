@@ -1,6 +1,7 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
     <li><a class="link-to" data-to="<?=base_url("categories")?>">Kategori</a></li>
+    <li><a class="link-to" data-to="<?=base_url("categories/$categoryId/subcategories")?>">Subkategori</a></li>
     <li class="active">Edit Data</li>
 </ul>
 <!-- END BREADCRUMB -->
@@ -9,8 +10,8 @@
 <div class="content-frame">
     <div class="content-frame-top">
         <div class="page-title">
-            <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("categories")?>"></span>
-                Update Kategori
+            <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("categories/$categoryId/subcategories")?>"></span>
+                Update Subkategori
             </h2>
         </div>
         <button class="btn btn-default content-frame-right-toggle pull-right"><span class="fa fa-bars"></span></button>
@@ -19,24 +20,24 @@
     <div class="content-frame-right" style="height: 100vh">
         
         <h4>Icon saat ini: </h4>
-        <div class="form-group categories-icon">
+        <div class="form-group subcategories-icon">
             <div class="gallery" id="links">
                 <a class="gallery-item" 
                     href="<?= 
-                        $category->icon ? 
-                            base_url("assets/images/categories/$category->icon") : 
+                        $subcategory->icon ? 
+                            base_url("assets/images/subcategories/$subcategory->icon") : 
                             base_url("assets/images/no_image200.jpg")?>" 
-                    title="<?=$category->icon?>"
+                    title="<?=$subcategory->icon?>"
                     data-gallery>
 
                     <div class="image">
-                        <?php if($category->icon){ ?>
-                            <img class="img" src="<?=base_url("assets/images/categories/$category->icon")?>" alt="<?=$category->icon?>" />
+                        <?php if($subcategory->icon){ ?>
+                            <img class="img" src="<?=base_url("assets/images/subcategories/$subcategory->icon")?>" alt="<?=$subcategory->icon?>" />
                             <ul class="gallery-item-controls">
                                 <li><span class="gallery-item-remove"><i class="fa fa-times"></i></span></li>
                             </ul>
                         <?php } else { ?>
-                            <img class="img" src="<?=base_url("assets/images/no_image200.jpg")?>" alt="Category Icon" />
+                            <img class="img" src="<?=base_url("assets/images/no_image200.jpg")?>" alt="Subcategory Icon" />
                         <?php } ?>
                         
                     </div>  
@@ -50,9 +51,9 @@
         <div class="row">
             <div class="col-md-12">
                 <form id="validate" role="form" class="form-horizontal action-submit-update"
-                    data-action="<?=base_url("categories/$category->id/update")?>"
-                    data-redirect="<?=base_url("categories")?>" data-target=".content" action="javascript:(0)">
-                    <?php $data['category'] = $category; $this->load->view('admin/categories/form', $data)?>
+                    data-action="<?=base_url("subcategories/$subcategory->id/update")?>"
+                    data-redirect="<?=base_url("categories/$categoryId/subcategories")?>" data-target=".content" action="javascript:(0)">
+                    <?php $data['subcategory'] = $subcategory; $this->load->view('admin/categories/subcategories/form', $data)?>
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-6">
@@ -70,9 +71,9 @@
 <script>
     $(".gallery-item-remove").on("click", function () {
         const element = $(this);
-        deletePhoto(null, "<?=base_url("categories/$category->id/removeUpload")?>");
+        deletePhoto(null, "<?=base_url("subcategories/$subcategory->id/removeUpload")?>");
         $(this)
-            .parents(".categories-icon")
+            .parents(".subcategories-icon")
             .fadeOut(400, function () {
                 $(this).remove();
             });

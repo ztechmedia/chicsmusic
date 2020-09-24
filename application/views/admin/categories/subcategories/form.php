@@ -1,7 +1,15 @@
 <div class="form-group">
     <label class="col-md-3 control-label">Nama</label>
-    <div class="col-md-6">
+    <div class="<?=$subcategory ? "col-md-9" : "col-md-6"?>">
         <input name="name" id="name" type="text" class="validate[required,maxSize[30]] form-control" value="<?=$subcategory ? $subcategory->name : ""?>" />
         <span class="help-block form-error" id="name-error"></span>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-3 control-label">Icon</label>
+    <div class="<?=$subcategory ? "col-md-9" : "col-md-6"?>">
+        <input name="file" id="file" type="file" class="form-control" />
+        <span class="help-block form-error" id="file-error"></span>
     </div>
 </div>

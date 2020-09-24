@@ -12,18 +12,31 @@ class BaseModel extends CI_Model
 
     public function getAll($table)
     {
-        return $this->db->get($table)->result();
+        return $this->db->get($table);
     }
 
     public function getWhere($table, $data)
     {
-        return $this->db->get_where($table, $data)->result();
+        return $this->db->get_where($table, $data);
     }
 
     public function getById($table, $id)
     {
         $query = $this->db->get_where($table, array("id" => $id))->result();
-        return $query ? $query[0] : false;
+        return $query ? $query[0] : $query;
+    }
+
+    public function create($table, $data)
+    {
+        if(!array_key_exists('id', $data)) $data['id'] = $this->id;
+        return $this->db->insert($table, $data);
+    }
+
+    public function createForId($table, $data)
+    {
+        if(!array_key_exists('id', $data)) $data['id'] = $this->id;
+        $this->db->insert($table, $data);
+        return $this->id;
     }
 
     public function updateById($table, $id, $data)
@@ -40,12 +53,17 @@ class BaseModel extends CI_Model
     public function delete($table, $data)
     {
         return $this->db->delete($table, $data);
-
     }
 
-    public function create($table, $data)
+    public function checkById($table, $id)
     {
-        if(!array_key_exists('id', $data)) $data['id'] = $this->id;
-        return $this->db->insert($table, $data);
+        $query = $this->db->get_where($table, ['id' => $id])->result();
+        if(!$query) {
+            $data['message'] = "ID: $id tidak ditemukan";
+            $this->load->view("errors/custom/id_not_found", $data);
+            return false;
+        }else{
+            return $query[0];
+        }
     }
 }

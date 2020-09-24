@@ -27,11 +27,15 @@ $(document.body).on("click", ".action-delete", function (e) {
     function () {
       reqJson(url, type, { id: id }, (err, response) => {
         if (response) {
-          swal.close();
-          row = element.closest("tr");
-          row.fadeOut(200, function () {
-            element.remove();
-          });
+          if (!$.isEmptyObject(response.errors)) {
+            swal("Oops..!", response.errors, "error");
+          } else {
+            swal.close();
+            row = element.closest("tr");
+            row.fadeOut(200, function () {
+              element.remove();
+            });
+          }
         } else {
           console.log("Error: ", err);
         }

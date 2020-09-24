@@ -47,7 +47,7 @@ class UsersController extends CI_Controller
 
     public function create()
     {
-        $data['roles'] = $this->BM->getAll($this->roles);
+        $data['roles'] = $this->BM->getAll($this->roles)->result();
         $this->load->View('admin/users/create', $data);
     }
 
@@ -64,23 +64,20 @@ class UsersController extends CI_Controller
 
     public function edit($id)
     {
-        $user = $this->BM->getById($this->users, $id);
+        $user = $this->BM->checkById($this->users, $id);
+        if(!$user) return false;
+
         $data = [
             'user' => $user,
             'roles' => $this->BM->getAll($this->roles),
         ];
-
         $this->load->view('admin/users/edit', $data);
     }
 
     public function update($id)
     {
-        $user = $this->BM->getById($this->users, $id);
-        if (!$user) {
-            appJson(['message' => "User tidak ditemukan"]);
-        }
-        $updateUser = $this->User->update($id, $_POST, ['name', 'email']);
-        if ($updateUser) {
+        $user = $this->User->update($id, $_POST, ['name', 'email']);
+        if ($user) {
             appJson([
                 "message" => "Berhasil mengubah data User",
             ]);

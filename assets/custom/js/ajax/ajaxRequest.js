@@ -21,3 +21,21 @@ const reqFormData = (url, method, data, callback) => {
     error: (err) => callback(true, err),
   });
 };
+
+const deletePhoto = (id, url) => {
+  $.ajax({
+    type: "post",
+    data: {
+      id: id,
+    },
+    url: url,
+    cache: false,
+    dataType: "json",
+    success: function () {
+      console.log("Foto terhapus");
+    },
+    error: function () {
+      console.log("Error");
+    },
+  });
+};

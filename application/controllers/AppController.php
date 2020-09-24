@@ -11,5 +11,10 @@ class AppController extends CI_Controller {
 	public function index()
 	{
         $this->load->view('template/admin/app');
-	}
+    }
+    
+    public function pageNotFound()
+    {
+        $this->load->view("errors/custom/page_not_found");
+    }
 }

@@ -22,13 +22,9 @@ class RolesController extends CI_Controller
     public function rolesTable()
     {
         $users = $this->datatables->setDatatables(
-            //table
             $this->roles,
-            //columns to show
             ["id", "name", "display_name"],
-            //column searchable
             ['name', 'display_name'],
-            //actions view path
             'admin/actions/edit'
         );
         json($users);
@@ -36,18 +32,18 @@ class RolesController extends CI_Controller
 
     public function edit($id)
     {
+        $role = $this->BM->checkById($this->roles, $id);
+        if(!$role) return false;
+
         $data['role'] = $this->BM->getById($this->roles, $id);
         $this->load->view('admin/roles/edit', $data);
     }
 
     public function update($id)
     {
-        $role = $this->BM->getById($this->roles, $id);
-        if (!$role) {
-            appJson(['message' => "Role tidak ditemukan"]);
-        }
-        $updateRole = $this->Role->update($id, $_POST);
-        if ($updateRole) {
+        $role = $this->Role->update($id, $_POST);
+        
+        if ($role) {
             appJson([
                 "message" => "Berhasil mengubah data Role",
             ]);

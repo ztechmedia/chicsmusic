@@ -12,6 +12,8 @@ class CategoriesController extends CI_Controller
         $this->load->helper("utility");
         $this->load->helper('response');
         $this->categories = 'categories';
+        $this->subcategories = "subcategories";
+        $this->products = 'products';
     }
 
     public function categories()
@@ -22,15 +24,10 @@ class CategoriesController extends CI_Controller
     public function categoriesTable()
     {
         $categories = $this->datatables->setDatatables(
-            //table
             $this->categories,
-            //columns to show
             ["id", "name", "createdAt"],
-            //column searchable
             ['name'],
-            //actions view path
             'admin/actions/subcategories',
-            //others params
             [
                 'delete_message' => [
                     'name' => "Yakin ingin menghapus kategori [name] pada data Kategori",
@@ -48,7 +45,11 @@ class CategoriesController extends CI_Controller
     public function add()
     {
         $category = $this->Category->create($_POST);
-        if ($category) {
+        if($_FILES["file"]['name'] && $category) {
+            $this->uploadIcon($_FILES['file']['name'], $category);
+        }
+
+        if($category) {
             appJson([
                 "message" => "Berhasil menambah data Kategori",
             ]);
@@ -56,19 +57,30 @@ class CategoriesController extends CI_Controller
     }
 
     public function edit($id)
-    {
-        $data['category'] = $this->BM->getById($this->categories, $id);
+    {   
+        $category = $this->BM->checkById($this->categories, $id);
+        if(!$category) return false;
+
+        $data['category'] = $category;
         $this->load->view('admin/categories/edit', $data);
     }
 
     public function update($id)
     {
-        $category = $this->BM->getById($this->categories, $id);
-        if (!$category) {
-            appJson(['message' => "Kategori tidak ditemukan"]);
+        $icon = $this->BM->getById($this->categories, $id)->icon;
+        $category = $this->Category->update($id, $_POST);
+        
+        if($_FILES['file']['name']) {
+            $this->uploadIcon($_FILES['file']['name'], $id);
+            if($icon) {
+                $file = "./assets/images/categories/$icon";
+                if(file_exists($file)){
+                    unlink($file);
+                }
+            }
         }
-        $updateCategory = $this->Category->update($id, $_POST);
-        if ($updateCategory) {
+
+        if ($category) {
             appJson([
                 "message" => "Berhasil mengubah data Kategori",
             ]);
@@ -77,7 +89,60 @@ class CategoriesController extends CI_Controller
 
     public function delete($id)
     {
+        $product = $this->BM->getWhere($this->products, ['category_id' => $id])->result();
+        if($product){
+            appJson(["errors" => "Kategori ini sudah memiliki produk, tidak dapat dihapus"]);
+            return;
+        }
+        
+        $icon = $this->BM->getById($this->categories, $id)->icon;
+        if($icon) {
+            $file = "./assets/images/categories/$icon";
+            if(file_exists($file)){
+                unlink($file);
+            }
+        }
+
         $this->BM->deleteById($this->categories, $id);
+        
+        $subcategories = $this->BM->getWhere($this->subcategories, ['category_id' => $id]);
+        foreach ($subcategories as $sub) {
+            if($sub->icon) {
+                $file = "./assets/images/subcategories/$sub->icon";
+                if(file_exists($file)){
+                    unlink($file);
+                }
+            }
+        }
+
+        $this->BM->delete($this->subcategories, ['category_id' => $id]);
         appJson($id);
+    }
+
+    public function uploadIcon($file, $id)
+    {
+        $fileExt = pathinfo($file, PATHINFO_EXTENSION);
+        $config['upload_path'] = "./assets/images/categories";
+        $config['allowed_types'] = "jpg|jpeg|png|ico";
+        $config['file_name'] = "icon_".$id.".".$fileExt; 
+        $this->load->library('upload', $config);
+        $this->upload->do_upload("file");
+        $uploadData = $this->upload->data();
+        $data['icon'] = $uploadData['file_name'];
+        $this->Category->update($id, $data);
+    }
+
+    public function removeUpload($id)
+    {
+        $category = $this->BM->checkById($this->categories, $id);
+        if (!$category) return false;
+
+        $file = "./assets/images/categories/$category->icon";
+        if(file_exists($file)){
+            unlink($file);  
+            $data['icon'] = null;
+            $this->BM->updateById($this->categories, $id, $data);
+            appJson(["message" => "Hapus foto berhasil"]);
+        }
     }
 }

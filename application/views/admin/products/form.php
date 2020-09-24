@@ -1,4 +1,4 @@
-<div class="form-group">
+<div class="form-group" style="display:none">
     <label class="col-md-3 control-label">Produk ID</label>
     <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
         <input readonly name="id" id="id" type="text" class="validate[required] form-control"
@@ -18,7 +18,7 @@
 <div class="form-group">
     <label class="col-md-3 control-label">Harga</label>
     <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
-        <input name="price" id="price" type="text" class="validate[required,maxSize[10]] form-control"
+        <input name="price" id="price" type="text" class="validate[required,maxSize[20]] form-control"
             value="<?=$product ? $product->price : ""?>" />
     </div>
 </div>

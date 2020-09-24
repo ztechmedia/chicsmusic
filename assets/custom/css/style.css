@@ -49,6 +49,12 @@ table.dataTable thead .sorting {
     text-align: center;
 }
 
+@media (max-width: 1000px) {
+    .gallery-item {
+        width: 25% !important;
+    }
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 2px;

@@ -19,7 +19,7 @@ class SubcategoryModel extends CI_Model
     {
         $validator = $this->validator($validate ? $validate : $this->validate, $data);
         if ($validator) {
-            return $this->BM->create($this->table, $data);
+            return $this->BM->createForId($this->table, $data);
         } else {
             appJson(['errors' => $this->form_validation->error_array()]);
             return false;
@@ -35,6 +35,21 @@ class SubcategoryModel extends CI_Model
             appJson(['errors' => $this->form_validation->error_array()]);
             return false;
         }
+    }
+
+    public function subWithProduct($categoryId)
+    {
+        
+        $query = $this->db->query(
+            "SELECT 
+                subcategories.*, 
+                COUNT(products.id) as total_product
+            FROM subcategories
+            LEFT JOIN products ON subcategories.id = products.subcategory_id
+            WHERE subcategories.category_id = '$categoryId'
+            GROUP BY subcategories.id"
+        );
+        return $query->result();
     }
 
     public function validator($validate, $data, $id = null)
