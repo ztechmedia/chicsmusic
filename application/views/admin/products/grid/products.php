@@ -11,6 +11,9 @@
         <div class="page-title">
             <h2><span class="fa fa-shopping-cart"></span> Produk</h2>
         </div>
+        <div class="pull-right">                            
+            <button class="btn btn-default link-to" data-to="<?=base_url("products")?>"><span class="fa fa-list"></span> Tampilan Kolom</button>
+        </div>   
     </div>
 
     <div class="content-frame-right" style="height: 100vh">
