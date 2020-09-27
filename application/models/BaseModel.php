@@ -15,6 +15,17 @@ class BaseModel extends CI_Model
         return $this->db->get($table);
     }
 
+    public function getLimit($table, $limit, $start)
+    {
+        $this->db->limit($limit, $start);
+        return $this->db->get($table)->result();
+    }
+
+    public function getTotal($table)
+    {
+        return $this->db->count_all($table);
+    }
+
     public function getWhere($table, $data)
     {
         return $this->db->get_where($table, $data);
@@ -61,7 +72,7 @@ class BaseModel extends CI_Model
         if(!$query) {
             $data['message'] = "ID: $id tidak ditemukan";
             $this->load->view("errors/custom/id_not_found", $data);
-            return false;
+            die();
         }else{
             return $query[0];
         }

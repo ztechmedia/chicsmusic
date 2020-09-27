@@ -16,23 +16,34 @@
         <div class="col-md-3">
             <!-- CONTACT ITEM -->
             <div class="panel panel-default">
-                <div class="panel-body profile">
-                    <div class="profile-image">
-                        <img class="img" 
-                            src="<?= $category->icon ? 
+                <div class="panel-body profile profile-categories" 
+                                style="background: url(<?= $category->icon ? 
                                 base_url("assets/images/categories/$category->icon") :
-                                base_url("assets/images/no_image200.jpg")?>" 
-                            alt="Categori Icon" />
+                                base_url("assets/images/no_image200.jpg")?>);
+                                background-size: cover;">
+
+                    <div class="overlay">
+                        <div class="profile-image" >
+                            <img class="img" 
+                            style="z-index: 10"
+                                src="<?= $category->icon ? 
+                                    base_url("assets/images/categories/$category->icon") :
+                                    base_url("assets/images/no_image200.jpg")?>" 
+                                alt="Categori Icon" />
+                        </div>
+                        <div class="profile-data">
+                            <div class="profile-data-name"><?=$category->name?></div>
+                            <div class="profile-data-title">Kategori</div>
+                        </div>
                     </div>
-                    <div class="profile-data">
-                        <div class="profile-data-name"><?=$category->name?></div>
-                        <div class="profile-data-title">Kategori</div>
-                    </div>
+
                     <div class="profile-controls">
                         <a href="#" class="profile-control-left"><span class="fa fa-shopping-cart"></span></a>
                         <a href="#" class="profile-control-right"><span class="fa fa-star"></span></a>
                     </div>
+                    
                 </div>
+                
                 <div class="panel-body">
                     <div class="contact-info">
                         <p><small>Subkategoti</small><br /><?=count($subcategories)?> Subkategori</p>
@@ -92,5 +103,23 @@
     .img {
         width: 100px;
         height: 100px;
+    }
+
+    .overlay {
+        position: absolute;
+        height: 170px;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+        top: 0;
+        padding-top: 15px;
+        margin-left: -15px;
+    }
+
+    .profile-categories {
+        height: 170px;
+    }
+
+    .profile-data-title {
+        color: #fff !important;
     }
 </style>

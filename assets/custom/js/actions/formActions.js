@@ -1,15 +1,5 @@
-$(document.body).on("click", ".action-edit", function (e) {
-  const element = $(this);
-  const url = element.data("url");
-  const target = element.data("target");
-
-  localStorage.setItem("currentUrl", url);
-  loadContent(url, target);
-});
-
 $(document.body).on("click", ".action-delete", function (e) {
   const element = $(this);
-  const id = element.data("id");
   const url = element.data("url");
   const type = element.data("type");
   const message = element.data("message");
@@ -25,7 +15,7 @@ $(document.body).on("click", ".action-delete", function (e) {
       closeOnConfirm: false,
     },
     function () {
-      reqJson(url, type, { id: id }, (err, response) => {
+      reqJson(url, type, {}, (err, response) => {
         if (response) {
           if (!$.isEmptyObject(response.errors)) {
             swal("Oops..!", response.errors, "error");

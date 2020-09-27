@@ -5,7 +5,7 @@
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2>Dashboard</h2>
+    <h2><span class="fa fa-desktop"></span> Dashboard</h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->

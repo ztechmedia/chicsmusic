@@ -17,7 +17,7 @@
         <li class="categories"><a class="side-submenu" data-url="<?=base_url("categories")?>" data-menu=".products-menu"
                 data-submenu=".categories"><span class="fa fa-filter"></span> Kategori Produk</a></li>
 
-        <li class="products"><a class="side-submenu" data-url="<?=base_url("products")?>" data-menu=".products-menu"
+        <li class="products"><a class="side-submenu" data-url="<?=base_url("products-grid")?>" data-menu=".products-menu"
                 data-submenu=".products"><span class="fa fa-shopping-cart"></span> Produk</a></li>
 
     </ul>

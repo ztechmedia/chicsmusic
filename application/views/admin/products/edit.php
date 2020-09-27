@@ -23,26 +23,27 @@
         </div>
 
         <div class="pull-right push-up-10">
-            <button class="btn btn-primary btn-rounded" id="gallery-toggle-items">Toggle All</button>
+            <button class="btn btn-primary btn-rounded" id="gallery-toggle-items">Pilih Semua</button>
+            <button class="btn btn-danger btn-rounded delete-covers" id="gallery-toggle-items">Hapus</button>
         </div>
 
         <div class="gallery" id="links">
             <?php $no=1; $covers = unserialize($product->cover);
              foreach ($covers as $cover) { ?>
 
-            <a class="gallery-item" href="<?=base_url("assets/images/products/$cover")?>" title="<?=$cover?>"
-                data-gallery>
-                <div class="image">
-                    <img class="img" src="<?=base_url("assets/images/products/$cover")?>" alt="<?=$cover?>" />
-                    <ul class="gallery-item-controls">
-                        <li><label class="check"><input type="checkbox" class="icheckbox" /></label></li>
-                        <li><span class="gallery-item-remove" data-photoid="<?=$cover?>"><i class="fa fa-times"></i></span></li>
-                    </ul>
-                </div>
-                <div class="meta">
-                    <strong><?="Foto #".$no++ ?></strong>
-                </div>
-            </a>
+                <a class="gallery-item" id="<?=$cover?>" href="<?=base_url("assets/images/products/$cover")?>" title="<?=$cover?>"
+                    data-gallery>
+                    <div class="image">
+                        <img class="img" src="<?=base_url("assets/images/products/$cover")?>" alt="<?=$cover?>" />
+                        <ul class="gallery-item-controls">
+                            <li class="liCheck"><label class="check"><input type="checkbox" class="icheckbox" data-cover="<?=$cover?>" /></label></li>
+                            <li><span class="gallery-item-remove" data-photoid="<?=$cover?>"><i class="fa fa-times"></i></span></li>
+                        </ul>
+                    </div>
+                    <div class="meta">
+                        <strong><?="Foto #".$no++ ?></strong>
+                    </div>
+                </a>
 
             <?php } ?>
         </div>
@@ -69,6 +70,8 @@
 <!-- END PAGE CONTENT WRAPPER -->
 
 <script>
+    let cover = [];
+
     const myDropzone = new Dropzone("#dropzone-products", {
         autoProcessQueue: true,
         url: "<?=base_url("products/$product->id/uploads")?>",
@@ -88,13 +91,38 @@
         eletePhoto(a.id, "<?=base_url("products/$product->id/removeUpload")?>");
     });
 
-    $(".gallery-item .iCheck-helper").on("click", function () {
-        var wr = $(this).parent("div");
-        if (wr.hasClass("checked")) {
-            $(this).parents(".gallery-item").addClass("active");
-        } else {
-            $(this).parents(".gallery-item").removeClass("active");
+    $(".delete-covers").on("click", () => {
+        const data = {
+            cover: cover
         }
+        const url = "<?=base_url("products/$product->id/delete-covers")?>";
+        if(cover.length === 0) return swal("Oopss..!", "Pilih minimal 1 cover untuk melanjutkan", "error");
+             
+        swal(
+            {
+                title: "Hapus",
+                text: "Anda yakin ingin menghapus cover yang telah dipilihs?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Ya, Hapus!",
+                closeOnConfirm: false,
+            },
+            function () {
+            reqJson(url, "POST", data, (err, response) => {
+                if (response) {
+                    if (!$.isEmptyObject(response.errors)) {
+                        swal("Oops..!", response.errors, "error");
+                    } else {
+                        loadContent("<?= base_url("products/$product->id/edit")?>", ".content");
+                        swal("Sukses", response.message, "success");
+                    }
+                } else {
+                    console.log("Error: ", err);
+                }
+            });
+            }
+        );
     });
 
     $(".gallery-item-remove").on("click", function () {
@@ -111,18 +139,36 @@
 
     $("#gallery-toggle-items").on("click", function () {
         $(".gallery-item").each(function () {
-            var wr = $(this).find(".iCheck-helper").parent("div");
+            let wr = $(this).find(".iCheck-helper").parent("div");
+            let currentCover = wr.find("input").data("cover");
+            let filteredCover;
 
             if (wr.hasClass("checked")) {
                 $(this).removeClass("active");
                 wr.removeClass("checked");
                 wr.find("input").prop("checked", false);
+                filteredCover = cover.filter(cvr => cvr !== currentCover);
+                cover = filteredCover;
             } else {
                 $(this).addClass("active");
                 wr.addClass("checked");
                 wr.find("input").prop("checked", true);
+                cover.unshift(currentCover);
             }
         });
+    });
+
+    $(".icheckbox").on('ifChanged', function (e) {
+        $(this).trigger("change", e);
+        let selectedCover = $(this).data("cover");
+        let filteredCover;
+
+        if(!$(this).prop("checked")) {
+            filteredCover = cover.filter(cvr => cvr !== selectedCover);
+            cover = filteredCover;
+        }else{
+            cover.unshift(selectedCover);
+        }
     });
 
     if ($(".icheckbox,.iradio").length > 0) {

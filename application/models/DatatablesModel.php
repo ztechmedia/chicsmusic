@@ -6,6 +6,7 @@ class DatatablesModel extends CI_Model
     public function __construct()
     {
         parent::__construct();
+        $this->load->model("ProductModel", "PM");
     }
 
     public function totalDocument($table, $querySelector)
@@ -97,12 +98,7 @@ class DatatablesModel extends CI_Model
     {
         switch ($type) {
             case "productWithCategories":
-                return $this
-                    ->db
-                    ->select('a.id, a.name, a.price, a.createdAt, b.name as category, c.name as subcategory')
-                    ->from('products as a')
-                    ->join('categories as b', 'a.category_id = b.id')
-                    ->join('subcategories as c', 'a.subcategory_id = c.id');
+                return $this->PM->productWithCategories();
         }
     }
 

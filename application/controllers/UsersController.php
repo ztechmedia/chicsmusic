@@ -16,11 +16,15 @@ class UsersController extends CI_Controller
         $this->roles = 'roles';
     }
 
+    //@desc     show users table
+    //@route    GET /users
     public function users()
     {
         $this->load->view('admin/users/users');
     }
 
+    //@desc     show data users table
+    //@route    GET /users/users-table
     public function usersTable()
     {
         $users = $this->datatables->setDatatables(
@@ -45,12 +49,16 @@ class UsersController extends CI_Controller
         json($users);
     }
 
+    //@desc     create user view
+    //@route    GET /users/users/create
     public function create()
     {
         $data['roles'] = $this->BM->getAll($this->roles)->result();
         $this->load->View('admin/users/create', $data);
     }
 
+    //@desc     create user logic
+    //@route    POST /users/add
     public function add()
     {
         $_POST['password'] = $this->encryption->encrypt($_POST['password']);
@@ -62,18 +70,20 @@ class UsersController extends CI_Controller
         }
     }
 
+    //@desc     update user view
+    //@route    GET /users/:userId/edit
     public function edit($id)
     {
         $user = $this->BM->checkById($this->users, $id);
-        if(!$user) return false;
-
         $data = [
             'user' => $user,
-            'roles' => $this->BM->getAll($this->roles),
+            'roles' => $this->BM->getAll($this->roles)->result(),
         ];
         $this->load->view('admin/users/edit', $data);
     }
 
+    //@desc     update user logic
+    //@route    POST /users/:userId/update
     public function update($id)
     {
         $user = $this->User->update($id, $_POST, ['name', 'email']);
@@ -84,6 +94,8 @@ class UsersController extends CI_Controller
         }
     }
 
+    //@desc     delete user logic
+    //@route    GET /users/:userId/delete
     public function delete($id)
     {
         $this->BM->deleteById($this->users, $id);

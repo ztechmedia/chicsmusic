@@ -68,25 +68,25 @@ function toDateTime($date)
     return date_format($date, "d-m-Y H:i:s");
 }
 
-function isUnique($value, $params)
-{
-    $ci = &get_instance();
+// function isUnique($value, $params)
+// {
+//     $ci = &get_instance();
 
-    $params = explode(".", $params);
+//     $params = explode(".", $params);
 
-    $table = $params[0];
-    $field = $params[1];
+//     $table = $params[0];
+//     $field = $params[1];
 
-    $ci->db->where($field, $value);
+//     $ci->db->where($field, $value);
 
-    if (count($params) === 3) {
-        $id = $params[2];
-        $ci->db->where_not_in('id', $id);
-    }
+//     if (count($params) === 3) {
+//         $id = $params[2];
+//         $ci->db->where_not_in('id', $id);
+//     }
 
-    $data = $ci->db->limit(1)->get($table)->result();
-    return $data ? false : true;
-}
+//     $data = $ci->db->limit(1)->get($table)->result();
+//     return $data ? false : true;
+// }
 
 function array_delete_by_value($array, $value) {
     $newArray = [];
@@ -96,4 +96,14 @@ function array_delete_by_value($array, $value) {
         }
     }
     return $newArray;
+}
+
+function max_length($string, $max) {
+    $stringLength = strlen($string);
+    $result = substr($string, 0, $max);
+    if($stringLength > $max) {
+        return $result."...";
+    }else{
+        return $string;
+    }
 }

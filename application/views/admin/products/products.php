@@ -2,10 +2,17 @@
 <ul class="breadcrumb">
     <li class="active">Produk</li>
 </ul>
-<!-- END BREADCRUMB -->
 
-<div class="page-title">
-    <h2>Produk</h2>
+<!-- END BREADCRUMB -->
+<div class="content-frame">   
+    <div class="content-frame-top">                        
+        <div class="page-title">                    
+            <h2><span class="fa fa-shopping-cart"></span> Produk</h2>
+        </div>                                      
+        <div class="pull-right">                            
+            <button class="btn btn-default link-to" data-to="<?=base_url("products-grid")?>"><span class="fa fa-th"></span> Tampilan Kolom</button>
+        </div>                         
+    </div>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->
@@ -28,11 +35,11 @@
                         <thead>
                             <th width="8%">No</th>
                             <th>Nama</th>
-                            <th>Harga</th>
-                            <th>Kategori</th>
-                            <th>Subkategori</th>
+                            <th width="15%">Harga</th>
+                            <th width="15%">Kategori</th>
+                            <th width="15%">Subkategori</th>
                             <th>Dibuat</th>
-                            <th width="15%">Tindakan</th>
+                            <th width="12%">Tindakan</th>
                         </thead>
                     </table>
                 </div>
@@ -46,6 +53,10 @@
 <style>
     .btnContainer {
         margin-bottom: 10px;
+    }
+
+    .page-content-wrap {
+        margin-top: 10px;
     }
 </style>
 

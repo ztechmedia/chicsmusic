@@ -26,6 +26,16 @@ class ProductModel extends CI_Model
         }
     }
 
+    public function productWithCategories(Type $var = null)
+    {
+       return $this
+                ->db
+                ->select('a.id, a.name, a.price, a.createdAt, b.name as category, c.name as subcategory')
+                ->from('products as a')
+                ->join('categories as b', 'a.category_id = b.id')
+                ->join('subcategories as c', 'a.subcategory_id = c.id');
+    }
+
     public function validator($validate, $data, $id = null)
     {
         $isUnique = $id ? "categories.name.$id" : "categories.name";

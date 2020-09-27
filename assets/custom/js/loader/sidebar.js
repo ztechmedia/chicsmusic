@@ -1,5 +1,5 @@
-const setContentLoader = () => {
-  $(".content").html(
+const setContentLoader = (target = ".content") => {
+  $(target).html(
     '<div class="page-content-wrap">' +
       '<div class="row">' +
       '<div class="col-md-12">' +
@@ -15,12 +15,19 @@ const setCurrentNav = (defaultLink) => {
   const menu = localStorage.getItem("menu");
   const submenu = localStorage.getItem("submenu");
   const currentUrl = localStorage.getItem("currentUrl");
+  const secondaryUrl = localStorage.getItem("secondaryUrl");
+  const secondaryTarget = localStorage.getItem("secondaryTarget");
 
   if (menu) $(menu).addClass("active");
   if (submenu) $(submenu).addClass("active");
   if (currentUrl) {
     setTimeout(() => {
       loadContent(currentUrl, ".content");
+      if (secondaryUrl) {
+        setTimeout(() => {
+          loadContent(secondaryUrl, secondaryTarget);
+        }, 500);
+      }
     }, 1000);
   } else {
     setTimeout(() => {

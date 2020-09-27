@@ -16,6 +16,8 @@ class SubcategoriesController extends CI_Controller
         $this->products = "products";
     }
 
+    //@desc     show subategories by categoryId
+    //@route    GET /categories/:categoryId/subcategories
     public function subcategories($categoryId)
     {
         $data['category'] = $this->Category->catWithProduct($categoryId);
@@ -23,12 +25,16 @@ class SubcategoriesController extends CI_Controller
         $this->load->view('admin/categories/subcategories/subcategories', $data);
     }
 
+    //@desc     create subcategories view
+    //@route    GET /categories/:categoryId/subcategories/create
     public function create($categoryId)
     {
         $data['categoryId'] = $categoryId;
         $this->load->view('admin/categories/subcategories/create', $data);
     }
 
+    //@desc     create subcategories logic
+    //@route    POST /categories/:categoryId/subcategories/add
     public function add($categoryId)
     {
         
@@ -46,16 +52,18 @@ class SubcategoriesController extends CI_Controller
         }
     }
 
+    //@desc     update subcategories view
+    //@route    GET /subcategories/:subcategoryId/edit
     public function edit($id)
     {
         $subcategory = $this->BM->checkById($this->subcategories, $id);
-        if(!$subcategory) return false;
-
         $data['subcategory'] = $subcategory;
         $data['categoryId'] = $subcategory->category_id;
         $this->load->view("admin/categories/subcategories/edit", $data);
     }
 
+    //@desc     update subcategories logic
+    //@route    POST /subcategories/:subcategoryId/update
     public function update($id)
     {
         $icon = $this->BM->getById($this->subcategories, $id)->icon;
@@ -78,12 +86,15 @@ class SubcategoriesController extends CI_Controller
         }
     }
 
+    //@desc     get subcategories list by submitting categoryId
+    //@route    POST /categories/:categoryId/subcategories/list
     public function listSubcategories($categoryId)
     {
         $subcategories = $this->BM->getWhere($this->subcategories, ['category_id' => $categoryId])->result();
         appJson($subcategories);
     }
 
+    //@desc     upload icon configuration
     public function uploadIcon($file, $id)
     {
         $fileExt = pathinfo($file, PATHINFO_EXTENSION);
@@ -97,6 +108,8 @@ class SubcategoriesController extends CI_Controller
         $this->Subcategory->update($id, $data);
     }
 
+    //@desc     remove icon from database dan file
+    //@route    GET /subcategories/:subcategoryId/removeUpload
     public function removeUpload($id)
     {
         $subcategory = $this->BM->checkById($this->subcategories, $id);

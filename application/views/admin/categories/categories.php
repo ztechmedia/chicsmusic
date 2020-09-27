@@ -5,7 +5,7 @@
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2>Kategori</h2>
+    <h2><span class="fa fa-filter"></span> Kategori</h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->

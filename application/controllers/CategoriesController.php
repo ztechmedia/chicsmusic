@@ -16,11 +16,15 @@ class CategoriesController extends CI_Controller
         $this->products = 'products';
     }
 
+    //@desc     show categories table
+    //@route    GET /categories
     public function categories()
     {
         $this->load->view('admin/categories/categories');
     }
 
+    //@desc     show data categories table
+    //@route    GET /categories/categories-table
     public function categoriesTable()
     {
         $categories = $this->datatables->setDatatables(
@@ -37,11 +41,15 @@ class CategoriesController extends CI_Controller
         json($categories);
     }
 
+    //@desc     create categories view
+    //@route    GET /categories/create
     public function create()
     {
         $this->load->View('admin/categories/create');
     }
 
+    //@desc     create categories logic
+    //@route    POST /categories/add
     public function add()
     {
         $category = $this->Category->create($_POST);
@@ -56,15 +64,17 @@ class CategoriesController extends CI_Controller
         }
     }
 
+    //@desc     update categories view
+    //@route    GET /categories/:categoryId/edit
     public function edit($id)
     {   
         $category = $this->BM->checkById($this->categories, $id);
-        if(!$category) return false;
-
         $data['category'] = $category;
         $this->load->view('admin/categories/edit', $data);
     }
 
+    //@desc     update categories logic
+    //@route    POST /categories/:categoryId/update
     public function update($id)
     {
         $icon = $this->BM->getById($this->categories, $id)->icon;
@@ -87,6 +97,8 @@ class CategoriesController extends CI_Controller
         }
     }
 
+    //@desc     delete categories logic
+    //@route    GET /categories/:categoryId/delete
     public function delete($id)
     {
         $product = $this->BM->getWhere($this->products, ['category_id' => $id])->result();
@@ -119,6 +131,7 @@ class CategoriesController extends CI_Controller
         appJson($id);
     }
 
+    //@desc     upload icon configuration
     public function uploadIcon($file, $id)
     {
         $fileExt = pathinfo($file, PATHINFO_EXTENSION);
@@ -132,11 +145,11 @@ class CategoriesController extends CI_Controller
         $this->Category->update($id, $data);
     }
 
+    //@desc     remove icon from database and file
+    //@route    GET /categories/:categoryId/removeUpload
     public function removeUpload($id)
     {
         $category = $this->BM->checkById($this->categories, $id);
-        if (!$category) return false;
-
         $file = "./assets/images/categories/$category->icon";
         if(file_exists($file)){
             unlink($file);  

@@ -14,11 +14,15 @@ class RolesController extends CI_Controller
         $this->roles = 'roles';
     }
 
+    //@desc     show roles tables
+    //@route    GET /roles
     public function roles()
     {
         $this->load->view('admin/roles/roles');
     }
 
+    //@desc     show data roles tables
+    //@route    GET /roles/roles-table
     public function rolesTable()
     {
         $users = $this->datatables->setDatatables(
@@ -30,6 +34,8 @@ class RolesController extends CI_Controller
         json($users);
     }
 
+    //@desc     update roles view
+    //@route    GET /roles/:roleId/edit
     public function edit($id)
     {
         $role = $this->BM->checkById($this->roles, $id);
@@ -39,6 +45,8 @@ class RolesController extends CI_Controller
         $this->load->view('admin/roles/edit', $data);
     }
 
+    //@desc     update roles logic
+    //@route    GET /roles/:roleId/update
     public function update($id)
     {
         $role = $this->Role->update($id, $_POST);

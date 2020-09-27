@@ -11,6 +11,7 @@ class ProductsController extends CI_Controller
         $this->load->model('ProductModel', 'Product');
         $this->load->library('encryption');
         $this->load->library('Datatables', 'datatables');
+        $this->load->library("pagination");
         $this->load->helper("utility");
         $this->load->helper('response');
         $this->products = 'products';
@@ -19,11 +20,15 @@ class ProductsController extends CI_Controller
         $this->user_id = "HjffMkdrUiacMXAM3VVX";
     }
 
+    //@desc     show products table
+    //@route    GET /products
     public function products()
     {
         $this->load->view('admin/products/products');
     }
 
+    //@desc     show data products table
+    //@route    GET /products/products-table
     public function productsTable()
     {
         $products = $this->datatables->setDatatables(
@@ -47,19 +52,23 @@ class ProductsController extends CI_Controller
         json($products);
     }
 
+    //@desc     create products view
+    //@route    GET /products/create
     public function create()
     {
         $data['id'] = genUnique(20);
         $data['categories'] = $this->BM->getAll($this->categories)->result();
         $product = $this->BM->getWhere($this->products, ['name' => null, "user_id" => $this->user_id])->result();
-        if(!$product){
+        if (!$product) {
             $this->load->view('admin/products/create', $data);
-        }else{
+        } else {
             $data['product'] = $product[0];
             $this->load->view('admin/products/edit', $data);
         }
     }
 
+    //@desc     create products logic
+    //@route    POST /products/add
     public function add($id)
     {
         $product = $this->BM->getById($this->products, $id);
@@ -75,39 +84,47 @@ class ProductsController extends CI_Controller
         }
     }
 
+    //@desc     update products view
+    //@route    GET /products/:productId/edit
     public function edit($id)
     {
         $product = $this->BM->checkById($this->products, $id);
-        if (!$product) return false;
+        $cover = [];
+        $productCover = unserialize($product->cover);
+        foreach ($productCover as $cvr) {
+            $cover[] = $cvr;
+        }
 
         $data['categories'] = $this->BM->getAll($this->categories)->result();
-        $data['product'] = $this->BM->getById($this->products, $id);
+        $data['product'] = $product;
+        $data['cover'] = $cover;
+
         $this->load->view('admin/products/edit', $data);
     }
 
+    //@desc     update products logic
+    //@route    POST /products/:productId/update
     public function update($id)
     {
         $_POST['price'] = cleanRp($_POST['price']);
         $product = $this->Product->update($id, $_POST);
-        
+
         if ($product) {
             appJson(["message" => "Berhasil mengubah data Produk"]);
         }
     }
 
+    //@desc     delete products logic
+    //@route    GET /products/:productId/delete
     public function delete($id)
     {
-        $product = $this->BM->getById($this->products, $id);
-        if(!$product){
-            appJson(['message' => "Produk tidak ditemukan"]);
-            return;
-        }
+        $product = $this->BM->checkById($this->products, $id);
 
         $covers = unserialize($product->cover);
-        if(count($covers) > 0) {
+        if (count($covers) > 0) {
             foreach ($covers as $cover) {
                 $file = "./assets/images/products/$cover";
-                if(file_exists($file)) {
+                if (file_exists($file)) {
                     unlink($file);
                 }
             }
@@ -117,6 +134,8 @@ class ProductsController extends CI_Controller
         appJson($id);
     }
 
+    //@desc     upload cover products logic
+    //@route    POST /products/:productId/uploads
     public function uploads($id)
     {
         $photoId = $this->input->post('id');
@@ -125,7 +144,7 @@ class ProductsController extends CI_Controller
         $fileExt = pathinfo($file, PATHINFO_EXTENSION);
         $config['upload_path'] = "./assets/images/products";
         $config['allowed_types'] = "jpg|jpeg|png|ico";
-        $config['file_name'] = $photoId.".".$fileExt;
+        $config['file_name'] = $photoId . "." . $fileExt;
 
         $this->load->library('upload', $config);
         $this->upload->do_upload("file");
@@ -151,6 +170,8 @@ class ProductsController extends CI_Controller
         }
     }
 
+    //@desc     remove cover from database and file
+    //@route    POST /products/:productId/removeUpload
     public function removeUpload($id)
     {
         $photoId = $this->input->post('id');
@@ -164,10 +185,79 @@ class ProductsController extends CI_Controller
         $filteredImage = array_delete_by_value($cover, $photoId);
         $data['cover'] = serialize($filteredImage);
         $file = "./assets/images/products/$photoId";
-        if(file_exists($file)){
+        if (file_exists($file)) {
             unlink($file);
             $this->BM->updateById($this->products, $id, $data);
             appJson(["message" => "Hapus foto berhasil"]);
         }
+    }
+
+    //@desc     delete multiple products cover logic
+    //@route    POST /products/:productId/delete-covers
+    public function deleteCovers($id)
+    {
+        $obj = fileGetContent();
+        $product = $this->BM->checkById($this->products, $id);
+
+        $cover = unserialize($product->cover);
+        foreach ($obj->cover as $cvr) {
+            $cover = array_delete_by_value($cover, $cvr);
+            $file = "./assets/images/products/$cvr";
+            if (file_exists($file)) {
+                unlink($file);
+            }
+        }
+
+        $data['cover'] = serialize($cover);
+        $newProduct = $this->BM->updateById($this->products, $id, $data);
+        if ($newProduct) {
+            appJson([
+                "message" => "Berhasil menghapus cover produk",
+            ]);
+        }
+    }
+
+    //@desc     show product grid
+    //@route    GET /products-grid
+    public function productsGrid(Type $var = null)
+    {
+        $this->load->view('admin/products/grid/products');
+    }
+
+    //@desc     show data of product grid
+    //@route    GET /products-grid-list
+    public function productsGridList($limit = 3, $page = 1)
+    {
+        $totalRecords = $this->BM->getTotal($this->products);
+        $startIndex = ($page - 1) * $limit;
+        $endIndex = $page * $limit;
+        $pagination = [];
+
+        if ($totalRecords > 0) {
+            
+            if($endIndex < $totalRecords) {
+                $pagination["next"] = [
+                    "page" => $page + 1,
+                    "limit" => $limit
+                ];
+            }
+
+            if($startIndex > 0) {
+                $pagination['prev'] = [
+                    "page" => $page-1,
+                    "limit" => $limit
+                ];
+            }
+
+            $data['products'] = $this->BM->getLimit($this->products, $limit, $startIndex);
+            $data['total'] = $totalRecords;
+            $data['pagination'] = $pagination;
+            $data['page'] = $page;
+
+            $this->load->view("admin/products/grid/product_list", $data);
+        }else{
+            $this->load->view("admin/products/grid/product_empty");
+        }
+        
     }
 }

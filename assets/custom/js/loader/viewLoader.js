@@ -29,10 +29,18 @@ $(".side-submenu").on("click", function (e) {
 
 $(document.body).on("click", ".link-to", function (e) {
   e.preventDefault();
-  setContentLoader();
   const element = $(this);
   const to = element.data("to");
   const target = element.data("target");
-  localStorage.setItem("currentUrl", to);
+  const secondary = element.data("secondary");
+
+  if (secondary === "yes") {
+    localStorage.setItem("secondaryUrl", to);
+    localStorage.setItem("secondaryTarget", target);
+  } else {
+    localStorage.setItem("currentUrl", to);
+  }
+
+  setContentLoader(target);
   target ? loadContent(to, target) : loadContent(to, ".content");
 });

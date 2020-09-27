@@ -5,7 +5,7 @@
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2>Users</h2>
+    <h2><span class="fa fa-users"></span> Users</h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->
