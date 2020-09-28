@@ -13,3 +13,12 @@
         <span class="help-block form-error" id="file-error"></span>
     </div>
 </div>
+
+<script>
+    $("#file").fileinput({
+            showUpload: false,
+            showCaption: false,
+            browseClass: "btn btn-primary",
+            fileType: "any"
+    });  
+</script>

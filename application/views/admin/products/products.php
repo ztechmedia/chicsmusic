@@ -27,8 +27,8 @@
 
                 <div class="panel-body">
                     <div class="btnContainer">
-                        <button class="btn btn-default btn-rounded link-to" data-to="<?=base_url("products/create")?>">
-                            <i class="fa fa-filter"></i> Tambah Produk
+                        <button class="btn btn-default btn-rounded link-to-with-prev" data-to="<?=base_url("products/create")?>">
+                            <i class="fa fa-shopping-cart"></i> Tambah Produk
                         </button>
                     </div>
                     <table class="table table-bordered" id="products">

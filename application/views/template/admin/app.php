@@ -56,6 +56,7 @@
     <script type="text/javascript" src="<?=base_url("assets/joli/js/validationengine/jquery.validationEngine.js")?>"></script>
     <script type="text/javascript" src="<?=base_url("assets/joli/js/blueimp/jquery.blueimp-gallery.min.js")?>"></script>
     <script type="text/javascript" src="<?=base_url("assets/joli/js/icheck/icheck.min.js")?>"></script>
+    <script type="text/javascript" src="<?=base_url("assets/joli/js/fileinput/fileinput.min.js")?>"></script>
 
     <script type="text/javascript" src="<?=base_url("assets/joli/js/plugins.js")?>"></script>
     <script type="text/javascript" src="<?=base_url("assets/joli/js/actions.js")?>"></script>

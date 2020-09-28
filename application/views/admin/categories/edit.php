@@ -93,4 +93,8 @@
     .gallery .gallery-item {
         width: 100%;
     }
+
+    .img {
+        height: 100%;
+    }
 </style>

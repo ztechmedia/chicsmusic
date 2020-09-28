@@ -1,12 +1,8 @@
 <div class="row">
     <div class="col-md-12">
         <ul class="pagination pagination-sm pull-right">
-            <?php if(array_key_exists("prev", $pagination)) {
-                $limit = $pagination['prev']['limit'];
-                $prev = $pagination['prev']['page']; ?>
-                <li class="link-to" 
-                    data-to="<?=base_url("products-grid-list/$limit/$prev")?>" 
-                    data-target=".product-list"
+            <?php if(array_key_exists("prev", $pagination)) {?>
+                <li onclick="changePage('<?=$pagination['prev']['page']?>')"
                     data-secondary="yes"><a>«</a></li>
             <?php } else{ ?>
                 <li class="disabled"><a>«</a></li>
@@ -14,21 +10,15 @@
 
             <li><a href="#"><?=$page?></a></li>    
 
-            <?php if(array_key_exists("next", $pagination)) { 
-                $limit = $pagination['next']['limit'];
-                $next = $pagination['next']['page']; ?>
-                <li class="link-to" 
-                    data-to="<?=base_url("products-grid-list/$limit/$next")?>" 
-                    data-target=".product-list"
+            <?php if(array_key_exists("next", $pagination)) {  ?>
+                <li onclick="changePage('<?=$pagination['next']['page']?>')"
                     data-secondary="yes"><a>»</a></li>
             <?php } else{ ?>
                 <li class="disabled"><a>»</a></li>
             <?php } ?>
         </ul>  
     </div>
-
     <hr>
-
     <?php foreach($products as $product) { 
         $covers = unserialize($product->cover);
         if(count($covers) > 0) {
@@ -42,8 +32,8 @@
             <div class="panel panel-default">
                 <div class="panel-body panel-body-image">
                     <img class="img" src="<?=$image?>" alt="No Picrutes" />
-                    <a href="#" class="panel-body-inform">
-                        <span class="fa fa-heart-o"></span>
+                    <a class="panel-body-inform link-to" data-to="<?=base_url("products/$product->id/edit")?>">
+                        <span class="fa fa-pencil"></span>
                     </a>
                 </div>
                 <div class="panel-body" style="height: 85px">

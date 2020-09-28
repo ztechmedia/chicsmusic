@@ -37,5 +37,5 @@
 <!-- END PAGE CONTENT WRAPPER -->
 
 <script>
-    formValidation(".action-submit-create");
+    formValidation(".action-submit-create"); 
 </script>

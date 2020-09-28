@@ -36,6 +36,27 @@ class ProductModel extends CI_Model
                 ->join('subcategories as c', 'a.subcategory_id = c.id');
     }
 
+    public function getLimit($limit, $start, $search)
+    {
+        $this->db->limit($limit, $start);
+        $this->db->where("name IS NOT NULL", NULL);
+        if($search !== "") {
+            $this->db->like("name", $search);
+            $this->db->or_like("description", $search);
+        }
+        return $this->db->get($this->products)->result();
+    }
+
+    public function getTotal($search)
+    {
+        $this->db->where("name IS NOT NULL", NULL);
+        if($search !== "") {
+            $this->db->like("name", $search);
+            $this->db->or_like("description", $search);
+        }
+        return $this->db->get($this->products)->num_rows();
+    }
+
     public function validator($validate, $data, $id = null)
     {
         $isUnique = $id ? "categories.name.$id" : "categories.name";

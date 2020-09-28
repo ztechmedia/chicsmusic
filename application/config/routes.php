@@ -49,7 +49,7 @@ $route['products/(:any)/removeUpload'] = 'ProductsController/removeUpload/$1';
 $route['products/(:any)/delete-covers'] = 'ProductsController/deleteCovers/$1';
 //products grids
 $route['products-grid'] = 'ProductsController/productsGrid';
-$route['products-grid-list/(:num)/(:num)'] = 'ProductsController/productsGridList/$1/$2';
+$route['products-grid-list'] = 'ProductsController/productsGridList';
 
 //roles routes 
 $route['roles'] = 'RolesController/roles';
@@ -59,6 +59,3 @@ $route['roles/(:any)/update'] = 'RolesController/update/$1';
 
 //home routes
 $route['dashboard'] = "HomeController/dashboard";
-
-//products
-$route['products'] = "ProductsController/products";

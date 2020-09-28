@@ -32,15 +32,36 @@ $(document.body).on("click", ".link-to", function (e) {
   const element = $(this);
   const to = element.data("to");
   const target = element.data("target");
-  const secondary = element.data("secondary");
 
-  if (secondary === "yes") {
-    localStorage.setItem("secondaryUrl", to);
-    localStorage.setItem("secondaryTarget", target);
-  } else {
-    localStorage.setItem("currentUrl", to);
-  }
+  localStorage.setItem("currentUrl", to);
 
-  setContentLoader(target);
+  target ? setContentLoader(target) : setContentLoader();
+  target ? loadContent(to, target) : loadContent(to, ".content");
+});
+
+$(document.body).on("click", ".link-to-with-prev", function (e) {
+  e.preventDefault();
+  const element = $(this);
+  const to = element.data("to");
+  const target = element.data("target");
+
+  const prevUrl = localStorage.getItem("currentUrl");
+
+  localStorage.setItem("currentUrl", to);
+  localStorage.setItem("prevUrl", prevUrl);
+
+  target ? setContentLoader(target) : setContentLoader();
+  target ? loadContent(to, target) : loadContent(to, ".content");
+});
+
+$(document.body).on("click", ".go-back", function (e) {
+  e.preventDefault();
+  const element = $(this);
+  const target = element.data("target");
+
+  const to = localStorage.getItem("prevUrl");
+  localStorage.setItem("currentUrl", to);
+
+  target ? setContentLoader(target) : setContentLoader();
   target ? loadContent(to, target) : loadContent(to, ".content");
 });

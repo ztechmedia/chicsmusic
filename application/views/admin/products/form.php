@@ -19,7 +19,7 @@
     <label class="col-md-3 control-label">Harga</label>
     <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
         <input name="price" id="price" type="text" class="validate[required,maxSize[20]] form-control"
-            value="<?=$product ? $product->price : ""?>" />
+            value="<?=$product ? $product->price : "Rp. 0"?>" />
     </div>
 </div>
 

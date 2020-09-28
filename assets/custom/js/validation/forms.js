@@ -71,8 +71,9 @@ const checkNestedSelect = (target, url, empty, value) => {
 const toRp = (target) => {
   $(target).maskMoney({
     prefix: "Rp. ",
-    allowNegative: true,
+    allowNegative: false,
     thousands: ".",
+    decimal: ",",
     precision: 0,
   });
 };

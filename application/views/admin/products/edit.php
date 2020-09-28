@@ -10,7 +10,7 @@
 
     <div class="content-frame-top">
         <div class="page-title">
-            <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("products")?>"></span>
+            <h2><span class="fa fa-arrow-circle-o-left go-back"></span>
                 <?= $product->name === null ? "Tambah Produk" : "Update Produk"?>
             </h2>
         </div>

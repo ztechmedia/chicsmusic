@@ -78,6 +78,8 @@ class ProductsController extends CI_Controller
             ]]);
             return;
         }
+        
+        $_POST['price'] = cleanRp($_POST['price']);
         $product = $this->Product->update($id, $_POST);
         if ($product) {
             appJson(["message" => "Berhasil menambah data Produk"]);
@@ -226,9 +228,13 @@ class ProductsController extends CI_Controller
 
     //@desc     show data of product grid
     //@route    GET /products-grid-list
-    public function productsGridList($limit = 3, $page = 1)
+    public function productsGridList()
     {
-        $totalRecords = $this->BM->getTotal($this->products);
+        $limit = $_GET['limit'];
+        $page = $_GET['page'];
+        $search = $_GET['search'];
+
+        $totalRecords = $this->Product->getTotal($search);
         $startIndex = ($page - 1) * $limit;
         $endIndex = $page * $limit;
         $pagination = [];
@@ -238,18 +244,16 @@ class ProductsController extends CI_Controller
             if($endIndex < $totalRecords) {
                 $pagination["next"] = [
                     "page" => $page + 1,
-                    "limit" => $limit
                 ];
             }
 
             if($startIndex > 0) {
                 $pagination['prev'] = [
                     "page" => $page-1,
-                    "limit" => $limit
                 ];
             }
 
-            $data['products'] = $this->BM->getLimit($this->products, $limit, $startIndex);
+            $data['products'] = $this->Product->getLimit($limit, $startIndex, $search);
             $data['total'] = $totalRecords;
             $data['pagination'] = $pagination;
             $data['page'] = $page;
@@ -260,4 +264,5 @@ class ProductsController extends CI_Controller
         }
         
     }
+
 }
