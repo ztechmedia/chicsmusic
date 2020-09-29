@@ -1,12 +1,12 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
-    <li><a class="link-to" data-to="<?=base_url("users")?>">Users</a></li>
+    <li><a class="link-to" data-to="<?=base_url("admin/users")?>">Users</a></li>
     <li class="active">Edit Data</li>
 </ul>
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("users")?>"></span> Update User</h2>
+    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("admin/users")?>"></span> Update User</h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->
@@ -19,7 +19,7 @@
                     <h3 class="panel-title">Form User</h3>
                 </div>
                 <form id="validate" role="form" class="form-horizontal action-submit-update"
-                    data-action="<?=base_url("users/$user->id/update")?>" data-redirect="<?=base_url("users")?>"
+                    data-action="<?=base_url("admin/users/$user->id/update")?>" data-redirect="<?=base_url("admin/users")?>"
                     data-target=".content" action="javascript:(0)">
                     <div class="panel-body">
                         <?php $data['user'] = $user; $this->load->view('admin/users/form', $data)?>

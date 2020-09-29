@@ -50,6 +50,11 @@ table.dataTable thead .sorting {
     }
 }
 
+.link-to, .link-to-with-prev,
+.go-back {
+    cursor: pointer;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 2px;

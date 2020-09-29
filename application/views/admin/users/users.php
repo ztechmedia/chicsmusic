@@ -20,7 +20,7 @@
 
                 <div class="panel-body">
                     <div class="btnContainer">
-                        <button class="btn btn-default btn-rounded link-to" data-to="<?=base_url("users/create")?>">
+                        <button class="btn btn-default btn-rounded link-to" data-to="<?=base_url("admin/users/create")?>">
                             <i class="fa fa-user"></i> Tambah User
                         </button>
                     </div>
@@ -49,7 +49,7 @@
 
 <script>
     $(document).ready(() => {
-        let url = "<?=base_url('users-table')?>";
+        let url = "<?=base_url('admin/users-table')?>";
         let csrfTokenName = "<?=$this->security->get_csrf_token_name()?>";
         let getCsrfHash = "<?=$this->security->get_csrf_hash()?>";
 

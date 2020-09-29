@@ -7,8 +7,8 @@
             <?php } else{ ?>
                 <li class="disabled"><a>«</a></li>
             <?php } ?>
-
-            <li><a href="#"><?=$page?></a></li>    
+            
+            <li><a href="#"><?= "Halaman $page - $totalPage | Data $start - $end"?></a></li>      
 
             <?php if(array_key_exists("next", $pagination)) {  ?>
                 <li onclick="changePage('<?=$pagination['next']['page']?>')"
@@ -28,22 +28,22 @@
         }
     ?>
 
-        <div class="col-md-4 col-sm-4 col-xs-6">
+        <div class="col-md-3 col-sm-4 col-xs-6">
             <div class="panel panel-default">
                 <div class="panel-body panel-body-image">
                     <img class="img" src="<?=$image?>" alt="No Picrutes" />
-                    <a class="panel-body-inform link-to" data-to="<?=base_url("products/$product->id/edit")?>">
+                    <a class="panel-body-inform link-to-with-prev" data-to="<?=base_url("admin/products/$product->id/edit")?>">
                         <span class="fa fa-pencil"></span>
                     </a>
                 </div>
-                <div class="panel-body" style="height: 85px">
-                    <h4><?=max_length($product->name, 30)?></h4>
-                    <h5><?=toRp($product->price)?></h5>
+                <div class="panel-body" style="height: 79px">
+                    <h5><?=max_length($product->name, 30)?></h5>
+                    <h6><?=toRp($product->price)?></h6>
                 </div>
-                <div class="panel-footer ">
-                    <span class="fa fa-sign-out"></span> 114 Terjual
+                <div class="panel-footer" style="height: 45px;text-align:center;">
+                    <span class="fa fa-sign-out"></span> 114
                     |
-                    <span class="fa fa-inbox"></span> 36 Stock
+                    <span class="fa fa-inbox"></span> 36
                 </div>
             </div>
         </div>

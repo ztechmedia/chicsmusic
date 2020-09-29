@@ -114,10 +114,8 @@ class CategoriesController extends CI_Controller
                 unlink($file);
             }
         }
-
-        $this->BM->deleteById($this->categories, $id);
         
-        $subcategories = $this->BM->getWhere($this->subcategories, ['category_id' => $id]);
+        $subcategories = $this->BM->getWhere($this->subcategories, ['category_id' => $id])->result();
         foreach ($subcategories as $sub) {
             if($sub->icon) {
                 $file = "./assets/images/subcategories/$sub->icon";
@@ -127,6 +125,7 @@ class CategoriesController extends CI_Controller
             }
         }
 
+        $this->BM->deleteById($this->categories, $id);
         $this->BM->delete($this->subcategories, ['category_id' => $id]);
         appJson($id);
     }

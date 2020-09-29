@@ -5,6 +5,8 @@ if (!defined('BASEPATH')) {
 
 class Datatables
 {
+    protected $ci;
+    
     public function __construct($params = null)
     {
         $this->ci = &get_instance();

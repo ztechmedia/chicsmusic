@@ -1,12 +1,12 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
-    <li><a class="link-to" data-to="<?=base_url("roles")?>">Roles</a></li>
+    <li><a class="link-to" data-to="<?=base_url("admin/roles")?>">Roles</a></li>
     <li class="active">Edit Data</li>
 </ul>
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("roles")?>"></span> Update Data Role</h2>
+    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("admin/roles")?>"></span> Update Data Role</h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->
@@ -19,7 +19,7 @@
                     <h3 class="panel-title">Form Role</h3>
                 </div>
                 <form id="validate" role="form" class="form-horizontal action-submit-update"
-                    data-action="<?=base_url("roles/$role->id/update")?>" data-redirect="<?=base_url("roles")?>"
+                    data-action="<?=base_url("admin/roles/$role->id/update")?>" data-redirect="<?=base_url("admin/roles")?>"
                     data-target=".content" action="javascript:(0)">
                     <div class="panel-body">
                         <div class="form-group">

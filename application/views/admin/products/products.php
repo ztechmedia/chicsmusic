@@ -27,7 +27,7 @@
 
                 <div class="panel-body">
                     <div class="btnContainer">
-                        <button class="btn btn-default btn-rounded link-to-with-prev" data-to="<?=base_url("products/create")?>">
+                        <button class="btn btn-default btn-rounded link-to-with-prev" data-to="<?=base_url("admin/products/create")?>">
                             <i class="fa fa-shopping-cart"></i> Tambah Produk
                         </button>
                     </div>
@@ -62,7 +62,7 @@
 
 <script>
     $(document).ready(() => {
-        let url = "<?=base_url('products-table')?>";
+        let url = "<?=base_url('admin/products-table')?>";
         let csrfTokenName = "<?=$this->security->get_csrf_token_name()?>";
         let getCsrfHash = "<?=$this->security->get_csrf_hash()?>";
 

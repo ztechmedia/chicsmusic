@@ -36,30 +36,74 @@ class ProductModel extends CI_Model
                 ->join('subcategories as c', 'a.subcategory_id = c.id');
     }
 
-    public function getLimit($limit, $start, $search)
+    public function getLimit($limit, $start, $search, $max, $min, $sort)
     {
         $this->db->limit($limit, $start);
         $this->db->where("name IS NOT NULL", NULL);
+
         if($search !== "") {
             $this->db->like("name", $search);
             $this->db->or_like("description", $search);
         }
+
+        if($max) {
+            $this->db->where("price <=", $max);
+        }
+
+        if($min) {
+            $this->db->where("price >=", $min);
+        }
+
+        if($sort) {
+            if($sort === "min-price") {
+                $this->db->order_by("price", "asc");
+            }else if($sort === "max-price") {
+                $this->db->order_by("price", "desc");
+            }else if($sort === "latest"){
+                $this->db->order_by("createdAt", "desc");
+            }else if($sort === "oldest"){
+                $this->db->order_by("createdAt", "asc");
+            }
+        }
+
         return $this->db->get($this->products)->result();
     }
 
-    public function getTotal($search)
+    public function getTotal($search, $max, $min, $sort)
     {
         $this->db->where("name IS NOT NULL", NULL);
+
         if($search !== "") {
             $this->db->like("name", $search);
             $this->db->or_like("description", $search);
         }
+
+        if($max) {
+            $this->db->where("price <=", $max);
+        }
+
+        if($min) {
+            $this->db->where("price >=", $min);
+        }
+
+        if($sort) {
+            if($sort === "min-price") {
+                $this->db->order_by("price", "desc");
+            }else if($sort === "max-price") {
+                $this->db->order_by("price", "asc");
+            }else if($sort === "latest"){
+                $this->db->order_by("createdAt", "desc");
+            }else if($sort === "oldest"){
+                $this->db->order_by("createdAt", "asc");
+            }
+        }
+
         return $this->db->get($this->products)->num_rows();
     }
 
     public function validator($validate, $data, $id = null)
     {
-        $isUnique = $id ? "categories.name.$id" : "categories.name";
+        $isUnique = $id ? "products.name.$id" : "products.name";
 
         $rules = [
             "name" => [

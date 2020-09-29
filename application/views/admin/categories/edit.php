@@ -1,6 +1,6 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
-    <li><a class="link-to" data-to="<?=base_url("categories")?>">Kategori</a></li>
+    <li><a class="link-to" data-to="<?=base_url("admin/categories")?>">Kategori</a></li>
     <li class="active">Edit Data</li>
 </ul>
 <!-- END BREADCRUMB -->
@@ -9,7 +9,7 @@
 <div class="content-frame">
     <div class="content-frame-top">
         <div class="page-title">
-            <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("categories")?>"></span>
+            <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("admin/categories")?>"></span>
                 Update Kategori
             </h2>
         </div>
@@ -50,8 +50,8 @@
         <div class="row">
             <div class="col-md-12">
                 <form id="validate" role="form" class="form-horizontal action-submit-update"
-                    data-action="<?=base_url("categories/$category->id/update")?>"
-                    data-redirect="<?=base_url("categories")?>" data-target=".content" action="javascript:(0)">
+                    data-action="<?=base_url("admin/categories/$category->id/update")?>"
+                    data-redirect="<?=base_url("admin/categories")?>" data-target=".content" action="javascript:(0)">
                     <?php $data['category'] = $category; $this->load->view('admin/categories/form', $data)?>
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
@@ -70,7 +70,7 @@
 <script>
     $(".gallery-item-remove").on("click", function () {
         const element = $(this);
-        deletePhoto(null, "<?=base_url("categories/$category->id/removeUpload")?>");
+        deletePhoto(null, "<?=base_url("admin/categories/$category->id/removeUpload")?>");
         $(this)
             .parents(".categories-icon")
             .fadeOut(400, function () {

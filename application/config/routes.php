@@ -1,61 +1,64 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-$route['default_controller'] = 'AppController';
+$route['default_controller'] = 'AuthController/login';
 $route['404_override'] = 'AppController/pageNotFound';
 $route['translate_uri_dashes'] = false;
 
 //auth routes
-$route['logout'] = 'AuthController/logout';
+$route['admin/logout'] = 'AuthController/logout';
+
+//admin routes
+$route['admin'] = 'AppController';
 
 //users routes
-$route['users'] = 'UsersController/users';
-$route['users-table'] = 'UsersController/usersTable';
-$route['users/create'] = 'UsersController/create';
-$route['users/add'] = 'UsersController/add';
-$route['users/(:any)/delete'] = 'UsersController/delete/$1';
-$route['users/(:any)/edit'] = 'UsersController/edit/$1';
-$route['users/(:any)/update'] = 'UsersController/update/$1';
+$route['admin/users'] = 'UsersController/users';
+$route['admin/users-table'] = 'UsersController/usersTable';
+$route['admin/users/create'] = 'UsersController/create';
+$route['admin/users/add'] = 'UsersController/add';
+$route['admin/users/(:any)/delete'] = 'UsersController/delete/$1';
+$route['admin/users/(:any)/edit'] = 'UsersController/edit/$1';
+$route['admin/users/(:any)/update'] = 'UsersController/update/$1';
 
 //categories routes
-$route['categories'] = 'CategoriesController/categories';
-$route['categories-table'] = 'CategoriesController/categoriesTable';
-$route['categories/create'] = 'CategoriesController/create';
-$route['categories/add'] = 'CategoriesController/add';
-$route['categories/(:any)/delete'] = 'CategoriesController/delete/$1';
-$route['categories/(:any)/edit'] = 'CategoriesController/edit/$1';
-$route['categories/(:any)/update'] = 'CategoriesController/update/$1';
-$route['categories/(:any)/removeUpload'] = 'CategoriesController/removeUpload/$1';
+$route['admin/categories'] = 'CategoriesController/categories';
+$route['admin/categories-table'] = 'CategoriesController/categoriesTable';
+$route['admin/categories/create'] = 'CategoriesController/create';
+$route['admin/categories/add'] = 'CategoriesController/add';
+$route['admin/categories/(:any)/delete'] = 'CategoriesController/delete/$1';
+$route['admin/categories/(:any)/edit'] = 'CategoriesController/edit/$1';
+$route['admin/categories/(:any)/update'] = 'CategoriesController/update/$1';
+$route['admin/categories/(:any)/removeUpload'] = 'CategoriesController/removeUpload/$1';
 
 //subcategories
-$route['categories/(:any)/subcategories'] = 'SubcategoriesController/subcategories/$1';
-$route['categories/(:any)/subcategories/create'] = 'SubcategoriesController/create/$1';
-$route['categories/(:any)/subcategories/add'] = 'SubcategoriesController/add/$1';
-$route['categories/(:any)/subcategories/list'] = 'SubcategoriesController/listSubcategories/$1';
-$route['subcategories/(:any)/edit'] = 'SubcategoriesController/edit/$1';
-$route['subcategories/(:any)/update'] = 'SubcategoriesController/update/$1';
-$route['subcategories/(:any)/removeUpload'] = 'SubcategoriesController/removeUpload/$1';
+$route['admin/categories/(:any)/subcategories'] = 'SubcategoriesController/subcategories/$1';
+$route['admin/categories/(:any)/subcategories/create'] = 'SubcategoriesController/create/$1';
+$route['admin/categories/(:any)/subcategories/add'] = 'SubcategoriesController/add/$1';
+$route['admin/categories/(:any)/subcategories/list'] = 'SubcategoriesController/listSubcategories/$1';
+$route['admin/subcategories/(:any)/edit'] = 'SubcategoriesController/edit/$1';
+$route['admin/subcategories/(:any)/update'] = 'SubcategoriesController/update/$1';
+$route['admin/subcategories/(:any)/removeUpload'] = 'SubcategoriesController/removeUpload/$1';
 
 //products routes
-$route['products'] = 'ProductsController/products';
-$route['products-table'] = 'ProductsController/productsTable';
-$route['products/create'] = 'ProductsController/create';
-$route['products/(:any)/add'] = 'ProductsController/add/$1';
-$route['products/(:any)/delete'] = 'ProductsController/delete/$1';
-$route['products/(:any)/edit'] = 'ProductsController/edit/$1';
-$route['products/(:any)/update'] = 'ProductsController/update/$1';
-$route['products/(:any)/uploads'] = 'ProductsController/uploads/$1';
-$route['products/(:any)/removeUpload'] = 'ProductsController/removeUpload/$1';
-$route['products/(:any)/delete-covers'] = 'ProductsController/deleteCovers/$1';
+$route['admin/products'] = 'ProductsController/products';
+$route['admin/products-table'] = 'ProductsController/productsTable';
+$route['admin/products/create'] = 'ProductsController/create';
+$route['admin/products/(:any)/add'] = 'ProductsController/add/$1';
+$route['admin/products/(:any)/delete'] = 'ProductsController/delete/$1';
+$route['admin/products/(:any)/edit'] = 'ProductsController/edit/$1';
+$route['admin/products/(:any)/update'] = 'ProductsController/update/$1';
+$route['admin/products/(:any)/uploads'] = 'ProductsController/uploads/$1';
+$route['admin/products/(:any)/removeUpload'] = 'ProductsController/removeUpload/$1';
+$route['admin/products/(:any)/delete-covers'] = 'ProductsController/deleteCovers/$1';
 //products grids
-$route['products-grid'] = 'ProductsController/productsGrid';
-$route['products-grid-list'] = 'ProductsController/productsGridList';
+$route['admin/products-grid'] = 'ProductsController/productsGrid';
+$route['admin/products-grid-list'] = 'ProductsController/productsGridList';
 
 //roles routes 
-$route['roles'] = 'RolesController/roles';
-$route['roles-table'] = 'RolesController/rolesTable';
-$route['roles/(:any)/edit'] = 'RolesController/edit/$1';
-$route['roles/(:any)/update'] = 'RolesController/update/$1';
+$route['admin/roles'] = 'RolesController/roles';
+$route['admin/roles-table'] = 'RolesController/rolesTable';
+$route['admin/roles/(:any)/edit'] = 'RolesController/edit/$1';
+$route['admin/roles/(:any)/update'] = 'RolesController/update/$1';
 
 //home routes
-$route['dashboard'] = "HomeController/dashboard";
+$route['admin/dashboard'] = "HomeController/dashboard";

@@ -9,6 +9,12 @@ class AuthController extends CI_Controller
         parent::__construct();
     }
 
+    public function login()
+    {
+        $data["view"] = "auth/login";
+        $this->load->view("template/auth/app", $data);
+    }
+
     public function logout()
     {
         echo "Logout OK";

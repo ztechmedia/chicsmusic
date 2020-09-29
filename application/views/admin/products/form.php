@@ -28,7 +28,7 @@
     <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
         <select class="validate[required] form-control nested-select" name="category_id" id="category_id"
             data-target="#subcategory_id" data-empty="Pilih Subkategori"
-            data-url="<?=base_url('categories/[id]/subcategories/list')?>">
+            data-url="<?=base_url('admin/categories/[id]/subcategories/list')?>">
             <option value="">Pilih Kategori</option>
             <?php foreach ($categories as $category) {
                 $selected = null;

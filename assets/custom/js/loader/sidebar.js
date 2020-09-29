@@ -67,18 +67,20 @@ const setSidebarOnLoad = () => {
     setMaximize();
   } else if (sidebar === "maximize") {
     setMinimze();
+  } else {
+    localStorage.setItem("sidebar", "minimize");
   }
 };
 
 const setSidebar = () => {
   const sidebar = localStorage.getItem("sidebar");
-  if (!sidebar) {
-    localStorage.setItem("sidebar", "minimize");
-    setMinimze();
-  } else if (sidebar === "minimize") {
+  if (sidebar === "minimize") {
     localStorage.setItem("sidebar", "maximize");
     setMaximize();
   } else if (sidebar === "maximize") {
+    localStorage.setItem("sidebar", "minimize");
+    setMinimze();
+  } else {
     localStorage.setItem("sidebar", "minimize");
     setMinimze();
   }

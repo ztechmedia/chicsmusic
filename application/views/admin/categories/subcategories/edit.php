@@ -1,7 +1,7 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
-    <li><a class="link-to" data-to="<?=base_url("categories")?>">Kategori</a></li>
-    <li><a class="link-to" data-to="<?=base_url("categories/$categoryId/subcategories")?>">Subkategori</a></li>
+    <li><a class="link-to" data-to="<?=base_url("admin/categories")?>">Kategori</a></li>
+    <li><a class="link-to" data-to="<?=base_url("admin/categories/$categoryId/subcategories")?>">Subkategori</a></li>
     <li class="active">Edit Data</li>
 </ul>
 <!-- END BREADCRUMB -->
@@ -10,7 +10,7 @@
 <div class="content-frame">
     <div class="content-frame-top">
         <div class="page-title">
-            <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("categories/$categoryId/subcategories")?>"></span>
+            <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("admin/categories/$categoryId/subcategories")?>"></span>
                 Update Subkategori
             </h2>
         </div>
@@ -51,8 +51,8 @@
         <div class="row">
             <div class="col-md-12">
                 <form id="validate" role="form" class="form-horizontal action-submit-update"
-                    data-action="<?=base_url("subcategories/$subcategory->id/update")?>"
-                    data-redirect="<?=base_url("categories/$categoryId/subcategories")?>" data-target=".content" action="javascript:(0)">
+                    data-action="<?=base_url("admin/subcategories/$subcategory->id/update")?>"
+                    data-redirect="<?=base_url("admin/categories/$categoryId/subcategories")?>" data-target=".content" action="javascript:(0)">
                     <?php $data['subcategory'] = $subcategory; $this->load->view('admin/categories/subcategories/form', $data)?>
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
@@ -71,7 +71,7 @@
 <script>
     $(".gallery-item-remove").on("click", function () {
         const element = $(this);
-        deletePhoto(null, "<?=base_url("subcategories/$subcategory->id/removeUpload")?>");
+        deletePhoto(null, "<?=base_url("admin/subcategories/$subcategory->id/removeUpload")?>");
         $(this)
             .parents(".subcategories-icon")
             .fadeOut(400, function () {

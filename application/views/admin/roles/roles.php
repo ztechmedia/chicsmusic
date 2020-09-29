@@ -37,7 +37,7 @@
 
 <script>
     $(document).ready(() => {
-        let url = "<?=base_url('roles-table')?>";
+        let url = "<?=base_url('admin/roles-table')?>";
         let csrfTokenName = "<?=$this->security->get_csrf_token_name()?>";
         let getCsrfHash = "<?=$this->security->get_csrf_hash()?>";
 

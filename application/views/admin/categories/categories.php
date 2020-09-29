@@ -20,7 +20,7 @@
 
                 <div class="panel-body">
                     <div class="btnContainer">
-                        <button class="btn btn-default btn-rounded link-to" data-to="<?=base_url("categories/create")?>">
+                        <button class="btn btn-default btn-rounded link-to" data-to="<?=base_url("admin/categories/create")?>">
                             <i class="fa fa-filter"></i> Tambah Kategori
                         </button>
                     </div>
@@ -48,7 +48,7 @@
 
 <script>
     $(document).ready(() => {
-        let url = "<?=base_url('categories-table')?>";
+        let url = "<?=base_url('admin/categories-table')?>";
         let csrfTokenName = "<?=$this->security->get_csrf_token_name()?>";
         let getCsrfHash = "<?=$this->security->get_csrf_hash()?>";
 

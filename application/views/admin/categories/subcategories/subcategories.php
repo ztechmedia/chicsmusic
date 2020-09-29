@@ -1,12 +1,12 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
-    <li><a class="link-to" data-to="<?=base_url("categories")?>">Kategori</a></li>
+    <li><a class="link-to" data-to="<?=base_url("admin/categories")?>">Kategori</a></li>
     <li class="active">Subkategori</li>
 </ul>
 <!-- END BREADCRUMB -->
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("categories")?>"></span> Subkategori</h2>
+    <h2><span class="fa fa-arrow-circle-o-left link-to" data-to="<?=base_url("admin/categories")?>"></span> Subkategori</h2>
 </div>
 
 <!-- PAGE CONTENT WRAPPER -->
@@ -61,7 +61,7 @@
                     <ul class="panel-controls">
                         <li>
                             <button class="btn btn-default btn-rounded link-to"
-                                data-to="<?=base_url("categories/$category->id/subcategories/create")?>">
+                                data-to="<?=base_url("admin/categories/$category->id/subcategories/create")?>">
                                 <i class="fa fa-plus"></i> Tambah Subkategori
                             </button>
                         </li>
@@ -71,7 +71,7 @@
 
                     <div class="list-group list-group-contacts border-bottom push-down-10">
                         <?php foreach ($subcategories as $subcategory) { ?>
-                        <a class="list-group-item link-to" data-to="<?=base_url("subcategories/$subcategory->id/edit")?>">
+                        <a class="list-group-item link-to" data-to="<?=base_url("admin/subcategories/$subcategory->id/edit")?>">
                             <img 
                                 height="40px"
                                 src="<?= $subcategory->icon ? 

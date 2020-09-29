@@ -12,16 +12,29 @@
             <h2><span class="fa fa-shopping-cart"></span> Produk</h2>
         </div>
         <div class="pull-right">
-            <button class="btn btn-default link-to-with-prev" data-to="<?=base_url("products/create")?>">
+            <button class="btn btn-default link-to-with-prev" data-to="<?=base_url("admin/products/create")?>">
                 <i class="fa fa-shopping-cart"></i> Tambah Produk
             </button>
-            <button class="btn btn-default link-to" data-to="<?=base_url("products")?>"><span class="fa fa-list"></span>
+            <button class="btn btn-default link-to" data-to="<?=base_url("admin/products")?>"><span class="fa fa-list"></span>
                 Tampilan Tabel</button>
+            <button class="btn btn-default content-frame-right-toggle pull-right"><span class="fa fa-bars"></span></button>
         </div>
     </div>
 
     <div class="content-frame-right" style="height: 100vh">
         <form class="form-horizontal" id="form-search" action="javascript:(0)">
+            <label>Data Perhalaman:</label>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <select class="form-control select" id="limit">
+                        <option value="8">8 Produk</option>
+                        <option value="16">16 Produk</option>
+                        <option value="24">24 Produk</option>
+                        <option value="58">58 Produk</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-md-12">
                     <div class="input-group">
@@ -31,18 +44,36 @@
                 </div>
             </div>
 
-            <label>Data Perhalaman:</label>
             <div class="form-group">
-                
                 <div class="col-md-12">
-                    <select class="form-control select" id="limit">
-                        <option value="3">3 Data Perhalaman</option>
-                        <option value="6">6 Data Perhalaman</option>
-                        <option value="12">12 Data Perhalaman</option>
-                        <option value="24">24 Data Perhalaman</option>
+                    <div class="input-group">
+                        <span class="input-group-addon">Harga Minimal:</span>
+                        <input type="number" class="form-control" id="min" placeholder="Rp. 0" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon">Harga Maximal:</span>
+                        <input type="number" class="form-control" id="max" placeholder="Rp. 0" />
+                    </div>
+                </div>
+            </div>
+
+            <label>Urutkan:</label>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <select class="form-control select" id="sort">
+                        <option value="min-price">Harga Termurah</option>
+                        <option value="max-price">Harga Termahal</option>
+                        <option value="latest">Produk Terbaru</option>
+                        <option value="oldest">Produk Terlama</option>
                     </select>
                 </div>
             </div>
+
             <button type="submit" class="btn btn-primary btn-rounded">Filter</button>
         </form>
     </div>
@@ -55,31 +86,46 @@
 
 <script>
     function firstLoad() {
+        setContentLoader(".product-list");
         const limit = $("#limit").val();
         const search = $("#search").val();
         const page = 1;
-        let url = `<?=base_url()?>products-grid-list?limit=${limit}&page=${page}&search=${search}`;
+        const max = $("#max").val();
+        const min = $("#min").val();
+        const sort = $("#sort").val();
+        let url = `<?=base_url()?>admin/products-grid-list?limit=${limit}&page=${page}&search=${search}&max=${max}&min=${min}&sort=${sort}`;
         loadContent(url, ".product-list");
     }
 
     firstLoad();
+
     function changePage(page) {
+        setContentLoader(".product-list");
         const limit = $("#limit").val();
         const search = $("#search").val();
-        let url = `<?=base_url()?>products-grid-list?limit=${limit}&page=${page}&search=${search}`;
+        const max = $("#max").val();
+        const min = $("#min").val();
+        const sort = $("#sort").val();
+        let url = `<?=base_url()?>admin/products-grid-list?limit=${limit}&page=${page}&search=${search}&max=${max}&min=${min}&sort=${sort}`;
         if (search) url = `${url}&search=${search}`;
         loadContent(url, ".product-list");
     }
 
     $("#form-search").submit(function() {
-        console.log("form-search");
         firstLoad();
+    });
+
+    $(".content-frame-right-toggle").on("click", function () {
+        $(".content-frame-right").is(":visible")
+        ? $(".content-frame-right").hide()
+        : $(".content-frame-right").show();
+        page_content_onresize();
     });
 
 </script>
 <style>
     .img {
         width: 100%;
-        height: 180px;
+        height: 150px;
     }
 </style>

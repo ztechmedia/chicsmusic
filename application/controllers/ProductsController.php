@@ -233,8 +233,11 @@ class ProductsController extends CI_Controller
         $limit = $_GET['limit'];
         $page = $_GET['page'];
         $search = $_GET['search'];
+        $max = $_GET['max'];
+        $min = $_GET['min'];
+        $sort = $_GET['sort'];
 
-        $totalRecords = $this->Product->getTotal($search);
+        $totalRecords = $this->Product->getTotal($search, $max, $min, $sort);
         $startIndex = ($page - 1) * $limit;
         $endIndex = $page * $limit;
         $pagination = [];
@@ -253,10 +256,14 @@ class ProductsController extends CI_Controller
                 ];
             }
 
-            $data['products'] = $this->Product->getLimit($limit, $startIndex, $search);
+            $data['products'] = $this->Product->getLimit($limit, $startIndex, $search, $max, $min, $sort);
             $data['total'] = $totalRecords;
             $data['pagination'] = $pagination;
             $data['page'] = $page;
+            $data["totalRecords"] = $totalRecords;
+            $data["totalPage"] = ceil($totalRecords / $limit);
+            $data['start'] = $startIndex + 1;
+            $data['end'] = $startIndex + count($data['products']);
 
             $this->load->view("admin/products/grid/product_list", $data);
         }else{

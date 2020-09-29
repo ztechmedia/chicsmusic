@@ -1,6 +1,6 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
-    <li><a class="link-to" data-to="<?=base_url("products")?>">Produk</a></li>
+    <li><a class="link-to" data-to="<?=base_url("admin/products")?>">Produk</a></li>
     <li class="active"><?= $product->name === null ? "Tambah Data" : "Edit Data"?></li>
 </ul>
 <!-- END BREADCRUMB -->
@@ -53,8 +53,8 @@
         <div class="row">
             <div class="col-md-12">
                 <form id="validate" role="form" class="form-horizontal action-submit-update"
-                    data-action="<?=base_url("products/$product->id/update")?>"
-                    data-redirect="<?=base_url("products")?>" data-target=".content" action="javascript:(0)">
+                    data-action="<?=base_url("admin/products/$product->id/update")?>"
+                    data-redirect="<?=base_url("admin/products")?>" data-target=".content" action="javascript:(0)">
                     <?php $data['product'] = $product; $this->load->view('admin/products/form', $data)?>
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
@@ -74,7 +74,7 @@
 
     const myDropzone = new Dropzone("#dropzone-products", {
         autoProcessQueue: true,
-        url: "<?=base_url("products/$product->id/uploads")?>",
+        url: "<?=base_url("admin/products/$product->id/uploads")?>",
         maxFilesize: 5,
         acceptedFiles: "image/*",
         dictInvalidFileType: "Type file ini tidak dizinkan",
@@ -88,14 +88,14 @@
     });
 
     myDropzone.on("removedfile", function (a) {
-        eletePhoto(a.id, "<?=base_url("products/$product->id/removeUpload")?>");
+        eletePhoto(a.id, "<?=base_url("admin/products/$product->id/removeUpload")?>");
     });
 
     $(".delete-covers").on("click", () => {
         const data = {
             cover: cover
         }
-        const url = "<?=base_url("products/$product->id/delete-covers")?>";
+        const url = "<?=base_url("admin/products/$product->id/delete-covers")?>";
         if(cover.length === 0) return swal("Oopss..!", "Pilih minimal 1 cover untuk melanjutkan", "error");
              
         swal(
@@ -114,7 +114,7 @@
                     if (!$.isEmptyObject(response.errors)) {
                         swal("Oops..!", response.errors, "error");
                     } else {
-                        loadContent("<?= base_url("products/$product->id/edit")?>", ".content");
+                        loadContent("<?= base_url("admin/products/$product->id/edit")?>", ".content");
                         swal("Sukses", response.message, "success");
                     }
                 } else {
@@ -128,7 +128,7 @@
     $(".gallery-item-remove").on("click", function () {
         const element = $(this);
         const photoid = element.data("photoid");
-        deletePhoto(photoid, "<?=base_url("products/$product->id/removeUpload")?>");
+        deletePhoto(photoid, "<?=base_url("admin/products/$product->id/removeUpload")?>");
         $(this)
             .parents(".gallery-item")
             .fadeOut(400, function () {
@@ -183,7 +183,7 @@
     if(name) {
         checkNestedSelect(
         "#subcategory_id",
-        "<?=base_url("categories/$product->category_id/subcategories/list")?>",
+        "<?=base_url("admin/categories/$product->category_id/subcategories/list")?>",
         "Pilih Subkategori",
         "<?=$product->subcategory_id?>");
     }

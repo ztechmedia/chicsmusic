@@ -1,6 +1,6 @@
 <!-- START BREADCRUMB -->
 <ul class="breadcrumb">
-    <li><a class="link-to" data-to="<?=base_url("products")?>">Produk</a></li>
+    <li><a class="link-to" data-to="<?=base_url("admin/products")?>">Produk</a></li>
     <li class="active">Tambah Data</li>
 </ul>
 <!-- END BREADCRUMB -->
@@ -25,7 +25,7 @@
                 </div>
 
                 <form id="validate" role="form" class="form-horizontal action-submit-create"
-                    data-action="<?=base_url("products/$id/add")?>" action="javascript:(0)">
+                    data-action="<?=base_url("admin/products/$id/add")?>" action="javascript:(0)">
                     <div class="panel-body">
                         <?php $data['product'] = null; $this->load->view('admin/products/form', $data)?>
                     </div>
@@ -44,7 +44,7 @@
 <script>    
     const myDropzone = new Dropzone("#dropzone-products", {
         autoProcessQueue: true,
-        url: "<?=base_url("products/$id/uploads")?>",
+        url: "<?=base_url("admin/products/$id/uploads")?>",
         maxFilesize: 5,
         acceptedFiles: "image/*",
         dictInvalidFileType: "Type file ini tidak dizinkan",
@@ -63,7 +63,7 @@
             data: {
                 id: a.id
             },
-            url: "<?=base_url("products/$id/removeUpload")?>",
+            url: "<?=base_url("admin/products/$id/removeUpload")?>",
             cache: false,
             dataType: 'json',
             success: function () {

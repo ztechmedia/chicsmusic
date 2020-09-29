@@ -1,33 +1,16 @@
-$(".action-logout").on("click", function (e) {
+const errorHandler = (errors) => {
+  $.each(errors, function (key, value) {
+    $(`#${key}`).addClass("error");
+    $(`#${key}-error`).html(value);
+  });
+  actionButton(".save", "Simpan");
+};
+
+$(document.body).on("submit", ".auth-login", function (e) {
+  e.preventDefault();
   const element = $(this);
   const url = element.data("url");
-  const redirect = element.data("redirect");
+  const data = new FormData($(this));
 
-  swal(
-    {
-      title: "Logout",
-      text: "Yakin ingin keluar aplikasi ?",
-      type: "warning",
-      showCancelButton: true,
-      confirmButtonClass: "btn-danger",
-      confirmButtonText: "Ya, Keluar!",
-      closeOnConfirm: false,
-    },
-    function () {
-      $.ajax({
-        url: url,
-        success: function () {
-          swal.close();
-          logoutHandler();
-          window.location = redirect;
-        },
-      });
-    }
-  );
+  reqFormData(url, "POST", data, (err, response) => {});
 });
-
-const logoutHandler = () => {
-  localStorage.removeItem("menu");
-  localStorage.removeItem("submenu");
-  localStorage.removeItem("currentUrl");
-};
