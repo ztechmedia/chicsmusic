@@ -9,7 +9,7 @@
 <div class="form-group">
     <label class="col-md-3 control-label">Nama Produk</label>
     <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
-        <input name="name" id="name" type="text" class="validate[required,maxSize[50]] form-control"
+        <input name="name" id="name" type="text" class="validate[required,maxSize[120]] form-control"
             value="<?=$product ? $product->name : ""?>" />
         <span class="help-block form-error" id="name-error"></span>
     </div>
@@ -20,6 +20,23 @@
     <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
         <input name="price" id="price" type="text" class="validate[required,maxSize[20]] form-control"
             value="<?=$product ? $product->price : "Rp. 0"?>" />
+    </div>
+</div>
+
+<?php if(!$product || !$product->name) { ?>
+<div class="form-group">
+    <label class="col-md-3 control-label">Stock</label>
+    <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
+        <input name="stock" id="stock" type="number" class="validate[required,maxSize[20]] form-control" />
+    </div>
+</div>
+<?php } ?>
+
+<div class="form-group">
+    <label class="col-md-3 control-label">Merek</label>
+    <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
+        <input name="brand" id="brand" type="text" class="validate[required,maxSize[20]] form-control"
+            value="<?=$product ? $product->brand : ""?>" />
     </div>
 </div>
 

@@ -6,7 +6,14 @@ $route['404_override'] = 'AppController/pageNotFound';
 $route['translate_uri_dashes'] = false;
 
 //auth routes
-$route['admin/logout'] = 'AuthController/logout';
+$route['login'] = 'AuthController/login';
+$route['auth/login'] = 'AuthController/authLogin';
+$route['register'] = 'AuthController/register';
+$route['auth/register'] = 'AuthController/authRegister';
+$route['logout'] = 'AppController/logout';
+
+//web
+$route["home"] = 'AppController/home';
 
 //admin routes
 $route['admin'] = 'AppController';

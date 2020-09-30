@@ -6,6 +6,9 @@ class AppController extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        $this->load->library("Auth", "auth");
+        $this->load->helper("response");
+        $this->auth->private();
     }
 
 	public function index()
@@ -16,5 +19,19 @@ class AppController extends CI_Controller {
     public function pageNotFound()
     {
         $this->load->view("errors/custom/page_not_found");
+    }
+
+    public function home()
+    {
+        $this->load->view("template/web/app");
+    }
+
+    public function logout()
+    {
+        $this->session->unset_userdata(SESSION_KEY);
+        appJson([
+            "success" => true,
+            "redirect" => base_url("login"),
+        ]);
     }
 }

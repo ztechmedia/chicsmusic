@@ -13,7 +13,7 @@ class SubcategoriesController extends CI_Controller
         $this->load->helper('response');
         $this->categories = 'categories';
         $this->subcategories = 'subcategories';
-        $this->products = "products";
+        $this->products = "private";
     }
 
     //@desc     show subategories by categoryId

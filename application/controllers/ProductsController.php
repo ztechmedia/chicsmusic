@@ -11,13 +11,14 @@ class ProductsController extends CI_Controller
         $this->load->model('ProductModel', 'Product');
         $this->load->library('encryption');
         $this->load->library('Datatables', 'datatables');
-        $this->load->library("pagination");
+        $this->load->library("Auth", "auth");
         $this->load->helper("utility");
         $this->load->helper('response');
         $this->products = 'products';
         $this->categories = 'categories';
         $this->subcategories = 'subcategories';
         $this->user_id = "HjffMkdrUiacMXAM3VVX";
+        $this->auth->private();
     }
 
     //@desc     show products table
@@ -109,7 +110,7 @@ class ProductsController extends CI_Controller
     public function update($id)
     {
         $_POST['price'] = cleanRp($_POST['price']);
-        $product = $this->Product->update($id, $_POST);
+        $product = $this->Product->update($id, $_POST, null, ['stock']);
 
         if ($product) {
             appJson(["message" => "Berhasil mengubah data Produk"]);
@@ -183,15 +184,30 @@ class ProductsController extends CI_Controller
             return;
         }
 
-        $cover = unserialize($product->cover);
-        $filteredImage = array_delete_by_value($cover, $photoId);
+        $covers = unserialize($product->cover);
+        $selectCover = "";
+
+        foreach ($covers as $cover) {
+            if(strpos($cover, $photoId) !== false) {
+                $selectCover = $cover;
+            }
+        }
+
+        $filteredImage = array_delete_by_value($covers, $selectCover);
         $data['cover'] = serialize($filteredImage);
-        $file = "./assets/images/products/$photoId";
+
+        $file = "./assets/images/products/$selectCover";
         if (file_exists($file)) {
             unlink($file);
-            $this->BM->updateById($this->products, $id, $data);
-            appJson(["message" => "Hapus foto berhasil"]);
         }
+
+        if(count($filteredImage) === 0 && !$product->name) {
+            $this->BM->deleteById($this->products, $id);
+        }else{
+            $this->BM->updateById($this->products, $id, $data);
+        }
+        
+        appJson(["message" => "Hapus foto berhasil"]);
     }
 
     //@desc     delete multiple products cover logic

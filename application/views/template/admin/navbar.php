@@ -7,7 +7,7 @@
     <!-- END TOGGLE NAVIGATION -->
 
     <li class="xn-icon-button pull-right">
-        <a class="action-logout" data-url="<?=base_url("admin/logout")?>" data-redirect="<?=base_url("admin/login")?>">
+        <a class="action-logout" data-url="<?=base_url("logout")?>" data-redirect="<?=base_url("login")?>">
         <span class="fa fa-sign-out"></span></a>
     </li>
 </ul>

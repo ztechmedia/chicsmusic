@@ -10,7 +10,7 @@
             <h2><span class="fa fa-shopping-cart"></span> Produk</h2>
         </div>                                      
         <div class="pull-right">                            
-            <button class="btn btn-default link-to" data-to="<?=base_url("products-grid")?>"><span class="fa fa-th"></span> Tampilan Kolom</button>
+            <button class="btn btn-default link-to" data-to="<?=base_url("admin/products-grid")?>"><span class="fa fa-th"></span> Tampilan Kolom</button>
         </div>                         
     </div>
 </div>

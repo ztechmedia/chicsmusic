@@ -3,12 +3,14 @@
 function json($data)
 {
     echo json_encode($data);
+    die();
 }
 
 function appJson($data)
 {
     header('Content-Type:application/json');
     echo json_encode($data);
+    die();
 }
 
 function fileGetContent()

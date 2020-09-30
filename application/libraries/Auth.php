@@ -7,15 +7,20 @@ class Auth {
     protected $ci;
 
     public function __construct() {
-        parent::__construct();
         $this->ci = &get_instance();
     }
 
-    public function isLogged()
+    public function private()
     {
-        $user = $this->ci->session->userdata("user");
-        if(!isset($user)) {
-            redirect(base_url("login"));
+        if(!$this->ci->session->userdata(SESSION_KEY)) {
+            redirect("login");
+        }
+    }
+
+    public function public()
+    {
+        if($this->ci->session->userdata(SESSION_KEY)) {
+            redirect("admin");
         }
     }
 }

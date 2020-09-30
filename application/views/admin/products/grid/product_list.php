@@ -36,14 +36,21 @@
                         <span class="fa fa-pencil"></span>
                     </a>
                 </div>
-                <div class="panel-body" style="height: 79px">
+                <div class="panel-body" style="height: 99px">
                     <h5><?=max_length($product->name, 30)?></h5>
                     <h6><?=toRp($product->price)?></h6>
                 </div>
-                <div class="panel-footer" style="height: 45px;text-align:center;">
+                <div class="panel-footer">
                     <span class="fa fa-sign-out"></span> 114
                     |
-                    <span class="fa fa-inbox"></span> 36
+                    <span class="fa fa-inbox"></span> <?=$product->stock?>
+                    |
+                    <span class="fa fa-trash-o action-delete-grid" 
+                        data-url="<?=base_url("admin/products/$product->id/delete")?>" 
+                        data-type="GET"
+                        data-message="<?="Anda yakin ingin menghapus $product->name dari data Produk ?"?>"
+                        data-page="<?=$page?>" 
+                        style="color: red; cursor: pointer;"></span>
                 </div>
             </div>
         </div>

@@ -66,11 +66,11 @@
             url: "<?=base_url("admin/products/$id/removeUpload")?>",
             cache: false,
             dataType: 'json',
-            success: function () {
-                console.log("Foto terhapus");
+            success: function (response) {
+                console.log(response.message);
             },
-            error: function () {
-                console.log("Error");
+            error: function (err) {
+                console.log("Error: ", err.message);
             }
         });
     });

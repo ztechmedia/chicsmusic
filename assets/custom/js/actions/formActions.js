@@ -1,7 +1,6 @@
 $(".action-logout").on("click", function (e) {
   const element = $(this);
   const url = element.data("url");
-  const redirect = element.data("redirect");
 
   swal(
     {
@@ -14,13 +13,14 @@ $(".action-logout").on("click", function (e) {
       closeOnConfirm: false,
     },
     function () {
-      $.ajax({
-        url: url,
-        success: function () {
+      reqJson(url, "POST", {}, (err, response) => {
+        if (response.success) {
           swal.close();
           logoutHandler();
-          window.location = redirect;
-        },
+          setTimeout(() => {
+            window.location = response.redirect;
+          }, 500);
+        }
       });
     }
   );
@@ -29,7 +29,6 @@ $(".action-logout").on("click", function (e) {
 $(document.body).on("click", ".action-delete", function (e) {
   const element = $(this);
   const url = element.data("url");
-  const type = element.data("type");
   const message = element.data("message");
 
   swal(
@@ -43,7 +42,7 @@ $(document.body).on("click", ".action-delete", function (e) {
       closeOnConfirm: false,
     },
     function () {
-      reqJson(url, type, {}, (err, response) => {
+      reqJson(url, "GET", {}, (err, response) => {
         if (response) {
           if (!$.isEmptyObject(response.errors)) {
             swal("Oops..!", response.errors, "error");
@@ -91,6 +90,8 @@ const logoutHandler = () => {
   localStorage.removeItem("menu");
   localStorage.removeItem("submenu");
   localStorage.removeItem("currentUrl");
+  localStorage.removeItem("prevUrl");
+  localStorage.removeItem("sidebar");
 };
 
 const submitHandler = (className) => {

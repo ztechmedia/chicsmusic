@@ -8,12 +8,13 @@ class UsersController extends CI_Controller
         parent::__construct();
         $this->load->model("BaseModel", "BM");
         $this->load->model('UserModel', 'User');
-        $this->load->library('encryption');
         $this->load->library('Datatables', 'datatables');
+        $this->load->library("Auth", "auth");
         $this->load->helper("utility");
         $this->load->helper('response');
         $this->users = 'users';
         $this->roles = 'roles';
+        $this->auth->private();
     }
 
     //@desc     show users table
@@ -61,7 +62,7 @@ class UsersController extends CI_Controller
     //@route    POST /users/add
     public function add()
     {
-        $_POST['password'] = $this->encryption->encrypt($_POST['password']);
+        $_POST['password'] = password_hash($_POST['password'], PASSWORD_BCRYPT);
         $user = $this->User->create($_POST);
         if ($user) {
             appJson([

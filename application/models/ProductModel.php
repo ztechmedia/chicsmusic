@@ -12,12 +12,13 @@ class ProductModel extends CI_Model
         $this->load->helper('utility');
         //local variabel
         $this->table = 'products';
-        $this->validate = ['name', 'price', 'description', 'category_id', 'subcategory_id'];
+        $this->validate = ['name','brand', 'price', 'stock', 'description', 'category_id', 'subcategory_id'];
     }
 
-    public function update($id, $data, $validate = [])
+    public function update($id, $data, $validate = [], $bypass = [])
     {
-        $validator = $this->validator($validate ? $validate : $this->validate, $data, $id);
+        $validate = $validate ? $validate : $this->validate;
+        $validator = $this->validator($validate, $bypass, $data, $id);
         if ($validator) {
             return $this->BM->updateById($this->table, $id, $data);
         } else {
@@ -101,7 +102,7 @@ class ProductModel extends CI_Model
         return $this->db->get($this->products)->num_rows();
     }
 
-    public function validator($validate, $data, $id = null)
+    public function validator($validate, $bypass, $data, $id = null)
     {
         $isUnique = $id ? "products.name.$id" : "products.name";
 
@@ -115,12 +116,28 @@ class ProductModel extends CI_Model
                     'isUnique' => 'Nama produk sudah digunakan',
                 ],
             ],
+            "brand" => [
+                'field' => 'brand',
+                'label' => 'Brand',
+                'rules' => "required",
+                'errors' => [
+                    'required' => '* Merek tidak boleh kosong',
+                ],
+            ],
             "price" => [
                 'field' => 'price',
                 'label' => 'Price',
                 'rules' => "required",
                 'errors' => [
                     'required' => '* Harga tidak boleh kosong',
+                ],
+            ],
+            "stock" => [
+                'field' => 'stock',
+                'label' => 'Product Stock',
+                'rules' => "required",
+                'errors' => [
+                    'required' => '* Stock produk tidak boleh kosong',
                 ],
             ],
             "description" => [
@@ -152,7 +169,9 @@ class ProductModel extends CI_Model
         $filterRules = [];
 
         foreach ($validate as $v) {
-            $filterRules[] = $rules[$v];
+            if(!in_array($v, $bypass)) {
+                $filterRules[] = $rules[$v];
+            }
         }
 
         $this->form_validation->set_rules($filterRules);

@@ -88,7 +88,7 @@
     });
 
     myDropzone.on("removedfile", function (a) {
-        eletePhoto(a.id, "<?=base_url("admin/products/$product->id/removeUpload")?>");
+        deletePhoto(a.id, "<?=base_url("admin/products/$product->id/removeUpload")?>");
     });
 
     $(".delete-covers").on("click", () => {

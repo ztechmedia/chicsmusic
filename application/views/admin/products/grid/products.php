@@ -122,6 +122,39 @@
         page_content_onresize();
     });
 
+    $(document.body).on("click", ".action-delete-grid", function (e) {
+    const element = $(this);
+    const url = element.data("url");
+    const message = element.data("message");
+    const page = element.data("page");
+
+    swal(
+        { 
+        title: "Hapus",
+        text: message,
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Ya, Hapus!",
+        closeOnConfirm: false,
+        },
+        function () {
+        reqJson(url, "GET", {}, (err, response) => {
+            if (response) {
+            if (!$.isEmptyObject(response.errors)) {
+                swal("Oops..!", response.errors, "error");
+            } else {
+                swal.close();
+                changePage(page);
+            }
+            } else {
+            console.log("Error: ", err);
+            }
+        });
+        }
+    );
+    });
+
 </script>
 <style>
     .img {
