@@ -17,7 +17,7 @@ class ProductsController extends CI_Controller
         $this->products = 'products';
         $this->categories = 'categories';
         $this->subcategories = 'subcategories';
-        $this->user_id = "HjffMkdrUiacMXAM3VVX";
+        $this->user_id = $_SESSION[SESSION_KEY]["id"];
         $this->auth->private();
     }
 
