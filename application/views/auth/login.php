@@ -4,7 +4,7 @@
         <div class="login-logo" style="height: 100px"></div>
         <div class="login-body">
             <div class="login-title"><strong>Log In</strong></div>
-            <form action="javascript:(0)" class="form-horizontal auth-login"
+            <form action="javascript:(0)" class="form-horizontal auth-action"
                 data-url="<?=base_url("auth/login")?>"
                 data-btnclass=".login-btn"
                 data-btnname="Login">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-6">
-                        <a href="#" class="btn btn-link btn-block">Lupa Password ?</a>
+                        <a href="<?=base_url("forgot-password")?>" class="btn btn-link btn-block">Lupa Password ?</a>
                     </div>
                     <div class="col-md-6">
                         <button class="btn btn-info btn-block login-btn" type="submit">Login</button>

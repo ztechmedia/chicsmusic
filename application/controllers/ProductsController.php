@@ -9,15 +9,12 @@ class ProductsController extends CI_Controller
         parent::__construct();
         $this->load->model("BaseModel", "BM");
         $this->load->model('ProductModel', 'Product');
-        $this->load->library('encryption');
         $this->load->library('Datatables', 'datatables');
-        $this->load->library("Auth", "auth");
         $this->load->helper("utility");
-        $this->load->helper('response');
         $this->products = 'products';
         $this->categories = 'categories';
         $this->subcategories = 'subcategories';
-        $this->user_id = $_SESSION[SESSION_KEY]["id"];
+        $this->user_id = $this->auth->userId;
         $this->auth->private();
     }
 

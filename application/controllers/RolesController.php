@@ -9,9 +9,7 @@ class RolesController extends CI_Controller
         $this->load->model("BaseModel", "BM");
         $this->load->model("RoleModel", "Role");
         $this->load->library('Datatables', 'datatables');
-        $this->load->library("Auth", "auth");
         $this->load->helper("utility");
-        $this->load->helper('response');
         $this->roles = 'roles';
         $this->auth->private();
     }

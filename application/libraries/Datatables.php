@@ -7,7 +7,7 @@ class Datatables
 {
     protected $ci;
     
-    public function __construct($params = null)
+    public function __construct()
     {
         $this->ci = &get_instance();
     }

@@ -4,7 +4,7 @@
         <div class="login-logo" style="height: 100px"></div>
         <div class="login-body">
             <div class="login-title"><strong>Registrasi Member</strong></div>
-            <form action="javascript:(0)" class="form-horizontal auth-login"
+            <form action="javascript:(0)" class="form-horizontal auth-action"
                 data-url="<?=base_url("auth/register")?>"
                 data-btnclass=".register-btn"
                 data-btnname="Kirim">

@@ -7,9 +7,11 @@ $route['translate_uri_dashes'] = false;
 
 //auth routes
 $route['login'] = 'AuthController/login';
-$route['auth/login'] = 'AuthController/authLogin';
 $route['register'] = 'AuthController/register';
+$route['forgot-password'] = 'AuthController/forgotPassword';
+$route['auth/login'] = 'AuthController/authLogin';
 $route['auth/register'] = 'AuthController/authRegister';
+$route['auth/send-link-forgot'] = 'AuthController/sendLinkForgot';
 $route['logout'] = 'AppController/logout';
 
 //web

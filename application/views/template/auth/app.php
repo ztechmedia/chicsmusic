@@ -12,11 +12,13 @@
         <!-- CSS INCLUDE -->        
         <link rel="stylesheet" type="text/css" id="theme" href="<?=base_url('assets/joli/css/theme-default.css')?>"/>
         <link rel="stylesheet" type="text/css" href="<?=base_url('assets/custom/css/style.css')?>"/>
+        <link rel="stylesheet" type="text/css" href="<?=base_url('assets/sweetalert/sweetalert.css')?>"/>
         <!-- EOF CSS INCLUDE -->                                     
     </head>
     <body>
         <?php $this->load->view($view)?>
         <script type="text/javascript" src="<?=base_url("assets/joli/js/jquery/jquery.min.js")?>"></script>
+        <script type="text/javascript" src="<?=base_url("assets/sweetalert/sweetalert.min.js")?>"></script>
         <script type="text/javascript" src="<?=base_url("assets/custom/js/ajax/ajaxRequest.js")?>"></script>
         <script type="text/javascript" src="<?=base_url("assets/custom/js/actions/authActions.js")?>"></script>
     </body>

@@ -6,8 +6,6 @@ class AppController extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->library("Auth", "auth");
-        $this->load->helper("response");
         $this->auth->private();
     }
 

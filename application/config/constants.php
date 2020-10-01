@@ -87,6 +87,9 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 //my constants
 define('SESSION_KEY', '25d55ad283aa400af464c76d713c07ad');
 
-define('SYSTEM_MAIL', 'alternate.septian@gmail.com');
-define('SYSTEM_MAILPASS', 'januari1993');
+define('EMAIL_PROTOCOL', 'smtp');
+define('SMTP_HOST', 'smtp.hostinger.co.id');
+define('SMTP_PORT', 587);
+define('SYSTEM_MAIL', 'admin@zmedia.tech');
+define('SYSTEM_MAILPASS', 'J@nuari1993');
 define('SYSTEM_MAIL_ADMIN',  "Chic's Music 2020");

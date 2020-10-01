@@ -20,7 +20,7 @@ const setFinish = (btn, name) => {
   $(btn).removeAttr("disabled", "disabled");
 };
 
-$(document.body).on("submit", ".auth-login", function (e) {
+$(document.body).on("submit", ".auth-action", function (e) {
   e.preventDefault();
   const element = $(this);
   const url = element.data("url");
@@ -37,11 +37,22 @@ $(document.body).on("submit", ".auth-login", function (e) {
         errorHandler(response.errors);
       } else {
         if (response.success) {
-          localStorage.setItem("menu", "dashboard");
-          localStorage.setItem("currentUrl", response.currentUrl);
-          setTimeout(() => {
-            window.location = response.redirect;
-          }, 500);
+          switch (response.type) {
+            case "login":
+            case "register":
+              localStorage.setItem("menu", ".dashboard");
+              localStorage.setItem("currentUrl", response.currentUrl);
+              setTimeout(() => {
+                window.location = response.redirect;
+              }, 500);
+              break;
+            case "send-link-forgot":
+              swal("Sukses", "Link reset password berhasil dikirim", "success");
+              setTimeout(() => {
+                window.location = response.redirect;
+              }, 1000);
+              break;
+          }
         }
       }
     } else {

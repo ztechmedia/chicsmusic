@@ -10,10 +10,9 @@ class SubcategoriesController extends CI_Controller
         $this->load->model("SubcategoryModel", "Subcategory");
         $this->load->model("CategoryModel", "Category");
         $this->load->helper("utility");
-        $this->load->helper('response');
         $this->categories = 'categories';
         $this->subcategories = 'subcategories';
-        $this->products = "private";
+        $this->auth->private();
     }
 
     //@desc     show subategories by categoryId

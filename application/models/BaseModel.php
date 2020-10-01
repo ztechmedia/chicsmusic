@@ -26,9 +26,9 @@ class BaseModel extends CI_Model
         return $this->db->count_all($table);
     }
 
-    public function getWhere($table, $data)
+    public function getWhere($table, $where)
     {
-        return $this->db->get_where($table, $data);
+        return $this->db->get_where($table, $where);
     }
 
     public function getById($table, $id)
@@ -61,9 +61,9 @@ class BaseModel extends CI_Model
         return $this->db->delete($table, array('id' => $id));
     }
 
-    public function delete($table, $data)
+    public function delete($table, $where)
     {
-        return $this->db->delete($table, $data);
+        return $this->db->delete($table, $where);
     }
 
     public function checkById($table, $id)
