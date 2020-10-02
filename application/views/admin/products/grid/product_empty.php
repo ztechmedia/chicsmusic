@@ -8,7 +8,7 @@
             <div class="error-actions">
                 <div class="row">
                     <div class="col-md-12 center">
-                        <button class="btn btn-info btn-block link-to btn-rounded"
+                        <button class="btn btn-info btn-block link-to-with-prev btn-rounded"
                             data-to="<?=base_url("admin/products/create")?>">Tambah Produk</button>
                     </div>
                 </div>
