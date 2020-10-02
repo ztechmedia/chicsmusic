@@ -1,16 +1,23 @@
 <div class="stock-center">
     <ul class="pagination pagination-lg">
-        <li><a id="decrease">-</a></li>
+        <li><a onclick="decrease(30)">-30</a></li>
+        <li><a onclick="decrease(15)">-15</a></li>
+        <li><a onclick="decrease(5)">-5</a></li>
+        <li class="active"><a class="pointer" onclick="decrease(1)">-</a></li>
         <li class="active"><a id="stock"><?=$product->stock?></a></li>
-        <li><a id="increase">+</a></li>
+        <li class="active"><a class="pointer" onclick="increase(1)">+</a></li>
+        <li><a onclick="increase(5)">+5</a></li>
+        <li><a onclick="increase(15)">+15</a></li>
+        <li><a onclick="increase(30)">+30</a></li>
     </ul>
 </div>
 
 <script>
     let stock = <?=$product->stock?>;
-    $("#decrease").on("click", function() {
-        stock -= 1;
-        if(stock > 0) {
+
+    function decrease(min) {
+        if((stock - min) >= 0) {
+            stock -= min;
             $("#stock").html(stock);
             const url = "<?=base_url("admin/products/$product->id/stock-update")?>";
             data = {
@@ -26,10 +33,10 @@
                 }
             });
         }
-    });
+    }
 
-    $("#increase").on("click", function() {
-        stock += 1;
+    function increase(add) {
+        stock += add;
         $("#stock").html(stock);
         const url = "<?=base_url("admin/products/$product->id/stock-update")?>";
         data = {
@@ -43,12 +50,16 @@
                 console.log("Error:", err);
             }
         }); 
-    });
+    }
 </script>
 
 <style>
     .pagination {
         display: flex;
         justify-content: center;
+    }
+
+    #stock {
+        color: #fa6d03;
     }
 </style>
