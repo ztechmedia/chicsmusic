@@ -76,5 +76,5 @@
     });
 
     toRp("#price");
-    formValidation(".action-submit-create", myDropzone);
+    formValidation(".action-submit-create", myDropzone, "<?=base_url("admin/products/create")?>");
 </script>

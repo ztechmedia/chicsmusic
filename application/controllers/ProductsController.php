@@ -74,9 +74,8 @@ class ProductsController extends CI_Controller
             appJson(['errors' => [
                 "products" => "Foto produk tidak boleh kosong",
             ]]);
-            return;
         }
-        
+    
         $_POST['price'] = cleanRp($_POST['price']);
         $product = $this->Product->update($id, $_POST);
         if ($product) {
