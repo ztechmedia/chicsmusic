@@ -12,6 +12,8 @@ $route['forgot-password'] = 'AuthController/forgotPassword';
 $route['auth/login'] = 'AuthController/authLogin';
 $route['auth/register'] = 'AuthController/authRegister';
 $route['auth/send-link-forgot'] = 'AuthController/sendLinkForgot';
+$route['reset-password/(:any)'] = 'AuthController/resetPassword/$1';
+$route['auth/reset/(:any)'] = 'AuthController/reset/$1';
 $route['logout'] = 'AppController/logout';
 
 //web
@@ -59,6 +61,8 @@ $route['admin/products/(:any)/update'] = 'ProductsController/update/$1';
 $route['admin/products/(:any)/uploads'] = 'ProductsController/uploads/$1';
 $route['admin/products/(:any)/removeUpload'] = 'ProductsController/removeUpload/$1';
 $route['admin/products/(:any)/delete-covers'] = 'ProductsController/deleteCovers/$1';
+$route['admin/products/(:any)/stock'] = 'ProductsController/stock/$1';
+$route['admin/products/(:any)/stock-update'] = 'ProductsController/updateStock/$1';
 //products grids
 $route['admin/products-grid'] = 'ProductsController/productsGrid';
 $route['admin/products-grid-list'] = 'ProductsController/productsGridList';

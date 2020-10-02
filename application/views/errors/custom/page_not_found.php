@@ -19,8 +19,8 @@
 <body>
     <div class="error-container">
         <div class="error-code">404</div>
-        <div class="error-text">Page Not Found</div>
-        <div class="error-subtext">Sayang sekali halaman yang anda tuju tidak ditemukan</div>
+        <div class="error-text"><?= $message ? "Source Not Found" :  "Page Not Found"?></div>
+        <div class="error-subtext"><?= $message ? $message : "Sayang sekali halaman yang anda tuju tidak ditemukan" ?></div>
         <div class="error-actions">
             <div class="row">
                 <div class="col-md-12 center">

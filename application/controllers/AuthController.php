@@ -189,4 +189,65 @@ class AuthController extends CI_Controller
             appJson(["errors" => ["email" => $sendEmail]]);
         }
     }
+
+    //@desc     reset password view
+    //@route    GET /auth/reset-password/:token_password
+    public function resetPassword($token_password)
+    {
+        $user = $this->BM->getWhere($this->users, ["token_password" => $token_password])->row();
+        if(!$user) {
+            $data['message'] = "$token_password tidak ada di database kami";
+            $this->load->view("errors/custom/page_not_found", $data);
+        }else{
+            $data["token_password"] = $token_password;
+            $data['view'] = "auth/reset-password";
+            $this->load->view("template/auth/app", $data);
+        }
+    }
+
+    public function reset($token_password)
+    {
+        $password = $this->input->post("password");
+        $confirm = $this->input->post("confirm");
+
+        $user = $this->BM->getWhere($this->users, ["token_password" => $token_password])->row();
+
+        if(!$user) {
+            appJson(["errors" => ["token" => "Invalid TOKEN"]]);
+        }
+
+        if(strlen($password) <= 0) {
+            appJson(["errors" => ["password" => "Password masih kosong"]]);
+        }
+
+        if(strlen($confirm) <= 0) {
+            appJson(["errors" => ["confirm" => "Konfirmasi password masih kosong"]]);
+        }
+
+        if($password !== $confirm) {
+            appJson(["errors" => ["confirm" => "Konfirmasi password tidak cocok"]]);
+        }
+        
+        $data["password"] = password_hash($password, PASSWORD_BCRYPT);
+        $data["token_password"] = null;
+        $this->BM->updateById($this->users, $user->id, $data);
+        $role = $this->BM->getById($this->roles, $user->role);
+        $session = array(
+            "userId" => $user->id,
+            "name" => $user->name,
+            "email" => $user->email,
+            "role" => $role,
+        );
+
+        $this->session->set_userdata(SESSION_KEY, $session);
+
+        $redirect = $user->role === "member" ? base_url("home") : base_url("admin");
+
+        appJson([
+            "success" => true,
+            "type" => "reset-password",
+            "redirect" => $redirect,
+            "currentUrl" => base_url("admin/dashboard"),
+        ]);
+    }
 }

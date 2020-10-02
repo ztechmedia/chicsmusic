@@ -285,4 +285,25 @@ class ProductsController extends CI_Controller
         
     }
 
+    //@desc     product stock view
+    //@route    POST admin/products/:productId/stock
+    public function stock($productId)
+    {
+        $product = $this->BM->checkById($this->products, $productId);
+        $data['product'] = $product;
+        $this->load->view("admin/products/stock", $data);
+    }
+
+    //@desc     updte stock from product
+    //@route    POST admin/products/:productId/stock-update
+    public function updateStock($productId)
+    {
+        $obj = fileGetContent();
+        $stock = $obj->stock;
+
+        $product = $this->BM->checkById($this->products, $productId);
+        $data["stock"] = $stock;
+        $this->BM->updateById($this->products, $productId, $data);
+    }
+
 }

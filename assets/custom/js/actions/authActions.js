@@ -52,6 +52,14 @@ $(document.body).on("submit", ".auth-action", function (e) {
                 window.location = response.redirect;
               }, 1000);
               break;
+            case "reset-password":
+              swal("Sukses", "Password berhasil di reset", "success");
+              localStorage.setItem("menu", ".dashboard");
+              localStorage.setItem("currentUrl", response.currentUrl);
+              setTimeout(() => {
+                window.location = response.redirect;
+              }, 1000);
+              break;
           }
         }
       }

@@ -128,32 +128,40 @@
     const message = element.data("message");
     const page = element.data("page");
 
-    swal(
-        { 
-        title: "Hapus",
-        text: message,
-        type: "warning",
-        showCancelButton: true,
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "Ya, Hapus!",
-        closeOnConfirm: false,
-        },
-        function () {
-        reqJson(url, "GET", {}, (err, response) => {
-            if (response) {
-            if (!$.isEmptyObject(response.errors)) {
-                swal("Oops..!", response.errors, "error");
-            } else {
-                swal.close();
-                changePage(page);
+        swal(
+            { 
+            title: "Hapus",
+            text: message,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Ya, Hapus!",
+            closeOnConfirm: false,
+            },
+            function () {
+            reqJson(url, "GET", {}, (err, response) => {
+                if (response) {
+                if (!$.isEmptyObject(response.errors)) {
+                    swal("Oops..!", response.errors, "error");
+                } else {
+                    swal.close();
+                    changePage(page);
+                }
+                } else {
+                console.log("Error: ", err);
+                }
+            });
             }
-            } else {
-            console.log("Error: ", err);
-            }
-        });
-        }
-    );
+        );
     });
+
+    function stock(productId, productName) {
+        $("#modal_basic").modal("show");
+        $(".modal-title").html(`Update ${productName}`);
+        const url = "<?=base_url()?>admin/products/"+productId+"/stock";
+        setContentLoader(".modal-body");
+        loadContent(url, ".modal-body");
+    }
 
 </script>
 <style>

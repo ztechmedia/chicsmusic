@@ -1,6 +1,7 @@
 <div class="row">
     <div class="col-md-12">
         <ul class="pagination pagination-sm pull-right">
+            <input id="page" value="<?=$page?>" style="display: none" />
             <?php if(array_key_exists("prev", $pagination)) {?>
                 <li onclick="changePage('<?=$pagination['prev']['page']?>')"
                     data-secondary="yes"><a>«</a></li>
@@ -43,14 +44,14 @@
                 <div class="panel-footer">
                     <span class="fa fa-sign-out"></span> 114
                     |
-                    <span class="fa fa-inbox"></span> <?=$product->stock?>
+                    <span onclick="stock('<?=$product->id?>', '<?=$product->name?>', '<?=$page?>')" class="fa fa-inbox pointer"></span> <?=$product->stock?>
                     |
-                    <span class="fa fa-trash-o action-delete-grid" 
+                    <span class="fa fa-trash-o action-delete-grid pointer" 
                         data-url="<?=base_url("admin/products/$product->id/delete")?>" 
                         data-type="GET"
                         data-message="<?="Anda yakin ingin menghapus $product->name dari data Produk ?"?>"
                         data-page="<?=$page?>" 
-                        style="color: red; cursor: pointer;"></span>
+                    ></span>
                 </div>
             </div>
         </div>
