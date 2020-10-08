@@ -11,7 +11,7 @@ class AuthController extends CI_Controller
         $this->load->model("BaseModel", "BM");
         $this->users = "users";
         $this->roles = "roles";
-        $this->auth->public();
+        $this->auth->auth();
     }
 
     //@desc     load login view
@@ -61,9 +61,10 @@ class AuthController extends CI_Controller
 
         $this->session->set_userdata(SESSION_KEY, $session);
 
-        if ($user->role === "member") {
+        if ($role->name === "member") {
             appJson([
                 "success" => true,
+                "type" => "login",
                 "redirect" => base_url("home"),
             ]);
         } else {
@@ -241,7 +242,7 @@ class AuthController extends CI_Controller
 
         $this->session->set_userdata(SESSION_KEY, $session);
 
-        $redirect = $user->role === "member" ? base_url("home") : base_url("admin");
+        $redirect = $role->name === "member" ? base_url("home") : base_url("admin");
 
         appJson([
             "success" => true,

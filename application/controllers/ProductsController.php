@@ -10,6 +10,7 @@ class ProductsController extends CI_Controller
         $this->load->model("BaseModel", "BM");
         $this->load->model('ProductModel', 'Product');
         $this->load->library('Datatables', 'datatables');
+        $this->load->library("Search", "search");
         $this->load->helper("utility");
         $this->products = 'products';
         $this->categories = 'categories';
@@ -242,46 +243,12 @@ class ProductsController extends CI_Controller
     //@route    GET /products-grid-list
     public function productsGridList()
     {
-        $limit = $_GET['limit'];
-        $page = $_GET['page'];
-        $search = $_GET['search'];
-        $max = $_GET['max'];
-        $min = $_GET['min'];
-        $sort = $_GET['sort'];
-
-        $totalRecords = $this->Product->getTotal($search, $max, $min, $sort);
-        $startIndex = ($page - 1) * $limit;
-        $endIndex = $page * $limit;
-        $pagination = [];
-
-        if ($totalRecords > 0) {
-            
-            if($endIndex < $totalRecords) {
-                $pagination["next"] = [
-                    "page" => $page + 1,
-                ];
-            }
-
-            if($startIndex > 0) {
-                $pagination['prev'] = [
-                    "page" => $page-1,
-                ];
-            }
-
-            $data['products'] = $this->Product->getLimit($limit, $startIndex, $search, $max, $min, $sort);
-            $data['total'] = $totalRecords;
-            $data['pagination'] = $pagination;
-            $data['page'] = $page;
-            $data["totalRecords"] = $totalRecords;
-            $data["totalPage"] = ceil($totalRecords / $limit);
-            $data['start'] = $startIndex + 1;
-            $data['end'] = $startIndex + count($data['products']);
-
+        $data = $this->search->advanceSearch($this->Product, $_GET);
+        if($data) {
             $this->load->view("admin/products/grid/product_list", $data);
         }else{
             $this->load->view("admin/products/grid/product_empty");
         }
-        
     }
 
     //@desc     product stock view

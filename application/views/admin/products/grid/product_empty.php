@@ -9,7 +9,9 @@
                 <div class="row">
                     <div class="col-md-12 center">
                         <button class="btn btn-info btn-block link-to-with-prev btn-rounded"
-                            data-to="<?=base_url("admin/products/create")?>">Tambah Produk</button>
+                        data-menu=".products-menu"
+                        data-submenu=".products"
+                        data-to="<?=base_url("admin/products/create")?>">Tambah Produk</button>
                     </div>
                 </div>
             </div>

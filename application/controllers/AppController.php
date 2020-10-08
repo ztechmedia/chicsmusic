@@ -19,11 +19,6 @@ class AppController extends CI_Controller {
         $this->load->view("errors/custom/page_not_found");
     }
 
-    public function home()
-    {
-        $this->load->view("template/web/app");
-    }
-
     public function logout()
     {
         $this->session->unset_userdata(SESSION_KEY);

@@ -23,6 +23,16 @@
     </ul>
 </li>
 
+<li class="xn-openable stores-menu">
+    <a><span class="fa fa-music"></span> <span class="xn-text">Manajemen Toko</span></a>
+    <ul>
+
+        <li class="banners"><a class="side-submenu" data-url="<?=base_url("admin/banners")?>" data-menu=".stores-menu"
+                data-submenu=".banners"><span class="fa fa-toggle-right"></span> Banner Produk</a></li>
+
+    </ul>
+</li>
+
 <li class="xn-openable settings">
     <a><span class="fa fa-gear"></span> <span class="xn-text">Pengaturan</span></a>
     <ul>

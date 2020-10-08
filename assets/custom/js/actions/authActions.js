@@ -40,8 +40,10 @@ $(document.body).on("submit", ".auth-action", function (e) {
           switch (response.type) {
             case "login":
             case "register":
-              localStorage.setItem("menu", ".dashboard");
-              localStorage.setItem("currentUrl", response.currentUrl);
+              if (response.role !== "member") {
+                localStorage.setItem("menu", ".dashboard");
+                localStorage.setItem("currentUrl", response.currentUrl);
+              }
               setTimeout(() => {
                 window.location = response.redirect;
               }, 500);
@@ -54,8 +56,10 @@ $(document.body).on("submit", ".auth-action", function (e) {
               break;
             case "reset-password":
               swal("Sukses", "Password berhasil di reset", "success");
-              localStorage.setItem("menu", ".dashboard");
-              localStorage.setItem("currentUrl", response.currentUrl);
+              if (response.role !== "member") {
+                localStorage.setItem("menu", ".dashboard");
+                localStorage.setItem("currentUrl", response.currentUrl);
+              }
               setTimeout(() => {
                 window.location = response.redirect;
               }, 1000);

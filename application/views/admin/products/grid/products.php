@@ -23,6 +23,15 @@
 
     <div class="content-frame-right" style="height: 100vh">
         <form class="form-horizontal" id="form-search" action="javascript:(0)">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                        <input type="text" class="form-control" id="search" placeholder="Cari produk..." />
+                    </div>
+                </div>
+            </div>
+
             <label>Data Perhalaman:</label>
             <div class="form-group">
                 <div class="col-md-12">
@@ -32,15 +41,6 @@
                         <option value="24">24 Produk</option>
                         <option value="58">58 Produk</option>
                     </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-12">
-                    <div class="input-group">
-                        <span class="input-group-addon"><span class="fa fa-search"></span></span>
-                        <input type="text" class="form-control" id="search" placeholder="Cari produk..." />
-                    </div>
                 </div>
             </div>
 

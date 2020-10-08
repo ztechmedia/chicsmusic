@@ -3,40 +3,41 @@ if (!defined('BASEPATH')) {
     exit('No direct script access allowed');
 }
 
-class Auth {
+class Auth
+{
     protected $ci;
 
-    var $userId;
-    var $name;
-    var $email;
-    var $role;
+    public $userId;
+    public $name;
+    public $email;
+    public $role;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->ci = &get_instance();
         $this->me();
     }
 
-    public function private()
-    {
-        if(!$this->ci->session->userdata(SESSION_KEY)) {
+    function private () {
+        if (!$this->ci->session->userdata(SESSION_KEY)) {
             redirect("login");
         }
     }
 
-    public function public()
+    public function auth()
     {
-        if($this->ci->session->userdata(SESSION_KEY)) {
+        if ($this->ci->session->userdata(SESSION_KEY)) {
             redirect("admin");
         }
     }
 
     public function me()
     {
-        if($this->ci->session->userdata(SESSION_KEY)) {
-           $this->userId = $_SESSION[SESSION_KEY]["userId"];
-           $this->name = $_SESSION[SESSION_KEY]["name"];
-           $this->email = $_SESSION[SESSION_KEY]["email"];
-           $this->role = $_SESSION[SESSION_KEY]["role"];
+        if ($this->ci->session->userdata(SESSION_KEY)) {
+            $this->userId = $_SESSION[SESSION_KEY]["userId"];
+            $this->name = $_SESSION[SESSION_KEY]["name"];
+            $this->email = $_SESSION[SESSION_KEY]["email"];
+            $this->role = $_SESSION[SESSION_KEY]["role"];
         }
     }
 
@@ -44,7 +45,7 @@ class Auth {
     {
         $this->ci->load->library("email");
         $config = array(
-            'protocol' =>  EMAIL_PROTOCOL,
+            'protocol' => EMAIL_PROTOCOL,
             'smtp_host' => SMTP_HOST,
             'smtp_port' => SMTP_PORT,
             'smtp_user' => SYSTEM_MAIL,
@@ -61,5 +62,5 @@ class Auth {
         $this->ci->email->message($message);
         return $this->ci->email->send();
     }
-    
+
 }

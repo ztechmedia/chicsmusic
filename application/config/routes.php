@@ -1,9 +1,18 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-$route['default_controller'] = 'AuthController/login';
+$route['default_controller'] = 'WebController/home';
 $route['404_override'] = 'AppController/pageNotFound';
 $route['translate_uri_dashes'] = false;
+
+//shop
+$route["home"] = 'WebController/home';
+$route["admin/banners"] = "WebController/banner";
+$route["admin/banners-product-list"] = "WebController/productBanner";
+$route["admin/set-banners/(:any)"] = "WebController/setBanner/$1";
+$route["admin/add-banners/(:any)"] = "WebController/addBanner/$1";
+$route["admin/edit-banners/(:any)"] = "WebController/editBanner/$1";
+$route["admin/update-banners/(:any)"] = "WebController/updateBanner/$1";
 
 //auth routes
 $route['login'] = 'AuthController/login';
@@ -15,9 +24,6 @@ $route['auth/send-link-forgot'] = 'AuthController/sendLinkForgot';
 $route['reset-password/(:any)'] = 'AuthController/resetPassword/$1';
 $route['auth/reset/(:any)'] = 'AuthController/reset/$1';
 $route['logout'] = 'AppController/logout';
-
-//web
-$route["home"] = 'AppController/home';
 
 //admin routes
 $route['admin'] = 'AppController';

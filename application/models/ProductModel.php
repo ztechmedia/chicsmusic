@@ -37,6 +37,31 @@ class ProductModel extends CI_Model
                 ->join('subcategories as c', 'a.subcategory_id = c.id');
     }
 
+    public function getBanners()
+    {
+        $banners = $this
+                    ->db
+                    ->select('a.*, b.name as product_name, b.price, b.cover')
+                    ->from('banners as a')
+                    ->join('products as b', 'a.product_id = b.id')
+                    ->get()
+                    ->result();
+        return $banners;
+    }
+
+    public function getBannerById($bannerId)
+    {
+        $banners = $this
+                    ->db
+                    ->select('a.*, b.name as product_name, b.price, b.stock, b.cover')
+                    ->from('banners as a')
+                    ->join('products as b', 'a.product_id = b.id')
+                    ->where('a.id', $bannerId)
+                    ->get()
+                    ->row();
+        return $banners;
+    }
+
     public function getLimit($limit, $start, $search, $max, $min, $sort)
     {
         $this->db->limit($limit, $start);
@@ -67,7 +92,7 @@ class ProductModel extends CI_Model
             }
         }
 
-        return $this->db->get($this->products)->result();
+        return $this->db->get($this->table)->result();
     }
 
     public function getTotal($search, $max, $min, $sort)
@@ -99,7 +124,7 @@ class ProductModel extends CI_Model
             }
         }
 
-        return $this->db->get($this->products)->num_rows();
+        return $this->db->get($this->table)->num_rows();
     }
 
     public function validator($validate, $bypass, $data, $id = null)

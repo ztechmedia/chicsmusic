@@ -45,6 +45,12 @@ $(document.body).on("click", ".link-to-with-prev", function (e) {
   const to = element.data("to");
   const target = element.data("target");
 
+  const menu = element.data("menu");
+  const submenu = element.data("submenu");
+
+  if (menu) setActiveMenu(menu);
+  if (submenu) setActiveSub(submenu);
+
   const prevUrl = localStorage.getItem("currentUrl");
 
   localStorage.setItem("currentUrl", to);
