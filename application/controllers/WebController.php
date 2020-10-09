@@ -15,7 +15,7 @@ class WebController extends CI_Controller {
         $this->banners = "banners";
     }
 
-    public function home()
+    public function index()
     {
         $data['view'] = "web/home";
         $data['banners'] = $this->Product->getBanners();
