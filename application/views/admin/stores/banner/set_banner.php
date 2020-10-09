@@ -55,6 +55,7 @@
 <script>
     $(".action-submit-modal").on("submit", function(e) {
         e.preventDefault();
+        $(".save").html("Loading...");
         const data = {
             name: $("#name").val(),
             description: $("#description").val()
@@ -66,6 +67,7 @@
                 loadContent("<?=base_url("admin/banners")?>", ".content");
                 $("#modal_basic").modal("hide");
             }
+            $(".save").html("Simpan");
         })
     })
 </script>

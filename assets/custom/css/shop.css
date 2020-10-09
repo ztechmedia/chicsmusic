@@ -1,0 +1,26 @@
+.img-fluid-banner {
+    with: 200px;
+    height: 350px;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+.subcategory-icon {
+    max-height: 159px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.categories-icon {
+    height: 54vh;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}

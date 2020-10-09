@@ -9,13 +9,19 @@ class WebController extends CI_Controller {
         $this->load->library("Search", "search");
         $this->load->model("ProductModel", "Product");
         $this->load->helper("response");
+        $this->categories = 'categories';
+        $this->subcategories = 'subcategories';
         $this->products = 'products';
         $this->banners = "banners";
     }
 
     public function home()
     {
-        $this->load->view("template/web/app");
+        $data['view'] = "web/home";
+        $data['banners'] = $this->Product->getBanners();
+        $data['subcategories'] = $this->BM->getAll($this->subcategories)->result();
+        $data['categories'] = $this->BM->getOne($this->categories, 1)->row();
+        $this->load->view("template/web/app", $data);
     }
 
     public function banner()
@@ -87,6 +93,16 @@ class WebController extends CI_Controller {
         $this->BM->updateById($this->banners, $bannerId, $data);
         appJson([
             "message" => "Berhasil mengubah data banner",
+        ]);
+    }
+
+    //@desc     delete banner
+    //@route    DELETE /delete-banner/:bannerId
+    public function deleteBanner($bannerId)
+    {
+        $this->BM->deleteById($this->banners, $bannerId);
+        appJson([
+            "message" => "Berhasil menghapus data banner",
         ]);
     }
 }

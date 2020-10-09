@@ -42,6 +42,7 @@
                 <button  class="btn btn-primary save">Simpan</button>
             </div>
         </form>
+        <button  class="btn btn-danger" onclick="deleteBanner('<?=$banner->id?>', '<?=$banner->product_name?>')">Hapus</button>
     </div>
 </div>
 
@@ -55,6 +56,7 @@
 <script>
     $(".action-submit-modal").on("submit", function(e) {
         e.preventDefault();
+        $(".save").html("Loading...");
         const element = $(this);
         const data = {
             name: $("#name").val(),
@@ -67,6 +69,31 @@
                 loadContent("<?=base_url("admin/banners")?>", ".content");
                 $("#modal_basic").modal("hide");
             }
-        })
-    })
+            $(".save").html("Simpan");
+        });
+    });
+
+    function deleteBanner(bannerId, productName) {
+        const url = '<?=base_url()?>admin/delete-banners/'+bannerId;
+
+        swal({
+                title: "Hapus Banner",
+                text: `Yakin ingin hapus banner ${productName} ?`,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Ya, Keluar!",
+                closeOnConfirm: false,
+            },
+            function () {
+                reqJson(url, "DELETE", {}, (err, response) => {
+                    if (response) {
+                        swal("Sukses", response.message, "success");
+                        loadContent("<?=base_url("admin/banners")?>", ".content");
+                        $("#modal_basic").modal("hide");
+                    }
+                });
+            }
+        );
+    }
 </script>

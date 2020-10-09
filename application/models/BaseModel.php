@@ -14,6 +14,12 @@ class BaseModel extends CI_Model
     {
         return $this->db->get($table);
     }
+    
+    public function getOne($table, $limit)
+    {   
+        $this->db->limit($limit);
+        return $this->db->get($table);
+    }
 
     public function getLimit($table, $limit, $start)
     {

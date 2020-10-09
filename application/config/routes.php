@@ -13,6 +13,7 @@ $route["admin/set-banners/(:any)"] = "WebController/setBanner/$1";
 $route["admin/add-banners/(:any)"] = "WebController/addBanner/$1";
 $route["admin/edit-banners/(:any)"] = "WebController/editBanner/$1";
 $route["admin/update-banners/(:any)"] = "WebController/updateBanner/$1";
+$route["admin/delete-banners/(:any)"] = "WebController/deleteBanner/$1";
 
 //auth routes
 $route['login'] = 'AuthController/login';
