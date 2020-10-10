@@ -21,10 +21,11 @@
                             </div>
                         </div>
                         <div class="col-lg-7">
-                            <div class="banner-img">
-                                <img class="img-fluid img-fluid-banner" src="<?=base_url("assets/images/products/$covers[0]")?>"
-                                    alt="Product Banner">
-                                <button class="btn btn-default btn-full"><?=toRp($banner->price)?></button>
+                            <div class="banner-img-custom">
+                                <img class="img-fluid-banner" src="<?=base_url("assets/images/products/$covers[0]")?>" />
+                            </div>
+                            <div class="banner-overlay">
+                                <?=toRp($banner->price)?>
                             </div>
                         </div>
                     </div>

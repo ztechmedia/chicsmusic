@@ -11,6 +11,9 @@ $route["home"] = 'ShopController/home';
 //admin routes
 $route['admin'] = 'AppController';
 
+//shop categories
+$route['admin/shop-categories'] = 'StoreController/categories';
+
 //banners
 $route["admin/banners"] = "StoreController/banner";
 $route["admin/banners-product-list"] = "StoreController/productBanner";

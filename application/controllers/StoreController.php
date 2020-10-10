@@ -15,15 +15,8 @@ class StoreController extends CI_Controller {
         $this->banners = "banners";
     }
 
-    public function index()
-    {
-        $data['view'] = "web/home";
-        $data['banners'] = $this->Product->getBanners();
-        $data['subcategories'] = $this->BM->getAll($this->subcategories)->result();
-        $data['categories'] = $this->BM->getOne($this->categories, 1)->row();
-        $this->load->view("template/web/app", $data);
-    }
-
+    //@desc     show banner list
+    //@route    GET admin/banners
     public function banner()
     {
         $data['banners'] = $this->Product->getBanners();
@@ -31,7 +24,7 @@ class StoreController extends CI_Controller {
     }
 
     //@desc     show product list on banner
-    //@route    GET /products-banner-list
+    //@route    GET admin/products-banner-list
     public function productBanner()
     {
         $data = $this->search->advanceSearch($this->Product, $_GET);
@@ -43,7 +36,7 @@ class StoreController extends CI_Controller {
     }
 
     //@desc     set banner modal
-    //@route    GET /set-banner/:productId
+    //@route    GET admin/set-banner/:productId
     public function setBanner($productId)
     {
         $product = $this->BM->checkById($this->products, $productId);
@@ -53,7 +46,7 @@ class StoreController extends CI_Controller {
     }
 
     //@desc     set banner modal
-    //@route    GET /set-banner/:productId
+    //@route    GET admin/set-banner/:productId
     public function editBanner($bannerId)
     {
         $banner = $this->Product->getBannerById($bannerId);
@@ -63,7 +56,7 @@ class StoreController extends CI_Controller {
     }
 
     //@desc     add banner
-    //@route    POST /add-banner/:productId
+    //@route    POST admin/add-banner/:productId
     public function addBanner($productId)
     {
         $obj = fileGetContent();
@@ -81,7 +74,7 @@ class StoreController extends CI_Controller {
     }
 
     //@desc     edit banner
-    //@route    POST /edit-banner/:bannerId
+    //@route    POST admin/edit-banner/:bannerId
     public function updateBanner($bannerId)
     {
         $obj = fileGetContent();
@@ -97,12 +90,19 @@ class StoreController extends CI_Controller {
     }
 
     //@desc     delete banner
-    //@route    DELETE /delete-banner/:bannerId
+    //@route    DELETE admin/delete-banner/:bannerId
     public function deleteBanner($bannerId)
     {
         $this->BM->deleteById($this->banners, $bannerId);
         appJson([
             "message" => "Berhasil menghapus data banner",
         ]);
+    }
+
+    //@desc     category list
+    //@route    DELETE admin/shop-category
+    public function categories(Type $var = null)
+    {
+        $this->load->view("admin/stores/categories/categories");
     }
 }

@@ -30,6 +30,9 @@
         <li class="banners"><a class="side-submenu" data-url="<?=base_url("admin/banners")?>" data-menu=".stores-menu"
                 data-submenu=".banners"><span class="fa fa-toggle-right"></span> Banner Produk</a></li>
 
+        <li class="shop-categories"><a class="side-submenu" data-url="<?=base_url("admin/shop-categories")?>" data-menu=".stores-menu"
+                data-submenu=".shop-categories"><span class="fa fa-filter"></span> Kategori Produk</a></li>
+
     </ul>
 </li>
 
