@@ -6,7 +6,6 @@ class ShopController extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->load->library("Search", "search");
         $this->load->model("ProductModel", "Product");
         $this->load->helper("response");
         $this->categories = 'categories';
@@ -15,7 +14,7 @@ class ShopController extends CI_Controller {
         $this->banners = "banners";
     }
 
-    public function index()
+    public function home()
     {
         $data['view'] = "web/home";
         $data['banners'] = $this->Product->getBanners();

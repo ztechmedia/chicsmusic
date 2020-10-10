@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-$route['default_controller'] = 'ShopController';
+$route['default_controller'] = 'ShopController/home';
 $route['404_override'] = 'AppController/pageNotFound';
 $route['translate_uri_dashes'] = false;
 
 //shop
-$route["home"] = 'ShopController';
+$route["home"] = 'ShopController/home';
 $route["admin/banners"] = "StoreController/banner";
 $route["admin/banners-product-list"] = "StoreController/productBanner";
 $route["admin/set-banners/(:any)"] = "StoreController/setBanner/$1";
