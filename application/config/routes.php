@@ -1,19 +1,18 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-$route['default_controller'] = 'WebController';
+$route['default_controller'] = 'ShopController';
 $route['404_override'] = 'AppController/pageNotFound';
 $route['translate_uri_dashes'] = false;
 
 //shop
-$route["home"] = 'WebController';
-$route["admin/banners"] = "WebController/banner";
-$route["admin/banners-product-list"] = "WebController/productBanner";
-$route["admin/set-banners/(:any)"] = "WebController/setBanner/$1";
-$route["admin/add-banners/(:any)"] = "WebController/addBanner/$1";
-$route["admin/edit-banners/(:any)"] = "WebController/editBanner/$1";
-$route["admin/update-banners/(:any)"] = "WebController/updateBanner/$1";
-$route["admin/delete-banners/(:any)"] = "WebController/deleteBanner/$1";
+$route["admin/banners"] = "StoreController/banner";
+$route["admin/banners-product-list"] = "StoreController/productBanner";
+$route["admin/set-banners/(:any)"] = "StoreController/setBanner/$1";
+$route["admin/add-banners/(:any)"] = "StoreController/addBanner/$1";
+$route["admin/edit-banners/(:any)"] = "StoreController/editBanner/$1";
+$route["admin/update-banners/(:any)"] = "StoreController/updateBanner/$1";
+$route["admin/delete-banners/(:any)"] = "StoreController/deleteBanner/$1";
 
 //auth routes
 $route['login'] = 'AuthController/login';
