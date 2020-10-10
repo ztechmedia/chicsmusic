@@ -7,6 +7,11 @@ $route['translate_uri_dashes'] = false;
 
 //shop
 $route["home"] = 'ShopController/home';
+
+//admin routes
+$route['admin'] = 'AppController';
+
+//banners
 $route["admin/banners"] = "StoreController/banner";
 $route["admin/banners-product-list"] = "StoreController/productBanner";
 $route["admin/set-banners/(:any)"] = "StoreController/setBanner/$1";
@@ -25,9 +30,6 @@ $route['auth/send-link-forgot'] = 'AuthController/sendLinkForgot';
 $route['reset-password/(:any)'] = 'AuthController/resetPassword/$1';
 $route['auth/reset/(:any)'] = 'AuthController/reset/$1';
 $route['logout'] = 'AppController/logout';
-
-//admin routes
-$route['admin'] = 'AppController';
 
 //users routes
 $route['admin/users'] = 'UsersController/users';
