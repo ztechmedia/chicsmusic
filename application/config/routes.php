@@ -6,6 +6,7 @@ $route['404_override'] = 'AppController/pageNotFound';
 $route['translate_uri_dashes'] = false;
 
 //shop
+$route["home"] = 'ShopController';
 $route["admin/banners"] = "StoreController/banner";
 $route["admin/banners-product-list"] = "StoreController/productBanner";
 $route["admin/set-banners/(:any)"] = "StoreController/setBanner/$1";
