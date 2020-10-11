@@ -99,16 +99,15 @@
                     <?php
                     $column =[8, 4, 4, 8];
                     $index = 0;
-                    foreach($subcategories as $subcategory){
+                    foreach($categories as $category){
                         if($index <= 3){ ?>
                         <div class="col-lg-<?=$column[$index]?> col-md-<?=$column[$index]?>">
                             <div class="single-deal">
                                 <div class="overlay"></div>
-                                <img class="img-fluid w-100 subcategory-icon" src="<?=base_url("assets/images/subcategories/$subcategory->icon")?>" alt="Subcategory Icon">
-                                <a href="<?=base_url("assets/images/subcategories/$subcategory->icon")?>" class="img-pop-up"
-                                    target="_blank">
+                                <img class="img-fluid w-100 subcategory-icon" src="<?=base_url("assets/images/store_categories/$category->icon")?>" alt="Category Icon">
+                                <a href="<?=$category->redirect?>">
                                     <div class="deal-details">
-                                        <h6 class="deal-title"><?=$subcategory->name?></h6>
+                                        <h6 class="deal-title"><?=$category->name?></h6>
                                     </div>
                                 </a>
                             </div>
@@ -120,10 +119,10 @@
             <div class="col-lg-4 col-md-6">
                 <div class="single-deal">
                     <div class="overlay"></div>
-                    <img class="img-fluid w-100 categories-icon" src="<?=base_url("assets/images/categories/$categories->icon")?>" alt="">
-                    <a href="<?=base_url("assets/images/categories/$categories->icon")?>" class="img-pop-up" target="_blank">
+                    <img class="img-fluid w-100 categories-icon" src="<?=base_url("assets/images/store_categories/{$categories[4]->icon}")?>" alt="">
+                    <a href="<?=$categories[4]->redirect?>">
                         <div class="deal-details">
-                            <h6 class="deal-title"><?=$categories->name?></h6>
+                            <h6 class="deal-title"><?=$categories[4]->name?></h6>
                         </div>
                     </a>
                 </div>

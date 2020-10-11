@@ -19,7 +19,7 @@
     </div>
 
     <div class="col-md-12">
-        <form id="validate" role="form" class="form-horizontal action-submit-modal"
+        <form role="form" class="form-horizontal action-submit-modal"
             action="javascript:(0)">
             
             <div class="form-group">

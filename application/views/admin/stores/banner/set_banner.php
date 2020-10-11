@@ -19,7 +19,7 @@
     </div>
 
     <div class="col-md-12">
-        <form id="validate" role="form" class="form-horizontal action-submit-modal"
+        <form role="form" class="form-horizontal action-submit-modal"
             action="javascript:(0)">
             
             <div class="form-group">
@@ -56,16 +56,26 @@
     $(".action-submit-modal").on("submit", function(e) {
         e.preventDefault();
         $(".save").html("Loading...");
+        $(".form-error").html('');
+        
         const data = {
             name: $("#name").val(),
             description: $("#description").val()
         }
+
         const url = "<?=base_url("admin/add-banners/$product->id")?>";
         reqJson(url, "POST", data, (err, response) => {
             if(response) {
-                swal("Sukses", response.message, "success");
-                loadContent("<?=base_url("admin/banners")?>", ".content");
-                $("#modal_basic").modal("hide");
+                if (!$.isEmptyObject(response.errors)) {
+                    $.each(response.errors, function (key, value) {
+                        $(`#${key}`).addClass("error");
+                        $(`#${key}-error`).html(value);
+                    });
+                }else{
+                    swal("Sukses", response.message, "success");
+                    loadContent("<?=base_url("admin/banners")?>", ".content");
+                    $("#modal_basic").modal("hide");
+                }
             }
             $(".save").html("Simpan");
         })

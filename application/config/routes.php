@@ -13,6 +13,8 @@ $route['admin'] = 'AppController';
 
 //shop categories
 $route['admin/shop-categories'] = 'StoreController/categories';
+$route['admin/set-shop-categories/(:any)'] = 'StoreController/setCategories/$1';
+$route['admin/update-shop-categories/(:any)'] = 'StoreController/updateCategories/$1';
 
 //banners
 $route["admin/banners"] = "StoreController/banner";

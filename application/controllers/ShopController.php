@@ -10,14 +10,14 @@ class ShopController extends CI_Controller {
         $this->load->helper("response");
         $this->categories = 'categories';
         $this->subcategories = 'subcategories';
+        $this->store_categories = 'store_categories';
     }
 
     public function home()
     {
         $data['view'] = "web/home";
         $data['banners'] = $this->Product->getBanners();
-        $data['subcategories'] = $this->BM->getAll($this->subcategories)->result();
-        $data['categories'] = $this->BM->getOne($this->categories, 1)->row();
+        $data['categories'] = $this->BM->getAll($this->store_categories)->result();
         $this->load->view("template/web/app", $data);
     }
 }
