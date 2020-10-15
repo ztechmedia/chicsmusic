@@ -176,7 +176,7 @@
 		const search = $("#search-product").val();
 		
 		const newPage = page !== null ? page : <?=$data["page"]?>;
-		const newSubcategories = subcategories !== null ? subcategories : <?=$data["subcategories"]?>;
+		const newSubcategories = subcategories !== null ? subcategories : '<?=$data["subcategories"]?>';
 
 		let url = `<?=base_url()?>products?page=${newPage}&limit=${limit}&sort=${sort}`
 
@@ -210,11 +210,12 @@
 
 	function toggleCategories() {
 		const categoriesId = '<?=$data['categories']?>';
-		const categories = document.getElementById(categoriesId);
-		setTimeout(() => {
-			categories.click();
-		}, 100)
-		
+		if(categoriesId !== "all") {
+			const categories = document.getElementById(categoriesId);
+			setTimeout(() => {
+				categories.click();
+			}, 100)
+		}
 	}
 
 	toggleCategories();
