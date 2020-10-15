@@ -62,14 +62,18 @@ class ProductModel extends CI_Model
         return $banners;
     }
 
-    public function getLimit($limit, $start, $search, $max, $min, $sort)
+    public function getLimit($limit, $start, $search, $max, $min, $sort, $brand, $subcategories)
     {
         $this->db->limit($limit, $start);
         $this->db->where("name IS NOT NULL", NULL);
 
-        if($search !== "") {
+        if($search) {
             $this->db->like("name", $search);
             $this->db->or_like("description", $search);
+        }
+
+        if($brand) {
+            $this->db->where("brand", $brand);
         }
 
         if($max) {
@@ -78,6 +82,10 @@ class ProductModel extends CI_Model
 
         if($min) {
             $this->db->where("price >=", $min);
+        }
+
+        if($subcategories !== "" && $subcategories !== "all") {
+            $this->db->where("subcategory_id", $subcategories);
         }
 
         if($sort) {
@@ -95,13 +103,17 @@ class ProductModel extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
-    public function getTotal($search, $max, $min, $sort)
+    public function getTotal($search, $max, $min, $sort, $brand, $subcategories)
     {
         $this->db->where("name IS NOT NULL", NULL);
 
-        if($search !== "") {
+        if($search) {
             $this->db->like("name", $search);
             $this->db->or_like("description", $search);
+        }
+
+        if($brand) {
+            $this->db->where("brand", $brand);
         }
 
         if($max) {
@@ -110,6 +122,10 @@ class ProductModel extends CI_Model
 
         if($min) {
             $this->db->where("price >=", $min);
+        }
+
+        if($subcategories !== "" && $subcategories !== "all") {
+            $this->db->where("subcategory_id", $subcategories);
         }
 
         if($sort) {
@@ -125,6 +141,22 @@ class ProductModel extends CI_Model
         }
 
         return $this->db->get($this->table)->num_rows();
+    }
+
+    public function latest($limit)
+    {
+        return $this->db
+                ->limit($limit)
+                ->order_by("createdAt", 'desc')
+                ->get($this->table)->result();
+    }
+
+    public function brands()
+    {
+        return $this->db
+                ->select('brand, count(brand) as total_product')
+                ->group_by('brand')
+                ->get($this->table)->result();
     }
 
     public function validator($validate, $bypass, $data, $id = null)

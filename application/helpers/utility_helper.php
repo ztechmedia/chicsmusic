@@ -60,7 +60,7 @@ function toRp($amount)
 {
 
     $rupiah = "Rp " . number_format($amount, 2, ',', '.');
-    return $rupiah;
+    return str_replace(',00', '', $rupiah);
 }
 
 function toDateTime($date)

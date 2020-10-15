@@ -13,8 +13,6 @@ img {
     width: auto;
     background-color: #fff;
     border-radius: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
     overflow: hidden;
 }
 
@@ -47,4 +45,42 @@ img {
     border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
+}
+
+.img-product {
+    height: 250px !important;
+    width: 250px !important;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.active-custom {
+    color: #fff;
+    margin: 10px 10px;
+}
+
+.active-sub {
+    color: #fcb502 !important;
+}
+
+@media (max-width: 990px) {
+    .banner-product {
+        margin-top: 100px;
+    }
+
+    .banner-img-custom {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+
+    .service-home {
+        margin-top: 75px !important;
+    }
+}
+
+@media (min-width: 990px) {
+    .banner-img-custom {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        transition: 0.3s;
+    }
 }

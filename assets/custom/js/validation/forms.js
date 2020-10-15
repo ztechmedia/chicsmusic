@@ -19,7 +19,7 @@ const formValidation = (className, myDropzone = null, redirect = null) => {
         if (status) {
           submitHandler(className);
           if (myDropzone) {
-            loadContent(redirect, "content");
+            loadContent(redirect, ".content");
           }
         }
       },

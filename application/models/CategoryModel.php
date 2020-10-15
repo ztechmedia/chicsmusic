@@ -49,7 +49,36 @@ class CategoryModel extends CI_Model
             WHERE categories.id = '$categoryId'
             GROUP BY categories.id"
         );
-        return $query->result()[0];
+        return $query->row();
+    }
+
+    public function catWithSub()
+    {
+        $categories = $this->db->query(
+            "SELECT
+                c.id, c.name,
+                s.id as sub_id, s.name as sub_name,
+                (SELECT COUNT(id) FROM products WHERE products.subcategory_id = s.id GROUP BY s.id)
+                as total_product
+            FROM
+                categories c
+            LEFT JOIN
+                subcategories s ON c.id = s.category_id"
+        )->result();
+
+        $nested = array();
+        foreach ($categories as $cat) {
+            $currentCategories = $cat->id;
+            $nested[$cat->id]['id'] = $cat->id;
+            $nested[$cat->id]['name'] = $cat->name;
+            $nested[$cat->id]['subcategories'][] = array(
+                'sub_id' => $cat->sub_id,
+                'sub_name' => $cat->sub_name,
+                'total_product' => $cat->total_product
+            );
+        }
+
+        return $nested;
     }
 
     public function validator($validate, $data, $id = null)

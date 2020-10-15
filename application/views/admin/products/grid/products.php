@@ -86,7 +86,6 @@
 
 <script>
     function firstLoad() {
-        setContentLoader(".product-list");
         const limit = $("#limit").val();
         const search = $("#search").val();
         const page = 1;
@@ -94,13 +93,18 @@
         const min = $("#min").val();
         const sort = $("#sort").val();
         let url = `<?=base_url()?>admin/products-grid-list?limit=${limit}&page=${page}&search=${search}&max=${max}&min=${min}&sort=${sort}`;
+        if(min > 0 && max > 0 && min > max) {
+            swal("Error", "Harga minmal harus lebih kecil dari hara maksimal", "error");
+            return;
+        }
+        setContentLoader(".product-list");
         loadContent(url, ".product-list");
     }
 
     firstLoad();
 
     function changePage(page) {
-        setContentLoader(".product-list");
+       
         const limit = $("#limit").val();
         const search = $("#search").val();
         const max = $("#max").val();
@@ -108,6 +112,12 @@
         const sort = $("#sort").val();
         let url = `<?=base_url()?>admin/products-grid-list?limit=${limit}&page=${page}&search=${search}&max=${max}&min=${min}&sort=${sort}`;
         if (search) url = `${url}&search=${search}`;
+
+        if(min > 0 && max > 0 && min > max) {
+            swal("Error", "Harga minmal harus lebih kecil dari hara maksimal", "error");
+            return;
+        }
+        setContentLoader(".product-list");
         loadContent(url, ".product-list");
     }
 

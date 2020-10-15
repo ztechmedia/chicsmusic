@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12" style="margin-top: 10px;">
         <ul class="pagination pagination-sm pull-right">
             <input id="page" value="<?=$page?>" style="display: none" />
             <?php if(array_key_exists("prev", $pagination)) {?>

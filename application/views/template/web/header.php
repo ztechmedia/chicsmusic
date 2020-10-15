@@ -1,3 +1,5 @@
+<?php $url = current_url(); ?>
+
 <!-- Start Header Area -->
 <header class="header_area sticky-header">
     <div class="main_menu">
@@ -16,14 +18,15 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="<?=base_url("home")?>">Beranda</a></li>
-                        <li class="nav-item submenu dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                        <li class="nav-item <?php if(strpos($url, base_url('home')) === 0) echo "active"; ?>"><a class="nav-link" href="<?=base_url("home")?>">Beranda</a></li>
+                        <li class="nav-item submenu dropdown <?php if(strpos($url, base_url('products')) === 0) echo "active"; ?>">
+                            <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Produk</a>
+
                             <ul class="dropdown-menu">
-                                <li class="nav-item"><a class="nav-link"
-                                        href="<?=base_url("product-category")?>">Kategori Produk</a></li>
-                                <li class="nav-item"><a class="nav-link" href="<?=base_url("product-brand")?>">Brand
+                                <li class="nav-item <?php if(strpos($url, base_url('products')) === 0) echo "active"; ?>"><a class="nav-link"
+                                        href="<?=base_url("products?page=1&limit=12&sort=min")?>">Kategori Produk</a></li>
+                                <li class="nav-item <?php if(strpos($url, base_url('products/brands')) === 0) echo "active"; ?>"><a class="nav-link" href="<?=base_url("products-brand")?>">Brand
                                         (Merek)</a></li>
                             </ul>
                         </li>

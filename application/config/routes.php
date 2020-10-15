@@ -7,6 +7,8 @@ $route['translate_uri_dashes'] = false;
 
 //shop
 $route["home"] = 'ShopController/home';
+$route["products"] = 'ShopController/products';
+$route["products/(:any)/detail"] = 'ShopController/productDetail/$1';
 
 //admin routes
 $route['admin'] = 'AppController';
