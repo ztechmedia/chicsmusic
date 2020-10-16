@@ -43,22 +43,11 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
-                        <li class="nav-item">
-                            <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
-                        </li>
                     </ul>
+                    <div class="count-cart"></div>
                 </div>
             </div>
         </nav>
-    </div>
-    <div class="search_input" id="search_input_box">
-        <div class="container">
-            <form class="d-flex justify-content-between">
-                <input type="text" class="form-control" id="search_input" placeholder="Cari barang disini...">
-                <button type="submit" class="btn"></button>
-                <span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
-            </form>
-        </div>
     </div>
 </header>
 <!-- End Header Area -->

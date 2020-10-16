@@ -107,3 +107,14 @@ function max_length($string, $max) {
         return $string;
     }
 }
+
+function array_search_key($array, $data, $column) {
+    $arrayKey = null;
+    foreach ($array as $key => $value) {
+        if($value[$column] === $data) {
+            $arrayKey = $key;
+            break;
+        }
+    }
+    return $arrayKey;
+}

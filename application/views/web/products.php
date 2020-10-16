@@ -6,7 +6,7 @@
 				<h1>Produk Chic's Musik</h1>
 				<nav class="d-flex align-items-center">
 					<a href="<?=base_url('home')?>">Beranda<span class="lnr lnr-arrow-right"></span></a>
-					<a href="#">Produk<span class="lnr lnr-arrow-right"></span></a>
+					<a href="javascript:(0)">Produk</span></a>
 				</nav>
 			</div>
 		</div>
@@ -51,14 +51,14 @@
 						<ul>
 							<fieldset>
 								<li class="filter-list">
-									<input value="" <?=$data["brand"] === "" || !isset($data['brand']) ? "checked" : null?> class="pixel-radio" type="radio" name="brand" onchange="search(null)">
+									<input value="" <?=$data["brand"] === "" || !isset($data['brand']) ? "checked" : null?> class="pixel-radio" type="radio" name="brand" onchange="searchEngine(null)">
 										<label for="radio">
 										Semua Merek
 									</label>
 								</li>
 								<?php $num = 1; foreach($brands as $brand){ ?>
 									<li class="filter-list">
-										<input value="<?=$brand->brand?>" <?=$data["brand"] === $brand->brand ? "checked" : null?> class="pixel-radio" type="radio" name="brand" onchange="search(null)">
+										<input value="<?=$brand->brand?>" <?=$data["brand"] === $brand->brand ? "checked" : null?> class="pixel-radio" type="radio" name="brand" onchange="searchEngine(null)">
 											<label for="radio">
 												<?=$brand->brand?><span>(<?=$brand->total_product?>)</span>
 										</label>

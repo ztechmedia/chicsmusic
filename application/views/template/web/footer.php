@@ -48,13 +48,18 @@
  <script src="<?=base_url("assets/karma/js/jquery.nice-select.min.js")?>"></script>
  <script src="<?=base_url("assets/karma/js/jquery.sticky.js")?>"></script>
  <script src="<?=base_url("assets/karma/js/nouislider.min.js")?>"></script>
- <!-- <script src="<?=base_url("assets/karma/js/countdown.js")?>"></script> -->
  <script src="<?=base_url("assets/karma/js/jquery.magnific-popup.min.js")?>"></script>
  <script src="<?=base_url("assets/karma/js/owl.carousel.min.js")?>"></script>
  <!--gmaps Js-->
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
  <script src="<?=base_url("assets/karma/js/main.js")?>"></script>
+ <script src="<?=base_url("assets/custom/js/ajax/ajaxRequest.js")?>"></script>
+ <script src="<?=base_url("assets/custom/js/loader/viewLoader.js")?>"></script>
 
  <script>
-     $(".owl-prev").html(`<img src="<?=base_url("assets/karma/img/product/prev.png")?>">`);
- </script>
+     function checkCart() {
+         loadContent("<?=base_url("checkcart")?>", ".count-cart");
+     }
+
+     checkCart();
+</script>
