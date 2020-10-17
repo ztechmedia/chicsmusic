@@ -62,6 +62,33 @@ img {
 .active-sub {
     color: #fcb502 !important;
 }
+.count-cart {
+    border: 1px solid #ccc;
+    height: 25px;
+    width: 25px;
+    text-align: center;
+    border-radius: 25px;
+    margin-left: 5px;
+    background: #fcb502;
+    color: #fff;
+}
+
+.img-comment {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+.review_box_custom {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px auto;
+}
+
+.review_box .list li a {
+    color: #ccc !important;
+}
 
 @media (max-width: 990px) {
     .banner-product {
