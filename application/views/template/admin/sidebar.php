@@ -33,6 +33,9 @@
         <li class="shop-categories"><a class="side-submenu" data-url="<?=base_url("admin/shop-categories")?>" data-menu=".stores-menu"
                 data-submenu=".shop-categories"><span class="fa fa-filter"></span> Kategori Produk</a></li>
 
+        <li class="bank"><a class="side-submenu" data-url="<?=base_url("admin/banks")?>" data-menu=".stores-menu"
+                data-submenu=".bank"><span class="fa fa-money"></span> Rekening Bank</a></li>
+
     </ul>
 </li>
 

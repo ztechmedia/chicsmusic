@@ -21,6 +21,16 @@ $route["post-reply-comment/(:any)/reply/(:any)"] = 'ShopController/postReplyComm
 $route["open-comment-box/(:any)"] = 'ShopController/commentBox/$1';
 $route["checkout"] = 'ShopController/checkout';
 
+//bank routes
+$route["admin/banks"] = "BankController";
+$route["admin/banks-table"] = "BankController/bankTable";
+$route["admin/banks/create"] = "BankController/create";
+$route["admin/banks/add"] = "BankController/add";
+$route["admin/banks/(:any)/edit"] = "BankController/edit/$1";
+$route["admin/banks/(:any)/update"] = "BankController/update/$1";
+$route["admin/banks/(:any)/delete"] = "BankController/delete/$1";
+$route['admin/banks/(:any)/removeUpload'] = 'BankController/removeUpload/$1';
+
 //admin routes
 $route['admin'] = 'AppController';
 

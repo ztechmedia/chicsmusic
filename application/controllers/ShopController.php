@@ -10,6 +10,7 @@ class ShopController extends CI_Controller
         $this->load->library("Search", "search");
         $this->load->library('cart');
         $this->load->library("form_validation");
+        $this->load->model("BaseModel", "BM");
         $this->load->model("ProductModel", "Product");
         $this->load->model("CategoryModel", "Category");
         $this->load->helper("response");

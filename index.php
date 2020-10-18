@@ -60,6 +60,9 @@ switch ($_SERVER["HTTP_HOST"]) {
     case "localhost:8000":
         define('ENVIRONMENT', 'development');
         break;
+    case "localhost":
+        define('ENVIRONMENT', 'development');
+        break;
     default:
         define('ENVIRONMENT', 'production');
         break;
