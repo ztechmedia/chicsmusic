@@ -37,6 +37,12 @@ class BaseModel extends CI_Model
         return $this->db->get_where($table, $where);
     }
 
+    public function whereIn($table, $column, $data)
+    {
+        $this->db->where_in($column, $data);
+        return $this->db->get($table);
+    }
+
     public function getById($table, $id)
     {
         $query = $this->db->get_where($table, array("id" => $id))->result();

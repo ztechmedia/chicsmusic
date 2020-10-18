@@ -124,7 +124,6 @@ class StoreController extends CI_Controller {
     {
         $data['storeCategory'] = $this->BM->checkById($this->store_categories, $id);
         $data['id'] = $id;
-        $data['categories'] = $this->BM->getAll($this->categories)->result();
         $data['subcategories'] = $this->BM->getAll($this->subcategories)->result();
         $this->load->view("admin/stores/categories/set_categories", $data);
     }

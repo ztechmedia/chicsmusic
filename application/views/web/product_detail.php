@@ -40,7 +40,7 @@
                     <h3><?=$product->name?></h3>
                     <h2><?=toRp($product->price)?></h2>
                     <ul class="list">
-                        <li><a class="active" href="#"><span>Kategori</span> : <?=$product->category_id?></a></li>
+                        <li><a class="active" href="<?=base_url("products?page=1&limit=12&sort=min&subcategories=$product->subcategory")?>"><span>Kategori</span> : <?=$product->category?></a></li>
                         <li><a href="#"><span>Stok</span> : <?=$product->stock?></a></li>
                     </ul>
                     <p><?=max_length($product->description, 300)?></p>
@@ -49,7 +49,7 @@
                         <input type="text" name="qty" id="sst" maxlength="<?=$product->stock?>" value="1" title="Quantity:"
                             class="input-text qty">
                         <button
-                            onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
+                            onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) && result.value < <?=$product->stock?>) result.value++;return false;"
                             class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
                         <button
                             onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
@@ -95,7 +95,7 @@
                     <div class="col-lg-6">
                         <div class="review_box">
                             <h4>Komentari Produk</h4>
-                            <form class="row contact_form post-action" action="javascript:(0)" 
+                            <form class="row contact_form post-action" id="post-form" action="javascript:(0)" 
                                 role="form"
                                 id="contactForm" 
                                 novalidate="novalidate"
@@ -105,18 +105,21 @@
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="name" name="name"
                                             placeholder="Nama">
+                                        <span id="name-error-p" class="form-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input type="email" class="form-control" id="email" name="email"
                                             placeholder="Alamat Email">
+                                        <span id="email-error-p" class="form-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <textarea class="form-control" name="comment" id="comment" rows="1"
                                             placeholder="Komentar"></textarea>
+                                        <span id="comment-error-p" class="form-error"></span>
                                     </div>
                                 </div>
                                 <input style="display:none" type="text" class="form-control" id="status" name="status" value="new">
@@ -145,25 +148,29 @@
                                 <li><a onclick="ratingStar(5)" href="javascript:(0)"><i class="fa fa-star rating-hover-5"></i></a></li>
                             </ul>
                             <p>Outstanding</p>
-                            <form class="row contact_form review-action" action="javascript:(0)" role="form" id="contactForm"
+                            <span id="star-error-r" class="form-error"></span>
+                            <form class="row contact_form review-action" id="reviews-form" action="javascript:(0)" role="form" id="contactForm"
                                 novalidate="novalidate"
                                 data-action="<?=base_url("post-review/$product->id/create")?>">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input type="text" class="form-control" id="name" name="name"
                                             placeholder="Nama">
+                                        <span id="name-error-r" class="form-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <input type="email" class="form-control" id="email" name="email"
                                             placeholder="Alamat Email"">
+                                        <span id="email-error-r" class="form-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <textarea class="form-control" name="comment" id="comment" rows="1"
                                             placeholder="Ulasan"></textarea></textarea>
+                                        <span id="comment-error-r" class="form-error"></span>
                                     </div>
                                 </div>
                                 <input style="display:none" type="text" class="form-control" id="star" name="star">

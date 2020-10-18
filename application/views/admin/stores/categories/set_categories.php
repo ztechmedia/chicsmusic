@@ -31,24 +31,10 @@
                 <div class="col-md-12">
                     <div class="panel panel-default tabs">
                         <ul class="nav nav-tabs nav-justified">
-                            <li class="active"><a href="#tab1" data-toggle="tab">Kategori</a></li>
-                            <li><a href="#tab2" data-toggle="tab">Subkategori</a></li>
+                            <li class="active"><a href="#tab2" data-toggle="tab">Subkategori</a></li>
                         </ul>
                         <div class="panel-body tab-content">
-                            <div class="tab-pane active" id="tab1">
-                                <div class="panel-body list-group list-group-contacts" style="height: 200px; overflow-y: scroll">
-                                    <?php foreach ($categories as $category) { ?>
-                                        <a onclick="genCategories('<?=$category->id?>')" class="list-group-item">
-                                            <div class="list-group-status status-online"></div>
-                                            <img src="<?=base_url("assets/images/categories/$category->icon")?>" class="pull-left"
-                                                alt="Brad Pitt" />
-                                            <span class="contacts-title"><?=$category->name?></span>
-                                            <p>asds</p>
-                                        </a>
-                                    <?php } ?>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="tab2">
+                            <div class="tab-pane active" id="tab2">
                                 <div class="panel-body list-group list-group-contacts" style="height: 200px; overflow-y: scroll">
                                     <?php foreach ($subcategories as $subcategory) { ?>
                                         <a onclick="genSubcategories('<?=$subcategory->id?>')" class="list-group-item">

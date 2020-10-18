@@ -27,7 +27,7 @@ class ProductModel extends CI_Model
         }
     }
 
-    public function productWithCategories(Type $var = null)
+    public function productWithCategories()
     {
        return $this
                 ->db
@@ -35,6 +35,18 @@ class ProductModel extends CI_Model
                 ->from('products as a')
                 ->join('categories as b', 'a.category_id = b.id')
                 ->join('subcategories as c', 'a.subcategory_id = c.id');
+    }
+
+    public function productCat($productId)
+    {
+       return $this
+                ->db
+                ->select('a.*, b.name as category, c.id as subcategory')
+                ->from('products as a')
+                ->join('categories as b', 'a.category_id = b.id')
+                ->join('subcategories as c', 'a.subcategory_id = c.id')
+                ->where('a.id', $productId)
+                ->get()->row();
     }
 
     public function getBanners()

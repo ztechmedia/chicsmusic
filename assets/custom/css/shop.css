@@ -90,6 +90,11 @@ img {
     color: #ccc !important;
 }
 
+.form-error {
+    color: red;
+    font-style: italic;
+}
+
 @media (max-width: 990px) {
     .banner-product {
         margin-top: 100px;

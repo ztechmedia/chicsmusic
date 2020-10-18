@@ -1,5 +1,6 @@
 <div class="comment_list">
     <?php 
+    if(count($comments) > 0) {
     foreach ($comments as $comment) {
     if($comment->status === 'new'){ ?>
     <div class="review_item">
@@ -30,5 +31,7 @@
         <p><?=$comment->comment?></p>
     </div>
     <div id="<?=$comment->id?>"></div>
-    <?php } }?>
+    <?php } } }else{?>
+        <p>Belum ada komentar</p>
+    <?php } ?>
 </div>

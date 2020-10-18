@@ -137,17 +137,13 @@
 										<h6><?=toRp($product->price)?></h6>
 									</div>
 									<div class="prd-bottom">
-										<a href="" class="social-info">
+										<a onclick="addCart('<?=$product->id?>', '<?=$product->name?>', '<?=$product->price?>', '<?=$product->stock?>')" href="javascript:(0)" class="social-info">
 											<span class="ti-bag"></span>
 											<p class="hover-text">Add To Bag</p>
 										</a>
-										<a href="" class="social-info">
-											<span class="lnr lnr-heart"></span>
-											<p class="hover-text">Wishlist</p>
-										</a>
-										<a href="" class="social-info">
+										<a href="<?=base_url("products/$product->id/detail")?>" class="social-info">
 											<span class="lnr lnr-move"></span>
-											<p class="hover-text">View More</p>
+											<p class="hover-text">Detail</p>
 										</a>
 									</div>
 								</div>
@@ -201,7 +197,7 @@
 			return;
 		}
 
-		if(subcategories && subcategories !== "all") {
+		if(subcategories && subcategories !== "all" || newSubcategories) {
 			url = `${url}&subcategories=${newSubcategories}`;
 		}
 

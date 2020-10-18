@@ -6,16 +6,19 @@
         <div class="col-md-12">
             <div class="form-group">
                 <input type="text" class="form-control" id="name" name="name" placeholder="Nama">
+                <span id="name-error" class="form-error"></span>
             </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
                 <input type="email" class="form-control" id="email" name="email" placeholder="Alamat Email">
+                <span id="email-error" class="form-error"></span>
             </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
                 <textarea class="form-control" name="comment" id="comment" rows="1" placeholder="Komentar"></textarea>
+                <span id="comment-error" class="form-error"></span>
             </div>
         </div>
         <input style="display:none" type="text" class="form-control" id="status" name="status" value="reply">
@@ -31,11 +34,18 @@
         const element = $(this);
         const action = element.data("action");
         const data = new FormData(this);
+        $(".form-error").html("");
 
         reqFormData(action, "POST", data, (err, response) => {
-            if (response.success) {
-                $(`#${response.comment_id}`).html('');
-                commentList();
+            if (response) {
+                if(response.success) {
+                    $(`#${response.comment_id}`).html('');
+                    commentList();
+                }else{
+                    $.each(response.errors, function (key, value) {
+                        $(`#${key}-error`).html(value);
+                    });
+                }
             } else {
                 console.log("Error: ", err);
             }

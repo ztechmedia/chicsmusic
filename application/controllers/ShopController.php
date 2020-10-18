@@ -9,6 +9,7 @@ class ShopController extends CI_Controller
         parent::__construct();
         $this->load->library("Search", "search");
         $this->load->library('cart');
+        $this->load->library("form_validation");
         $this->load->model("ProductModel", "Product");
         $this->load->model("CategoryModel", "Category");
         $this->load->helper("response");
@@ -18,6 +19,7 @@ class ShopController extends CI_Controller
         $this->products = 'products';
         $this->comments = 'comments';
         $this->reviews = 'reviews';
+        $this->validate = ['name', 'email', 'comment', 'star'];
     }
 
     public function home()
@@ -41,8 +43,9 @@ class ShopController extends CI_Controller
 
     public function productDetail($productId)
     {
-        $product = $this->BM->checkById($this->products, $productId);
+        $product = $this->Product->productCat($productId);
         $data['view'] = 'web/product_detail';
+        $data['script'] = 'web/script/product_detail_js';
         $data['product'] = $product;
         $this->load->view("template/web/app", $data);
     }
@@ -90,8 +93,8 @@ class ShopController extends CI_Controller
             }
             $totalStar += $review->star;
         }
-
-        $average = ($totalStar / count($reviews));
+    
+        $average = count($reviews) > 0 ? ($totalStar / count($reviews)) : 0;
 
         $data = [
             "reviews" => $reviews,
@@ -107,19 +110,24 @@ class ShopController extends CI_Controller
 
     public function postReview($productId)
     {
-        $data['star'] = $this->input->post("star");
-        $data['name'] = $this->input->post("name");
-        $data['email'] = $this->input->post("email");
-        $data['comment'] = $this->input->post("comment");
-        $data['product_id'] = $productId;
+        $validator = $this->inputValidator(["name", "email", "comment", "star"]);
+        if($validator) {
+            $data['star'] = $this->input->post("star");
+            $data['name'] = $this->input->post("name");
+            $data['email'] = $this->input->post("email");
+            $data['comment'] = $this->input->post("comment");
+            $data['product_id'] = $productId;
 
-        $create = $this->BM->create($this->reviews, $data);
+            $create = $this->BM->create($this->reviews, $data);
 
-        if ($create) {
-            appJson([
-                "success" => true,
-                "message" => "Berhasil mengirim ulasan",
-            ]);
+            if ($create) {
+                appJson([
+                    "success" => true,
+                    "message" => "Berhasil mengirim ulasan",
+                ]);
+            }
+        }else{
+            appJson(['errors' => $this->form_validation->error_array()]);
         }
     }
 
@@ -127,24 +135,29 @@ class ShopController extends CI_Controller
     {
         $post = fileGetContent();
         $cart = $this->cart->contents();
-
+        $stock = $this->BM->getById($this->products, $post->product_id)->stock;
         $key = array_search_key($cart, $post->product_id, 'id');
         if ($key !== null) {
-            $data = array(
-                'rowid' => $key,
-                "name" => $post->name,
-                'qty' => $cart[$key]['qty'] + $post->qty,
-                "price" => $post->price,
-            );
-            $this->cart->update($data);
+            if($post->qty <= $stock) {
+                $data = array(
+                    'rowid' => $key,
+                    "name" => $post->name,
+                    'qty' => $post->qty,
+                    "price" => $post->price,
+                    "rowid" => $rowid[$product->id],
+                );
+                $this->cart->update($data);
+            }
         } else {
-            $data = array(
-                "id" => $post->product_id,
-                "name" => $post->name,
-                "qty" => $post->qty,
-                "price" => $post->price,
-            );
-            $this->cart->insert($data);
+            if($post->qty <= $stock) {
+                $data = array(
+                    "id" => $post->product_id,
+                    "name" => $post->name,
+                    "qty" => $post->qty,
+                    "price" => $post->price,
+                );
+                $this->cart->insert($data);
+            }
         }
 
         appJson([
@@ -160,39 +173,49 @@ class ShopController extends CI_Controller
 
     public function postComment($productId)
     {
-        $data['name'] = $this->input->post("name");
-        $data['email'] = $this->input->post("email");
-        $data['comment'] = $this->input->post("comment");
-        $data['status'] = $this->input->post("status");
-        $data['product_id'] = $productId;
-
-        $create = $this->BM->create($this->comments, $data);
-
-        if ($create) {
-            appJson([
-                "success" => true,
-                "message" => "Berhasil mengirim komentar",
-            ]);
+        $validator = $this->inputValidator(["name", "email", "comment"]);
+        if($validator) {
+            $data['name'] = $this->input->post("name");
+            $data['email'] = $this->input->post("email");
+            $data['comment'] = $this->input->post("comment");
+            $data['status'] = $this->input->post("status");
+            $data['product_id'] = $productId;
+    
+            $create = $this->BM->create($this->comments, $data);
+    
+            if ($create) {
+                appJson([
+                    "success" => true,
+                    "message" => "Berhasil mengirim komentar",
+                ]);
+            }
+        }else{
+            appJson(['errors' => $this->form_validation->error_array()]);
         }
     }
 
     public function postReplyComment($commentId, $productId)
     {
-        $data['name'] = $this->input->post("name");
-        $data['email'] = $this->input->post("email");
-        $data['comment'] = $this->input->post("comment");
-        $data['status'] = $this->input->post("status");
-        $data['parent'] = $commentId;
-        $data['product_id'] = $productId;
-
-        $create = $this->BM->create($this->comments, $data);
-
-        if ($create) {
-            appJson([
-                "success" => true,
-                "message" => "Berhasil mengirim komentar",
-                "comment_id" => $commentId,
-            ]);
+        $validator = $this->inputValidator(["name", "email", "comment"]);
+        if($validator) {
+            $data['name'] = $this->input->post("name");;
+            $data['email'] = $this->input->post("email");;
+            $data['comment'] =  $this->input->post("comment");;
+            $data['status'] = $this->input->post("status");
+            $data['parent'] = $commentId;
+            $data['product_id'] = $productId;
+    
+            $create = $this->BM->create($this->comments, $data);
+    
+            if ($create) {
+                appJson([
+                    "success" => true,
+                    "message" => "Berhasil mengirim komentar",
+                    "comment_id" => $commentId,
+                ]);
+            }
+        }else{
+            appJson(['errors' => $this->form_validation->error_array()]);
         }
     }
 
@@ -202,5 +225,133 @@ class ShopController extends CI_Controller
         $data['comment_id'] = $comment->id;
         $data['product_id'] = $comment->product_id;
         $this->load->view("web/comment/comment_box", $data);
+    }
+
+    public function inputValidator($validate)
+    {
+        $rules = [
+            "name" => [
+                'field' => 'name',
+                'label' => 'Nama',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '* Nama tidak boleh kosong',
+                ],
+            ],
+            "email" => [
+                'field' => 'email',
+                'label' => 'Email',
+                'rules' => "required|trim|valid_email",
+                'errors' => [
+                    'required' => '* Email tidak boleh kosong',
+                    'valid_email' => 'Format email tidak benar',
+                ],
+            ],
+            "comment" => [
+                'field' => 'comment',
+                'label' => 'Comment',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '* Komentar tidak boleh kosong',
+                ],
+            ],
+            "star" => [
+                'field' => 'star',
+                'label' => 'Star',
+                'rules' => 'required',
+                'errors' => [
+                    'required' => '* Anda belum memberikan ratings',
+                ],
+            ],
+        ];
+
+        $filterRules = [];
+
+        foreach ($validate as $v) {
+            $filterRules[] = $rules[$v];
+        }
+
+        $this->form_validation->set_rules($filterRules);
+        return $this->form_validation->run();
+    }
+
+    public function carts()
+    {
+        $data['view'] = 'web/carts';
+        $data['script'] = 'web/script/carts_js';
+        $carts = $this->cart->contents();
+        
+        $id = [];
+        $qty = [];
+        foreach ($carts as $cart) {
+            $id[] = $cart['id'];
+            $qty[$cart['id']] = $cart['qty'];
+            $rowid[$cart['id']] = $cart['rowid'];
+        }
+
+        $newCart = [];
+
+        if(count($id) > 0) {
+            $products = $this->BM->whereIn($this->products, 'id', $id)->result();
+
+            foreach ($products as $product) {
+                $covers = unserialize($product->cover);
+                $newCart[] = [
+                    "rowid" => $rowid[$product->id],
+                    "product_id" => $product->id,
+                    "name" => $product->name,
+                    "qty" => $qty[$product->id],
+                    "price" => $product->price,
+                    "subtotal" => $product->price * $qty[$product->id],
+                    "stock" => $product->stock,
+                    "cover" => $covers[0]
+                ];
+            }
+        }
+        
+        $data['carts'] = $newCart;
+        $this->load->view("template/web/app", $data);
+    }
+
+    public function addQty()
+    {
+        $obj = fileGetContent();
+        $productId = $obj->product_id;
+        $qty = $obj->qty;
+        $total = 0;
+        $stock = $this->BM->getById($this->products, $productId)->stock;
+        $carts = $this->cart->contents();
+
+        $key = array_search_key($carts, $productId, 'id');
+       
+        $subtotal = $carts[$key]['price'] * $qty;
+
+        $data = array(
+            'rowid' => $key,
+            'qty' => $qty,
+        );
+
+        if(($carts[$key]['qty'] + $qty) <= $stock) {
+            $this->cart->update($data);
+        }
+
+        $newCart = $this->cart->contents();
+
+        foreach ($newCart as $cart) {
+            $total += $cart['subtotal'];
+        }
+        
+        appJson([
+            "success" => true,
+            "subtotal" => toRp($subtotal),
+            "product_id" => $productId,
+            "total" => toRp($total)
+        ]);
+    }
+
+    public function checkout()
+    {
+        $data['view'] = 'web/checkout';
+        $this->load->view("template/web/app",$data);
     }
 }

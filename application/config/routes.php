@@ -9,7 +9,9 @@ $route['translate_uri_dashes'] = false;
 $route["home"] = 'ShopController/home';
 $route["products"] = 'ShopController/products';
 $route["products/(:any)/detail"] = 'ShopController/productDetail/$1';
+$route["carts"] = 'ShopController/carts';
 $route["addcart"] = 'ShopController/addCart';
+$route["addqty"] = 'ShopController/addQty';
 $route["checkcart"] = 'ShopController/checkCart';
 $route["comment-list/(:any)"] = 'ShopController/commentList/$1';
 $route["review-list/(:any)"] = 'ShopController/reviewList/$1';
@@ -17,6 +19,7 @@ $route["post-comment/(:any)/create"] = 'ShopController/postComment/$1';
 $route["post-review/(:any)/create"] = 'ShopController/postReview/$1';
 $route["post-reply-comment/(:any)/reply/(:any)"] = 'ShopController/postReplyComment/$1/$2';
 $route["open-comment-box/(:any)"] = 'ShopController/commentBox/$1';
+$route["checkout"] = 'ShopController/checkout';
 
 //admin routes
 $route['admin'] = 'AppController';

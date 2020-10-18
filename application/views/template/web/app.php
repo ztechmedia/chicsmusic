@@ -10,6 +10,8 @@
     <?php $this->load->view($view); ?>
 
     <?php include("footer.php") ?>
+    
+    <?php if(isset($script)) $this->load->view($script) ?>
 </body>
 
 </html>
