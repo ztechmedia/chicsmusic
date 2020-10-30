@@ -93,3 +93,4 @@ define('SMTP_PORT', 587);
 define('SYSTEM_MAIL', 'admin@zmedia.tech');
 define('SYSTEM_MAILPASS', 'J@nuari1993');
 define('SYSTEM_MAIL_ADMIN',  "Chic's Music 2020");
+define('RAJA_API',  '1f409f79a2bdfc7567c55c902ffd98f3');

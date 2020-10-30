@@ -27,15 +27,17 @@
                              <th scope="col">Produk</th>
                              <th scope="col">Harga</th>
                              <th scope="col">Kuantitas</th>
-                             <th scope="col">Stock</th>
+                             <th scope="col">Berat</th>
+                             <th scope="col">Stok</th>
                              <th scope="col">Total</th>
                          </tr>
                      </thead>
                      <tbody>
-                        <?php $total = 0; $index = 0; 
+                        <?php $total = 0; $weight = 0; $index = 0; 
                         foreach ($carts as $cart) { 
                             $index++; 
-                            $total += $cart['subtotal']; ?>
+                            $total += $cart['subtotal'];
+                            $weight += $cart['weight'] * $cart['qty']; ?>
                          <tr>
                              <td>
                                  <div class="media">
@@ -55,16 +57,17 @@
                                      <input onchange="addQty('<?=$cart['product_id']?>', '#sst-<?=$index?>')" type="text" name="qty" id="sst-<?=$index?>" maxlength="<?=$cart['stock']?>" value="<?=$cart['qty']?>" title="Quantity:"
                                          class="input-text qty">
                                      <button
-                                         onclick="var result = document.getElementById('sst-<?=$index?>'); var sst = result.value; if( !isNaN( sst ) && result.value < <?=$cart['stock']?>) result.value++;return false;"
-                                         onmousedown="addQty('<?=$cart['product_id']?>', '#sst-<?=$index?>', 1)"
+                                         onclick="var result = document.getElementById('sst-<?=$index?>'); var sst = result.value; if( !isNaN( sst ) && result.value < <?=$cart['stock']?>) result.value++; addQty('<?=$cart['product_id']?>', '#sst-<?=$index?>'); return false;"
                                          class="increase items-count" type="button"><i
                                              class="lnr lnr-chevron-up"></i></button>
                                      <button
-                                         onclick="var result = document.getElementById('sst-<?=$index?>'); var sst = result.value; if( !isNaN( sst ) && result.value > 1 ) result.value--;return false;"
-                                         onmousedown="addQty('<?=$cart['product_id']?>', '#sst-<?=$index?>', -1)"
+                                         onclick="var result = document.getElementById('sst-<?=$index?>'); var sst = result.value; if( !isNaN( sst ) && result.value >   1 ) result.value--; addQty('<?=$cart['product_id']?>', '#sst-<?=$index?>'); return false;"
                                          class="reduced items-count" type="button"><i
                                              class="lnr lnr-chevron-down"></i></button>
                                  </div>
+                             </td>
+                             <td>
+                                 <h5><?=$cart['weight'] * $cart['qty']?> Gram</h5>
                              </td>
                              <td><?=$cart['stock']?></td>
                              <td>
@@ -83,13 +86,39 @@
 
                             </td>
                             <td>
-                                <h5>Subtotal</h5>
+                                <h5>Total</h5>
+                            </td>
+                            <td>
+                                <h5></h5>
                             </td>
                             <td>
                                 <h5 id="total"><?=toRp($total)?></h5>
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                            <td>
+                                <h5>Berat</h5>
+                            </td>
+                            <td>
+                                <h5></h5>
+                            </td>
+                            <td>
+                                <h5 id="total"><?=$weight?> Gram / <?=$weight / 1000?> Kg</h5>
+                            </td>
+                        </tr>
                         <tr class="out_button_area">
+                            <td>
+
+                            </td>
                             <td>
 
                             </td>

@@ -2,7 +2,7 @@
     <!-- Mobile Specific Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon-->
-    <link rel="shortcut icon" href="<?=base_url("assets/karma/img/fav.png")?>">
+    <link rel="shortcut icon" href="<?=base_url("assets/images/no_image200.jpg")?>">
     <!-- Author Meta -->
     <meta name="author" content="CodePixar">
     <!-- Meta Description -->
@@ -28,4 +28,5 @@
     <link rel="stylesheet" href="<?=base_url("assets/karma/css/magnific-popup.css")?>">
     <link rel="stylesheet" href="<?=base_url("assets/karma/css/main.css")?>">
     <link rel="stylesheet" href="<?=base_url("assets/custom/css/shop.css")?>">
+    <link rel="stylesheet" href="<?=base_url('assets/sweetalert/sweetalert.css')?>"/>
 </head>

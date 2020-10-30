@@ -36,6 +36,12 @@
         <li class="bank"><a class="side-submenu" data-url="<?=base_url("admin/banks")?>" data-menu=".stores-menu"
                 data-submenu=".bank"><span class="fa fa-money"></span> Rekening Bank</a></li>
 
+        <li class="store-address"><a class="side-submenu" data-url="<?=base_url("admin/store-address")?>" data-menu=".stores-menu"
+                data-submenu=".store-address"><span class="fa fa-shopping-cart"></span> Alamat Toko</a></li>
+
+        <li class="brands"><a class="side-submenu" data-url="<?=base_url("admin/brands")?>" data-menu=".stores-menu"
+                data-submenu=".brands"><span class="fa fa-flag-o"></span> Daftar Merek</a></li>
+
     </ul>
 </li>
 

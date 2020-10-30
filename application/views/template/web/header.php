@@ -20,7 +20,20 @@
                     <ul class="nav navbar-nav menu_nav ml-auto">
                         <li class="nav-item <?php if(strpos($url, base_url('home')) === 0) echo "active"; ?>"><a class="nav-link" href="<?=base_url("home")?>">Beranda</a></li>
                         <li class="nav-item <?php if(strpos($url, base_url('products')) === 0) echo "active"; ?>"><a class="nav-link" href="<?=base_url("products")?>">Produk</a></li>
-                     
+
+                        <?php if($this->auth->role === "member") { ?>
+                        <li class="nav-item submenu dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">Akun</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item"><a class="nav-link" href="<?=base_url("profile/profile")?>">Profile</a></li>
+                                <li class="nav-item"><a class="nav-link" href="<?=base_url("profile/orders")?>">Pemesanan</a>
+                                <li class="nav-item"><a class="nav-link" href="<?=base_url("profile/address")?>">Alamat Pengiriman</a>
+                                <li class="nav-item"><a class="nav-link" href="<?=base_url("shop-logout")?>">Kelluar</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <?php } else { ?>
                         <li class="nav-item submenu dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                 aria-haspopup="true" aria-expanded="false">Akun</a>
@@ -30,6 +43,7 @@
                                 </li>
                             </ul>
                         </li>
+                        <?php } ?>
                         <li class="nav-item"><a class="nav-link" href="<?=base_url("contacts")?>">Kontak</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

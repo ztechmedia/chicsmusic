@@ -7,6 +7,7 @@ class DatatablesModel extends CI_Model
     {
         parent::__construct();
         $this->load->model("ProductModel", "PM");
+        $this->load->model("OrderModel", "Order");
     }
 
     public function totalDocument($table, $querySelector)
@@ -99,6 +100,8 @@ class DatatablesModel extends CI_Model
         switch ($type) {
             case "productWithCategories":
                 return $this->PM->productWithCategories();
+            case "ordersTable":
+                return $this->Order->ordersTable($this->auth->userId);
         }
     }
 

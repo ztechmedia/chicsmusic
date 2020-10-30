@@ -12,7 +12,7 @@ class ProductModel extends CI_Model
         $this->load->helper('utility');
         //local variabel
         $this->table = 'products';
-        $this->validate = ['name','brand', 'price', 'stock', 'description', 'category_id', 'subcategory_id'];
+        $this->validate = ['name','brand', 'price', 'weight', 'stock', 'description', 'category_id', 'subcategory_id'];
     }
 
     public function update($id, $data, $validate = [], $bypass = [])
@@ -31,7 +31,7 @@ class ProductModel extends CI_Model
     {
        return $this
                 ->db
-                ->select('a.id, a.name, a.price, a.createdAt, b.name as category, c.name as subcategory')
+                ->select('a.id, a.name, a.price, a.weight, a.createdAt, b.name as category, c.name as subcategory')
                 ->from('products as a')
                 ->join('categories as b', 'a.category_id = b.id')
                 ->join('subcategories as c', 'a.subcategory_id = c.id');
@@ -53,7 +53,7 @@ class ProductModel extends CI_Model
     {
         $banners = $this
                     ->db
-                    ->select('a.*, b.name as product_name, b.price, b.cover')
+                    ->select('a.*,b.id as product_id, b.name as product_name, b.price, b.cover')
                     ->from('banners as a')
                     ->join('products as b', 'a.product_id = b.id')
                     ->get()
@@ -72,6 +72,29 @@ class ProductModel extends CI_Model
                     ->get()
                     ->row();
         return $banners;
+    }
+
+    public function cartProduct($memberId)
+    {
+        $carts = $this
+                    ->db
+                    ->select('a.*, b.price')
+                    ->from('carts a')
+                    ->join('products b', 'a.product_id = b.id')
+                    ->where('a.member_id', $memberId)
+                    ->get()
+                    ->result_array();
+        return $carts;
+    }
+
+    public function getCartWithProduct($memberId)
+    {
+        return $this->db->query("
+            SELECT a.member_id, a.qty, b.id AS product_id, b.price, b.name, (b.weight * a.qty) as total_weight, (a.qty * b.price) AS subtotal
+            FROM carts AS a
+            JOIN products AS b ON a.product_id = b.id
+            WHERE a.member_id = '$memberId'
+        ")->result();
     }
 
     public function getLimit($limit, $start, $search, $max, $min, $sort, $brand, $subcategories)
@@ -163,12 +186,30 @@ class ProductModel extends CI_Model
                 ->get($this->table)->result();
     }
 
+    public function sold($limit)
+    {
+        return $this->db
+                ->limit($limit)
+                ->order_by("sold", 'desc')
+                ->get($this->table)->result();
+    }
+
     public function brands()
     {
         return $this->db
                 ->select('brand, count(brand) as total_product')
                 ->group_by('brand')
                 ->get($this->table)->result();
+    }
+
+    public function getChartWeight()
+    {
+      return $this->db->query("
+        SELECT sum(a.qty * b.weight) AS berat
+        FROM carts AS a
+        JOIN products AS b ON a.product_id = b.id
+        WHERE member_id = '{$this->auth->userId}'  
+      ")->row();
     }
 
     public function validator($validate, $bypass, $data, $id = null)
@@ -199,6 +240,14 @@ class ProductModel extends CI_Model
                 'rules' => "required",
                 'errors' => [
                     'required' => '* Harga tidak boleh kosong',
+                ],
+            ],
+            "weight" => [
+                'field' => 'weight',
+                'label' => 'Weight',
+                'rules' => "required",
+                'errors' => [
+                    'required' => '* Berat tidak boleh kosong',
                 ],
             ],
             "stock" => [

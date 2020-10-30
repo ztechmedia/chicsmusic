@@ -98,7 +98,7 @@
             return;
         }
         setContentLoader(".product-list");
-        loadContent(url, ".product-list");
+        loadContent(encodeURI(url), ".product-list");
     }
 
     firstLoad();
@@ -118,7 +118,7 @@
             return;
         }
         setContentLoader(".product-list");
-        loadContent(url, ".product-list");
+        loadContent(encodeURI(url), ".product-list");
     }
 
     $("#form-search").submit(function() {
@@ -133,10 +133,10 @@
     });
 
     $(document.body).on("click", ".action-delete-grid", function (e) {
-    const element = $(this);
-    const url = element.data("url");
-    const message = element.data("message");
-    const page = element.data("page");
+        const element = $(this);
+        const url = element.data("url");
+        const message = element.data("message");
+        const page = element.data("page");
 
         swal(
             { 
@@ -171,6 +171,36 @@
         const url = "<?=base_url()?>admin/products/"+productId+"/stock";
         setContentLoader(".modal-body");
         loadContent(url, ".modal-body");
+    }
+
+    function fav(productId, productName, page, favorite) {
+        
+        const data = {
+            productId: productId,
+            fav: favorite === 1 ? 0 : 1,
+        }
+
+        swal(
+            { 
+            title: "Hapus",
+            text: `Jadikan produk ${productName} sebagai produk unggulan ?`,
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Ya",
+            closeOnConfirm: false,
+            },
+            function () {
+            reqJson("<?=base_url("admin/products/fav")?>", "POST", data, (err, response) => {
+                if (response) {
+                    swal("Sukses", response.message, "success");
+                    changePage(page);
+                } else {
+                    console.log("Error: ", err);
+                }
+            });
+            }
+        );
     }
 
 </script>

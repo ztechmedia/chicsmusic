@@ -84,7 +84,7 @@
         const page = 1;
         const sort = $("#sort").val();
         let url = `<?=base_url()?>admin/banners-product-list?limit=${limit}&page=${page}&search=${search}&sort=${sort}`;
-        loadContent(url, ".product-list");
+        loadContent(encodeURI(url), ".product-list");
     }
 
     firstLoad();
@@ -98,7 +98,7 @@
         const sort = $("#sort").val();
         let url = `<?=base_url()?>admin/banners-product-list?limit=${limit}&page=${page}&search=${search}&sort=${sort}`;
         if (search) url = `${url}&search=${search}`;
-        loadContent(url, ".product-list");
+        loadContent(encodeURI(url), ".product-list");
     }
 
     $("#form-search").submit(function() {

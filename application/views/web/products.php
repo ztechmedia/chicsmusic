@@ -201,7 +201,7 @@
 			url = `${url}&subcategories=${newSubcategories}`;
 		}
 
-		window.location = url;
+		window.location = encodeURI(url);
 	}
 
 	function toggleCategories() {

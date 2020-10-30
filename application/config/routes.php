@@ -5,6 +5,27 @@ $route['default_controller'] = 'ShopController/home';
 $route['404_override'] = 'AppController/pageNotFound';
 $route['translate_uri_dashes'] = false;
 
+//ongkir route
+$route["ongkir/(:any)/(:num)/(:any)"] = "ShopController/ongkir/$1/$2/$3";
+
+//store address
+$route["admin/store-address"] = "ShopController/storeAddress";
+$route["admin/store-address/update"] = "ShopController/storeAddressUpdate";
+
+//account routines
+$route['profile/(:any)'] = "ProfileController/profile/$1";
+$route['profile/edit'] = "ProfileController/editProfile";
+$route['profile/update'] = "ProfileController/updateProfile";
+$route['address/create'] = "ProfileController/createAddress";
+$route['address/(:any)/edit'] = "ProfileController/editAddress/$1";
+$route['address/regency'] = "ProfileController/getCity";
+$route['address/district'] = "ProfileController/getDistrict";
+$route['address/village/(:any)'] = "ProfileController/getVillage/$1";
+$route['address/addaddress'] = "ProfileController/addAddress";
+$route['address/(:any)/update'] = "ProfileController/updateAddress/$1";
+$route['address/(:any)/detail'] = "ProfileController/detailAddress/$1";
+$route['bank/(:any)/detail'] = "ProfileController/detailBank/$1";
+
 //shop
 $route["home"] = 'ShopController/home';
 $route["products"] = 'ShopController/products';
@@ -20,6 +41,9 @@ $route["post-review/(:any)/create"] = 'ShopController/postReview/$1';
 $route["post-reply-comment/(:any)/reply/(:any)"] = 'ShopController/postReplyComment/$1/$2';
 $route["open-comment-box/(:any)"] = 'ShopController/commentBox/$1';
 $route["checkout"] = 'ShopController/checkout';
+$route["checkout/pay"] = 'ShopController/pay';
+$route['shop-logout'] = 'ShopController/logout';
+
 
 //bank routes
 $route["admin/banks"] = "BankController";
@@ -39,7 +63,7 @@ $route['admin/shop-categories'] = 'StoreController/categories';
 $route['admin/set-shop-categories/(:any)'] = 'StoreController/setCategories/$1';
 $route['admin/update-shop-categories/(:any)'] = 'StoreController/updateCategories/$1';
 
-//banners
+//banners routes
 $route["admin/banners"] = "StoreController/banner";
 $route["admin/banners-product-list"] = "StoreController/productBanner";
 $route["admin/set-banners/(:any)"] = "StoreController/setBanner/$1";
@@ -78,7 +102,7 @@ $route['admin/categories/(:any)/edit'] = 'CategoriesController/edit/$1';
 $route['admin/categories/(:any)/update'] = 'CategoriesController/update/$1';
 $route['admin/categories/(:any)/removeUpload'] = 'CategoriesController/removeUpload/$1';
 
-//subcategories
+//subcategories routes
 $route['admin/categories/(:any)/subcategories'] = 'SubcategoriesController/subcategories/$1';
 $route['admin/categories/(:any)/subcategories/create'] = 'SubcategoriesController/create/$1';
 $route['admin/categories/(:any)/subcategories/add'] = 'SubcategoriesController/add/$1';
@@ -86,6 +110,16 @@ $route['admin/categories/(:any)/subcategories/list'] = 'SubcategoriesController/
 $route['admin/subcategories/(:any)/edit'] = 'SubcategoriesController/edit/$1';
 $route['admin/subcategories/(:any)/update'] = 'SubcategoriesController/update/$1';
 $route['admin/subcategories/(:any)/removeUpload'] = 'SubcategoriesController/removeUpload/$1';
+
+//brands routes
+$route['admin/brands'] = 'BrandController';
+$route['admin/brands-table'] = 'BrandController/brandsTable';
+$route['admin/brands/create'] = 'BrandController/create';
+$route['admin/brands/add'] = 'BrandController/add';
+$route['admin/brands/(:any)/delete'] = 'BrandController/delete/$1';
+$route['admin/brands/(:any)/edit'] = 'BrandController/edit/$1';
+$route['admin/brands/(:any)/update'] = 'BrandController/update/$1';
+$route['admin/brands/(:any)/removeUpload'] = 'BrandController/removeUpload/$1';
 
 //products routes
 $route['admin/products'] = 'ProductsController/products';
@@ -100,6 +134,7 @@ $route['admin/products/(:any)/removeUpload'] = 'ProductsController/removeUpload/
 $route['admin/products/(:any)/delete-covers'] = 'ProductsController/deleteCovers/$1';
 $route['admin/products/(:any)/stock'] = 'ProductsController/stock/$1';
 $route['admin/products/(:any)/stock-update'] = 'ProductsController/updateStock/$1';
+$route['admin/products/fav'] = 'ProductsController/productFav';
 //products grids
 $route['admin/products-grid'] = 'ProductsController/productsGrid';
 $route['admin/products-grid-list'] = 'ProductsController/productsGridList';

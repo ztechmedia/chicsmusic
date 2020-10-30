@@ -21,6 +21,10 @@ class Auth
     function private () {
         if (!$this->ci->session->userdata(SESSION_KEY)) {
             redirect("login");
+        } else {
+            if($this->role === "member") {
+                redirect("/");
+            }
         }
     }
 

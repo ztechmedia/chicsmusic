@@ -23,6 +23,14 @@
     </div>
 </div>
 
+<div class="form-group">
+    <label class="col-md-3 control-label">Berat (dalam Gram. include Packaging)</label>
+    <div class="<?= $product ? "col-md-9" : "col-md-6" ?>">
+        <input name="weight" id="weight" type="number" class="validate[required,maxSize[20]] form-control"
+            value="<?=$product ? $product->weight : 0?>" />
+    </div>
+</div>
+
 <?php if(!$product || !$product->name) { ?>
 <div class="form-group">
     <label class="col-md-3 control-label">Stock</label>

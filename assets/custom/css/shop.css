@@ -21,7 +21,7 @@ img {
     bottom: 0;
     right: 0;
     height: 50px;
-    width: 50%;
+    width: 45%;
     background-color: rgba(0,0,0,0.5);
     color: #fff;
     padding: 10px;
@@ -95,6 +95,21 @@ img {
     font-style: italic;
 }
 
+.bank-list {
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.bank-active {
+    border: 1px solid #fcb502;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.nice-select {
+    width: 100% !important;
+}
+
 @media (max-width: 990px) {
     .banner-product {
         margin-top: 100px;
@@ -107,6 +122,10 @@ img {
 
     .service-home {
         margin-top: 75px !important;
+    }
+
+    .banner-overlay {
+        width: 50%;
     }
 }
 

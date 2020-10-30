@@ -42,9 +42,11 @@
                     <h6><?=toRp($product->price)?></h6>
                 </div>
                 <div class="panel-footer">
-                    <span class="fa fa-sign-out"></span> 114
+                    <span class="fa fa-sign-out"></span> <?=$product->sold?>
                     |
-                    <span onclick="stock('<?=$product->id?>', '<?=$product->name?>', '<?=$page?>')" class="fa fa-inbox pointer"></span> <?=$product->stock?>
+                    <span onclick="stock('<?=$product->id?>', '<?=$product->name?>')" class="fa fa-inbox pointer"></span> <?=$product->stock?>
+                    |
+                    <span onclick="fav('<?=$product->id?>', '<?=$product->name?>', '<?=$page?>', '<?=$product->fav?>')" class="fa <?=$product->fav == 1 ? "fa-star" : "fa-star-o"?> pointer"></span>
                     |
                     <span class="fa fa-trash-o action-delete-grid pointer" 
                         data-url="<?=base_url("admin/products/$product->id/delete")?>" 

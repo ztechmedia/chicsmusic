@@ -11,6 +11,7 @@ class AuthController extends CI_Controller
         $this->load->model("BaseModel", "BM");
         $this->users = "users";
         $this->roles = "roles";
+        $this->carts = "carts";
         $this->auth->auth();
     }
 
@@ -62,6 +63,7 @@ class AuthController extends CI_Controller
         $this->session->set_userdata(SESSION_KEY, $session);
 
         if ($role->name === "member") {
+            $this->migrateCart($user->id);
             appJson([
                 "success" => true,
                 "type" => "login",
@@ -141,7 +143,8 @@ class AuthController extends CI_Controller
         );
 
         $this->session->set_userdata(SESSION_KEY, $session);
-
+        $this->migrateCart($user);
+        
         appJson([
             "success" => true,
             "type" => "register",
@@ -167,7 +170,7 @@ class AuthController extends CI_Controller
         }
 
         $user = $this->BM->getWhere($this->users, ["email" => $email])->row();
-        if(!$user) {
+        if (!$user) {
             appJson(["errors" => ["email" => "Email tidak terdaftar"]]);
         }
 
@@ -183,10 +186,10 @@ class AuthController extends CI_Controller
                     "success" => true,
                     "type" => "send-link-forgot",
                     "message" => "Berhasil mengirim link reset password kepada $email",
-                    "redirect" => base_url("login")
+                    "redirect" => base_url("login"),
                 ]);
             }
-        }else{
+        } else {
             appJson(["errors" => ["email" => $sendEmail]]);
         }
     }
@@ -196,10 +199,10 @@ class AuthController extends CI_Controller
     public function resetPassword($token_password)
     {
         $user = $this->BM->getWhere($this->users, ["token_password" => $token_password])->row();
-        if(!$user) {
+        if (!$user) {
             $data['message'] = "$token_password tidak ada di database kami";
             $this->load->view("errors/custom/page_not_found", $data);
-        }else{
+        } else {
             $data["token_password"] = $token_password;
             $data['view'] = "auth/reset-password";
             $this->load->view("template/auth/app", $data);
@@ -213,22 +216,22 @@ class AuthController extends CI_Controller
 
         $user = $this->BM->getWhere($this->users, ["token_password" => $token_password])->row();
 
-        if(!$user) {
+        if (!$user) {
             appJson(["errors" => ["token" => "Invalid TOKEN"]]);
         }
 
-        if(strlen($password) <= 0) {
+        if (strlen($password) <= 0) {
             appJson(["errors" => ["password" => "Password masih kosong"]]);
         }
 
-        if(strlen($confirm) <= 0) {
+        if (strlen($confirm) <= 0) {
             appJson(["errors" => ["confirm" => "Konfirmasi password masih kosong"]]);
         }
 
-        if($password !== $confirm) {
+        if ($password !== $confirm) {
             appJson(["errors" => ["confirm" => "Konfirmasi password tidak cocok"]]);
         }
-        
+
         $data["password"] = password_hash($password, PASSWORD_BCRYPT);
         $data["token_password"] = null;
         $this->BM->updateById($this->users, $user->id, $data);
@@ -250,5 +253,41 @@ class AuthController extends CI_Controller
             "redirect" => $redirect,
             "currentUrl" => base_url("admin/dashboard"),
         ]);
+    }
+
+    public function migrateCart($member_id)
+    {   $this->load->library('cart');
+        $tempCart = $this->cart->contents();
+        $carts = $this->BM->getWhere($this->carts, ['member_id' => $member_id])->result_array();
+        $newCart = [];
+        $updateCart = [];
+        if (count($tempCart) > 0) {
+            foreach ($tempCart as $cart) {
+                $index = array_search_key($carts, $cart['id'], 'product_id');
+                if ($index !== NULL) {
+                    $updateCart[] = [
+                        "product_id" => $cart['id'],
+                        "qty" => $cart['qty'] + $carts[$index]['qty'],
+                    ];
+                } else {
+                    $newCart[] = [
+                        "id" => genUnique(20),
+                        "product_id" => $cart['id'],
+                        "qty" => $cart['qty'],
+                        "member_id" => $member_id,
+                    ];
+                }
+            }
+
+            if (count($updateCart) > 0) {
+                $this->BM->updateMultiple($this->carts, $updateCart, 'product_id');
+            }
+
+            if (count($newCart) > 0) {
+                $this->BM->createMultiple($this->carts, $newCart);
+            }
+
+            $this->cart->destroy();
+        }
     }
 }

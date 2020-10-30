@@ -6,12 +6,10 @@
                  <div class="single-footer-widget">
                      <h6>Tentang Chic's Music</h6>
                      <p>
-                         Chic's Music adalah 
-                        ...................................
-                        ...................................
-                        ...................................
-                        ...................................
-                        ...................................
+                         Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                         Reiciendis sit alias amet ipsam quod est aspernatur cupiditate 
+                         commodi ratione odit cum provident numquam a dicta, incidunt, 
+                         quam nostrum, corrupti totam.
                      </p>
                  </div>
              </div>
@@ -22,8 +20,7 @@
                      <div class="footer-social d-flex align-items-center">
                          <a href="#"><i class="fa fa-facebook"></i></a>
                          <a href="#"><i class="fa fa-twitter"></i></a>
-                         <a href="#"><i class="fa fa-dribbble"></i></a>
-                         <a href="#"><i class="fa fa-behance"></i></a>
+                         <a href="#"><i class="fa fa-instagram"></i></a>
                      </div>
                  </div>
              </div>
@@ -55,6 +52,7 @@
  <script src="<?=base_url("assets/karma/js/main.js")?>"></script>
  <script src="<?=base_url("assets/custom/js/ajax/ajaxRequest.js")?>"></script>
  <script src="<?=base_url("assets/custom/js/loader/viewLoader.js")?>"></script>
+ <script src="<?=base_url("assets/sweetalert/sweetalert.min.js")?>"></script>
 
  <script>
      function checkCart() {
@@ -86,4 +84,8 @@
             }
         });
      }
+      
+     function goTo(link) {
+        window.location = link;
+    }
 </script>

@@ -5,13 +5,13 @@
 
         <div class="col-md-12">
             <div class="form-group">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Nama">
+                <input readonly="<?=isset($member)?>" value="<?= isset($name) ? $name : "" ?>" type="text" class="form-control" id="name" name="name" placeholder="Nama">
                 <span id="name-error" class="form-error"></span>
             </div>
         </div>
         <div class="col-md-12">
             <div class="form-group">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Alamat Email">
+                <input readonly="<?=isset($member)?>" value="<?= isset($email) ? $email : "" ?>" type="email" class="form-control" id="email" name="email" placeholder="Alamat Email">
                 <span id="email-error" class="form-error"></span>
             </div>
         </div>
@@ -41,6 +41,7 @@
                 if(response.success) {
                     $(`#${response.comment_id}`).html('');
                     commentList();
+                    swal("Sukses", response.message, "success");
                 }else{
                     $.each(response.errors, function (key, value) {
                         $(`#${key}-error`).html(value);

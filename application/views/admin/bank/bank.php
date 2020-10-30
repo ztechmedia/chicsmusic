@@ -30,7 +30,7 @@
                             <th>Pemilik</th>
                             <th>No. Rek</th>
                             <th>Nama BANK</th>
-                            <th width="15%">Tindakan</th>
+                            <th width="10%">Tindakan</th>
                         </thead>
                     </table>
                 </div>

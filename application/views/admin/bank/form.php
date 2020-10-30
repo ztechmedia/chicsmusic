@@ -10,7 +10,7 @@
 <div class="form-group">
     <label class="col-md-3 control-label">No. Rekening</label>
     <div class="<?=$bank ? "col-md-9" : "col-md-6"?>">
-        <input name="account" id="account" type="text" class="validate[required,maxSize[20]] form-control"
+        <input name="account" id="account" type="number" class="validate[required,maxSize[20]] form-control"
             value="<?=$bank ? $bank->account : ""?>" />
         <span class="help-block form-error" id="account-error"></span>
     </div>

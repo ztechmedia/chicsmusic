@@ -7,7 +7,7 @@
     <div class="page-container">
 
         <!-- START PAGE SIDEBAR -->
-        <div class="page-sidebar page-sidebar-fixed">
+        <div class="page-sidebar page-sidebar-fixed" style="height: 100vh; overflow-y: scroll">
             <!-- START X-NAVIGATION -->
             <ul class="x-navigation nav-customx">
                 <li class="xn-logo">

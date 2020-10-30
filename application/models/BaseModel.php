@@ -21,6 +21,12 @@ class BaseModel extends CI_Model
         return $this->db->get($table);
     }
 
+    public function getLike($table, $column, $value)
+    {
+        $this->db->like($column, $value);
+        return $this->db->get($table);
+    }
+
     public function getLimit($table, $limit, $start)
     {
         $this->db->limit($limit, $start);
@@ -55,6 +61,11 @@ class BaseModel extends CI_Model
         return $this->db->insert($table, $data);
     }
 
+    public function createMultiple($table, $data)
+    {
+        return $this->db->insert_batch($table, $data);
+    }
+
     public function createForId($table, $data)
     {
         if(!array_key_exists('id', $data)) $data['id'] = $this->id;
@@ -66,6 +77,17 @@ class BaseModel extends CI_Model
     {
         $this->db->where('id', $id);
         return $this->db->update($table, $data);
+    }
+
+    public function update($table, $id, $column, $data)
+    {
+        $this->db->where($column, $id);
+        return $this->db->update($table, $data);
+    }
+
+    public function updateMultiple($table, $data, $column)
+    {
+        return $this->db->update_batch($table, $data, $column);
     }
 
     public function deleteById($table, $id)

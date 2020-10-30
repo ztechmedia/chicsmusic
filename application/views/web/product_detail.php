@@ -103,14 +103,14 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="name" name="name"
+                                        <input readonly="<?=isset($member)?>" value="<?= isset($name) ? $name : "" ?>" type="text" class="form-control" id="name" name="name"
                                             placeholder="Nama">
                                         <span id="name-error-p" class="form-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" id="email" name="email"
+                                        <input readonly="<?=isset($member)?>" value="<?= isset($email) ? $email : "" ?>" type="email" class="form-control" id="email" name="email"
                                             placeholder="Alamat Email">
                                         <span id="email-error-p" class="form-error"></span>
                                     </div>
@@ -154,14 +154,14 @@
                                 data-action="<?=base_url("post-review/$product->id/create")?>">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="name" name="name"
+                                        <input readonly="<?=isset($member)?>" value="<?= isset($name) ? $name : "" ?>" type="text" class="form-control" id="name" name="name"
                                             placeholder="Nama">
                                         <span id="name-error-r" class="form-error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <input type="email" class="form-control" id="email" name="email"
+                                        <input readonly="<?=isset($member)?>" value="<?= isset($email) ? $email : "" ?>" type="email" class="form-control" id="email" name="email"
                                             placeholder="Alamat Email"">
                                         <span id="email-error-r" class="form-error"></span>
                                     </div>

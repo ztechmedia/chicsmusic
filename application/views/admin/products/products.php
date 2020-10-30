@@ -36,6 +36,7 @@
                             <th width="8%">No</th>
                             <th>Nama</th>
                             <th width="15%">Harga</th>
+                            <th width="15%">Berat (Gr. inc packing)</th>
                             <th width="15%">Kategori</th>
                             <th width="15%">Subkategori</th>
                             <th>Dibuat</th>
@@ -75,6 +76,9 @@
             },
             {
                 data: "price",
+            },
+            {
+                data: "weight",
             },
             {
                 data: "category",

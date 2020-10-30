@@ -24,6 +24,7 @@
         reqJson(url, "POST", data, (err, response) => {
             if(response.success) {
                 checkCart();
+                swal("Sukses", response.message, "success");
             }else{
                 console.log("Error: ", err);
             }
@@ -42,6 +43,7 @@
                 if(response.success) {
                     commentList();
                     document.getElementById("post-form").reset();
+                    swal("Sukses", response.message, "success");
                 }else{
                     $.each(response.errors, function (key, value) {
                         $(`#${key}-error-p`).html(value);
@@ -142,7 +144,14 @@
                     $(".rating-hover-4").css({"color":"#ccc"});
                     $(".rating-hover-5").css({"color":"#ccc"});
                     document.getElementById("reviews-form").reset();
+                    swal("Sukses", response.message, "success");
                 }else{
+                    rating = false;
+                    $(".rating-hover-1").css({"color":"#ccc"});
+                    $(".rating-hover-2").css({"color":"#ccc"});
+                    $(".rating-hover-3").css({"color":"#ccc"});
+                    $(".rating-hover-4").css({"color":"#ccc"});
+                    $(".rating-hover-5").css({"color":"#ccc"});
                     $.each(response.errors, function (key, value) {
                         $(`#${key}-error-r`).html(value);
                     });

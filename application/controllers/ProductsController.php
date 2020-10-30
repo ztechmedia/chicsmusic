@@ -32,7 +32,7 @@ class ProductsController extends CI_Controller
     {
         $products = $this->datatables->setDatatables(
             $this->products,
-            ["id", "name", "price", "category", "subcategory", "createdAt"],
+            ["id", "name", "price", "weight", "category", "subcategory", "createdAt"],
             //column searchable (a = products, b = categories(name), c = subcategories(name))
             ['a.name', 'a.price', "b.name", "c.name"],
             'admin/actions/edit-delete',
@@ -270,6 +270,14 @@ class ProductsController extends CI_Controller
         $product = $this->BM->checkById($this->products, $productId);
         $data["stock"] = $stock;
         $this->BM->updateById($this->products, $productId, $data);
+    }
+
+    public function productFav()
+    {
+       $obj = fileGetContent();
+       $data["fav"] = $obj->fav;
+       $this->BM->updateById($this->products, $obj->productId, $data);
+       appJson(["message" => "Berhasil mengubah status unggulan"]);
     }
 
 }
