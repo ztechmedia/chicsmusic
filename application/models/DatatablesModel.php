@@ -101,7 +101,7 @@ class DatatablesModel extends CI_Model
             case "productWithCategories":
                 return $this->PM->productWithCategories();
             case "ordersTable":
-                return $this->Order->ordersTable($this->auth->userId);
+                return $this->Order->ordersTable();
         }
     }
 

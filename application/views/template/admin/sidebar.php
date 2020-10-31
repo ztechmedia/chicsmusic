@@ -45,6 +45,11 @@
     </ul>
 </li>
 
+<li class="orders">
+    <a class="side-menu" data-url="<?=base_url("admin/orders")?>" data-menu=".orders"><span
+            class="fa fa-money"></span> <span class="xn-text">Pemesanan</span></a>
+</li>
+
 <li class="xn-openable settings">
     <a><span class="fa fa-gear"></span> <span class="xn-text">Pengaturan</span></a>
     <ul>

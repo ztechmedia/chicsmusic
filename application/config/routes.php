@@ -12,6 +12,11 @@ $route["ongkir/(:any)/(:num)/(:any)"] = "ShopController/ongkir/$1/$2/$3";
 $route["admin/store-address"] = "ShopController/storeAddress";
 $route["admin/store-address/update"] = "ShopController/storeAddressUpdate";
 
+//orders routes
+$route['admin/orders'] = 'OrdersController/orders';
+$route['admin/orders-table'] = 'OrdersController/ordersTable';
+$route['admin/orders/(:any)/detail'] = 'OrdersController/detailOrder/$1';
+
 //account routines
 $route['profile/(:any)'] = "ProfileController/profile/$1";
 $route['profile/edit'] = "ProfileController/editProfile";

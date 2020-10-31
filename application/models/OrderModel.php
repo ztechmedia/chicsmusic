@@ -14,13 +14,27 @@ class OrderModel extends CI_Model
         $this->table = 'orders';
     }
 
-    public function productWithCategories($member_id)
+    public function ordersTable()
     {
        return $this
                 ->db
-                ->select('a.id, a.courier, a.service, a.delivery_cost, a.total, b.name AS member_name, c.bank_name, c.account, c.owner')
+                ->select('a.*, b.name AS member_name, c.bank_name, c.account, c.owner, d.regency_name')
                 ->from('orders as a')
                 ->join('users as b', 'a.member_id = b.id')
-                ->join('banks as c', 'a.bank_id = c.id');
+                ->join('banks as c', 'a.bank_id = c.id')
+                ->join('address as d', 'a.address_id = d.id');
+    }
+
+    public function detailOrder($orderId)
+    {
+       return $this
+                ->db
+                ->select('a.*, b.name AS member_name, c.bank_name, c.account, c.owner, d.regency_name')
+                ->from('orders as a')
+                ->join('users as b', 'a.member_id = b.id')
+                ->join('banks as c', 'a.bank_id = c.id')
+                ->join('address as d', 'a.address_id = d.id')
+                ->where("a.id" , $orderId)
+                ->get()->row();
     }
 }
